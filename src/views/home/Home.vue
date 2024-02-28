@@ -28,6 +28,7 @@
         props_data:{
           top_bar_index:0
         }
+
       }
     },
     methods:{
