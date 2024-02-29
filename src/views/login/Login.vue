@@ -4,47 +4,47 @@
       <img src="../../assets/img/logo@3x.png" alt="" width="200">
     </div>
     <div class="login-form-container">
-      <div style="padding: 20px 20px 0 20px;"><p style="font-size: 18px;text-align: left;">登录</p></div>
+      <div style="padding: 20px 20px 0 20px;"><p style="font-size: 18px;text-align: left;">{{ isRegister ? '注册' : '登录' }}</p></div>
 
       <div class="sub-title">
-          <p class="tip">{{ type == 'register' ? '已有账号?' : '没有账号吗?' }}</p>
-          <p class="tip" @click="switchType(type == 'register' ? 'login' : 'register')">
-            {{ type == 'register' ? '登录' : '注册新账号' }}
-          </p>
+        <p class="tip">{{ isRegister ? '已有账号?' : '没有账号吗?' }}</p>
+        <p class="tip" @click="switchType">
+          {{ isRegister ? '点此登录' : '注册新账号' }}
+        </p>
       </div>
 
       <div style="padding: 20px 20px 40px 20px;">
-        <LoginForm v-if="type === 'login'" ></LoginForm>
-        <RegisterForm v-if="type === 'register'"></RegisterForm>
+        <LoginForm v-if="!isRegister" ></LoginForm>
+        <RegisterForm v-if="isRegister" @switchType="switchType"></RegisterForm>
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
+import { ref } from 'vue';
 import LoginForm from '@/components/LoginForm.vue';
 import RegisterForm from '@/components/RegisterForm.vue'
 
-export default{
+export default {
   name:'LoginView',
-  data(){
-    return {
-      type: 'login',
-    };
-  },
   components:{
     LoginForm,
     RegisterForm
   },
-  methods: {
-    switchType(val) {
-      this.type = val;
-    },
+  //组合式api写法
+  setup() {
+    const isRegister = ref(false);
+    const switchType = () => {
+      isRegister.value = !isRegister.value;
+    };
+
+    return {
+      isRegister,
+      switchType
+    };
   },
 }
-
-
 </script>
 
 <style scoped>
@@ -73,22 +73,22 @@ export default{
 }
 
 .sub-title {
-    margin-top: 16px;
+  margin-top: 16px;
 
-    .tip {
-      display: inline-block;
-      margin-right: 8px;
-      font-size: 14px;
+  .tip {
+    display: inline-block;
+    margin-right: 8px;
+    font-size: 14px;
 
-      &:first-child {
-        color: var(--td-text-color-secondary);
-      }
+    &:first-child {
+      color: var(--td-text-color-secondary);
+    }
 
-      &:last-child {
-        color: var(--td-text-color-primary);
-        cursor: pointer;
-      }
+    &:last-child {
+      color: var(--td-text-color-primary);
+      cursor: pointer;
     }
   }
+}
 
 </style>

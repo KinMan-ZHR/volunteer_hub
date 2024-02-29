@@ -1,5 +1,6 @@
 import request from "./httpRequest.js";
 export const loginAPI = ({username,password}) => {
+    console.log(username,password);
   return request({
     url: "/login",
     method: "post",
@@ -7,7 +8,7 @@ export const loginAPI = ({username,password}) => {
         username,
         password
     }
-  });
+  })
 };
 export const registerAPI = ({username,password,email}) => {
     return request({
@@ -22,27 +23,27 @@ export const registerAPI = ({username,password,email}) => {
   };
 export const getUserListAPI = (data) => {
     return request({
-      url: "/adUser",
+      url: "/userList",
       method: "get",
         params:data
     });
   };
 export const deleteUserAPI = (data) => {
     return request({
-      url: "/adUser/"+data,
+      url: "/userList/"+data,
       method: "delete",
     });
   };
 export const updateUserAPI = (data) => {
     return request({
-      url: "/adUser",
+      url: "/userList",
       method: "put",
         data
     });
   };
 export const addUserAPI = (data) => {
     return request({
-      url: "/adUser",
+      url: "/userList",
       method: "post",
         data
     });
