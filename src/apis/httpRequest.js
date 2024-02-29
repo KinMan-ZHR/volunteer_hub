@@ -3,7 +3,7 @@ import { MessagePlugin } from 'tdesign-vue-next';
 import {useUserStore}  from '@/dataStore/userdata.js'
 import router from "@/router";
 const httpRequest = axios.create({
-    baseURL: "/api",
+    baseURL: 'http://192.168.58.63:8080',
     timeout: 10000,
 })
 
@@ -13,17 +13,17 @@ httpRequest.interceptors.request.use(config => {
         // 2.某些网络请求要求用户必须登录, 判断用户是否有token, 如果没有token跳转到login页面
         // 3.对请求的参数进行序列化(看服务器是否需要序列化)
         const userStore= useUserStore()
-        const  token=userStore.userInfo.data?userStore.userInfo.data.token:''
+        const  token=userStore.userInfo.coredata?userStore.userInfo.coredata.token:''
         if (token) {
             config.headers['token'] = token
         }
-        //拦截管理员请求，验证用户权限，如果identity 为true放行，否则抛出错误
-        if (config.url.includes("/admin")){
-            if (!userStore.userInfo.data||!userStore.userInfo.data.user.role===0){
-                MessagePlugin.warning('您没有权限访问该页面');
-                throw new Error('您没有权限访问该页面')
-            }
-        }
+        // //拦截管理员请求，验证用户权限，如果identity 为true放行，否则抛出错误
+        // if (config.url.includes("/admin")){
+        //     if (!userStore.userInfo.data||!userStore.userInfo.data.user.role===0){
+        //         MessagePlugin.warning('您没有权限访问该页面');
+        //         throw new Error('您没有权限访问该页面')
+        //     }
+        // }
         return config;
     }, error => {
         return Promise.reject(error);
@@ -33,17 +33,17 @@ httpRequest.interceptors.request.use(config => {
 httpRequest.interceptors.response.use(response => {
         //   console.log(response)
         //一般而言，只需要返回data即可
-        if(response.data.code === 0){
-            MessagePlugin.warning(response.data.msg);
-            if (response.data.msg === 'NOT_LOGIN') {
+        if(response.data.code !== 200){
+            MessagePlugin.warning(response.data.message);
+            if (response.data.message === 'NOT_LOGIN') {
                 const userStore = useUserStore()
                 userStore.clearUserInfo()
                 router.push('/login')
             }
         }else {
-            MessagePlugin.success(response.data.msg);
+            MessagePlugin.success(response.data.message);
         }
-        return response.data;//返回数据包
+        return response;//返回数据包
     }, error => {
         return Promise.reject(error);
     }
