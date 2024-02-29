@@ -63,10 +63,8 @@ import { Icon } from 'tdesign-icons-vue-next'
 import { Menu as TMenu } from 'tdesign-vue-next'
 import { MenuGroup as TMenuGroup } from 'tdesign-vue-next'
 import { MenuItem as TMenuItem } from 'tdesign-vue-next'
-
-// import { useRouter } from "vue-router";
-
-// const router = useRouter();
+import {computed, ref} from "vue";
+import {useUserStore} from "@/dataStore/userdata";
 
 export default {
   name: 'NavigationRegion',
@@ -76,33 +74,39 @@ export default {
     TMenuGroup,
     TMenuItem,
   },
-  data () {
-    return {
-      collapsed: false,
-      iconUrl: require('../assets/img/logo@3x.png')
-    }
-  },
-  methods: {
-    changeHandler (active) {
+  props: ['handleUpdateIndex'],
+  setup (props) {
+
+    const collapsed = ref(false)
+    const iconUrl = computed(() => collapsed.value ? require('../assets/img/logo_1@3x.png') : require('../assets/img/logo@3x.png'))
+    function changeHandler (active) {
       // console.log('change', active)
       // 点击退出登录时
       if(active == 'item7'){
-        this.onClickToLogin()
+        onClickToLogin()
         return;
       }
-      // 使用正则表达式获取数字
-      this.$emit('update',active.match(/\d+/)[0])
-    },
-    changeCollapsed () {
-      this.collapsed = !this.collapsed
-      this.iconUrl = this.collapsed
-        ?  require('../assets/img/logo_1@3x.png')
-        :  require('../assets/img/logo@3x.png')
-    },
-    onClickToLogin(){
+      // 调用父组件的方法handleUpdateIndex传入参数active.match(/\d+/)[0]
+      props.handleUpdateIndex(active.match(/\d+/)[0]);
+    }
+
+    function changeCollapsed () {
+      collapsed.value = !collapsed.value
+    }
+    const userStore = useUserStore();
+    const onClickToLogin=()=>{
       // console.log('login');
+      userStore.clearUserInfo()
       router.replace({name:'login'})
-    },
+    }
+
+    return {
+      collapsed,
+      iconUrl,
+      changeHandler,
+      changeCollapsed,
+      onClickToLogin
+    }
   }
 }
 </script>

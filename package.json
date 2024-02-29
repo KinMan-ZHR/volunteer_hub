@@ -12,6 +12,7 @@
     "core-js": "^3.36.0",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",
+    "tdesign-icons-vue-next": "^0.2.2",
     "tdesign-vue-next": "^1.8.1",
     "vue": "^3.4.20",
     "vue-router": "^4.3.0"
