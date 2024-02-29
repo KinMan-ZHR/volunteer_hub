@@ -1,9 +1,9 @@
 <template>
     <div>
         <div style="width: 320px">
-    <t-form ref="form" :data="formData" :colon="true" :label-width="0" @reset="onReset" @submit="onSubmit">
-      <t-form-item name="account">
-        <t-input v-model="formData.account" clearable placeholder="请输入账户名">
+    <t-form ref="formRef" :data="formData" :rules=rules :colon="true" :label-width="0" @reset="onReset" @submit="onSubmit">
+      <t-form-item name="username">
+        <t-input v-model="formData.username" clearable placeholder="请输入账户名">
           <template #prefix-icon>
             <desktop-icon />
           </template>
@@ -33,26 +33,61 @@ export default {
 </script>
 
 <script setup>
-import { reactive } from 'vue';
+import {onMounted, reactive, ref} from 'vue';
 import { MessagePlugin } from 'tdesign-vue-next';
 import { DesktopIcon, LockOnIcon } from 'tdesign-icons-vue-next';
-
+import {useUserStore} from "@/dataStore/userdata";
+import {useRouter} from "vue-router";
+// eslint-disable-next-line no-unused-vars
+import {loginAPI} from "@/apis/usersHandler";
+const userStore = useUserStore();
+//获取路由实例
+const router = useRouter();
+//获取form实例
+const formRef = ref(null);
 
 const formData = reactive({
-  account: '',
+  username: '',
   password: '',
 });
-
+const rules = ref({
+  username: [
+    { required: true, message: 'Please enter your username', trigger: 'blur' },
+    { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }
+  ],
+  password: [
+    { required: true, message: 'Please enter your password', trigger: 'blur' },
+    { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }
+  ],
+})
 const onReset = () => {
   MessagePlugin.success('重置成功');
 };
 
-const onSubmit = ({ validateResult, firstError }) => {
+const onSubmit = async ({validateResult, firstError}) => {
   if (validateResult === true) {
-    MessagePlugin.success('提交成功');
+    const {username, password} = formData;
+    //const result = await loginAPI({username,password});
+    const result = await loginAPI({username, password}).then(
+        (response) => {
+          if (response.data.code === 200) {
+            userStore.setUserInfo(response.data);
+          }
+        }
+    );
   } else {
     console.log('Validate Errors: ', firstError, validateResult);
-    MessagePlugin.warning(firstError);
+    await MessagePlugin.warning(firstError);
   }
+  checkLoginState();
 };
+const checkLoginState=()=>{
+  if(userStore.loginStatus === false){
+    return
+  }
+  router.replace('/home')
+}
+onMounted(()=>{
+  checkLoginState()
+})
 </script>
