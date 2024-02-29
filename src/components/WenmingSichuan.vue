@@ -3,6 +3,7 @@
         <WMHeadLine></WMHeadLine>
         <DaodeJianshe></DaodeJianshe>
         <WenmingShijian></WenmingShijian>
+        <SiChuanDiFangWenMingWangZhan></SiChuanDiFangWenMingWangZhan>
     </div>
 </template>
 
@@ -10,6 +11,7 @@
 import WMHeadLine from './WMHeadLine.vue';
 import DaodeJianshe from './DaodeJianshe.vue';
 import WenmingShijian from './WenmingShijian.vue';
+import SiChuanDiFangWenMingWangZhan from './DiFangWenMingWangZhan.vue';
 
 
 export default {
@@ -17,7 +19,8 @@ export default {
     components: {
         WMHeadLine,
         DaodeJianshe,
-        WenmingShijian
+        WenmingShijian,
+        SiChuanDiFangWenMingWangZhan,
     },
     data() {
         return {
