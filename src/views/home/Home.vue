@@ -1,9 +1,11 @@
 <template>
     <div id="app">
-      <div style="display: flex; height: 100vh; overflow-y: hidden;">
-        <div style="border-right: 2px solid rgba(0,0,0,0.05);"><NavigationRegion @update="handleUpdateIndex"></NavigationRegion></div>
+      <div style="display: flex; ">
+        <div style="border-right: 2px solid rgba(0,0,0,0.05); height: 100vh;position: sticky;top: 0; ">
+          <NavigationRegion  :handle-update-index="handleUpdateIndex"></NavigationRegion>
+        </div>
         <div style="flex-grow: 1;background-color: var(--td-gray-color-1);">
-          <TopBar :props_data="props_data"></TopBar>
+          <TopBar :props_data="props_data" style="position: sticky;top: 0;z-index: 999;"></TopBar>
           <router-view>
             <router-view></router-view>
           </router-view>
