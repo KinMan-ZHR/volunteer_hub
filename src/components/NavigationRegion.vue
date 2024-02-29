@@ -66,7 +66,6 @@ import { MenuItem as TMenuItem } from 'tdesign-vue-next'
 import {computed, ref} from "vue";
 import {useUserStore} from "@/dataStore/userdata";
 
-
 export default {
   name: 'NavigationRegion',
   components: {
@@ -75,11 +74,11 @@ export default {
     TMenuGroup,
     TMenuItem,
   },
-  setup () {
+  props: ['handleUpdateIndex'],
+  setup (props) {
 
     const collapsed = ref(false)
     const iconUrl = computed(() => collapsed.value ? require('../assets/img/logo_1@3x.png') : require('../assets/img/logo@3x.png'))
-
     function changeHandler (active) {
       // console.log('change', active)
       // 点击退出登录时
@@ -87,8 +86,8 @@ export default {
         onClickToLogin()
         return;
       }
-      // 使用正则表达式获取数字
-      this.$emit('update',active.match(/\d+/)[0])
+      // 调用父组件的方法handleUpdateIndex传入参数active.match(/\d+/)[0]
+      props.handleUpdateIndex(active.match(/\d+/)[0]);
     }
 
     function changeCollapsed () {
