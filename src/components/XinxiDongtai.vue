@@ -7,106 +7,27 @@
             </div>
             <div style="margin: 10px;">
                 <t-list>
-                    <t-list-item>
+                    <t-list-item v-for="(item,index) in current_page" :key="index">
                         <div style="display: flex;">
                             <div class="circle"></div>
-                            <p>列表内容的描述性文字</p>
+                            <p>{{ item.title }}</p>
                         </div>
                         <template #action>
-                            <p theme="primary" hover="color" style="margin-left: 16px"> 操作1 </p>
-                        </template>
-                    </t-list-item>
-                    <t-list-item>
-                        <div style="display: flex;">
-                            <div class="circle"></div>
-                            <p>列表内容的描述性文字</p>
-                        </div>
-                        <template #action>
-                            <p theme="primary" hover="color" style="margin-left: 16px"> 操作1 </p>
-                        </template>
-                    </t-list-item>
-                    <t-list-item>
-                        <div style="display: flex;">
-                            <div class="circle"></div>
-                            <p>列表内容的描述性文字</p>
-                        </div>
-                        <template #action>
-                            <p theme="primary" hover="color" style="margin-left: 16px"> 操作1 </p>
-                        </template>
-                    </t-list-item>
-                    <t-list-item>
-                        <div style="display: flex;">
-                            <div class="circle"></div>
-                            <p>列表内容的描述性文字</p>
-                        </div>
-                        <template #action>
-                            <p theme="primary" hover="color" style="margin-left: 16px"> 操作1 </p>
-                        </template>
-                    </t-list-item>
-                    <t-list-item>
-                        <div style="display: flex;">
-                            <div class="circle"></div>
-                            <p>列表内容的描述性文字</p>
-                        </div>
-                        <template #action>
-                            <p theme="primary" hover="color" style="margin-left: 16px"> 操作1 </p>
-                        </template>
-                    </t-list-item>
-                    <t-list-item>
-                        <div style="display: flex;">
-                            <div class="circle"></div>
-                            <p>列表内容的描述性文字</p>
-                        </div>
-                        <template #action>
-                            <p theme="primary" hover="color" style="margin-left: 16px"> 操作1 </p>
-                        </template>
-                    </t-list-item>
-                    <t-list-item>
-                        <div style="display: flex;">
-                            <div class="circle"></div>
-                            <p>列表内容的描述性文字</p>
-                        </div>
-                        <template #action>
-                            <p theme="primary" hover="color" style="margin-left: 16px"> 操作1 </p>
-                        </template>
-                    </t-list-item>
-                    <t-list-item>
-                        <div style="display: flex;">
-                            <div class="circle"></div>
-                            <p>列表内容的描述性文字</p>
-                        </div>
-                        <template #action>
-                            <p theme="primary" hover="color" style="margin-left: 16px"> 操作1 </p>
-                        </template>
-                    </t-list-item>
-                    <t-list-item>
-                        <div style="display: flex;">
-                            <div class="circle"></div>
-                            <p>列表内容的描述性文字</p>
-                        </div>
-                        <template #action>
-                            <p theme="primary" hover="color" style="margin-left: 16px"> 操作1 </p>
-                        </template>
-                    </t-list-item>
-                    <t-list-item>
-                        <div style="display: flex;">
-                            <div class="circle"></div>
-                            <p>列表内容的描述性文字</p>
-                        </div>
-                        <template #action>
-                            <p theme="primary" hover="color" style="margin-left: 16px"> 操作1 </p>
+                            <p theme="primary" hover="color" style="margin-left: 16px"> {{ item.time }} </p>
                         </template>
                     </t-list-item>
                 </t-list>
             </div>
             <div style="margin-left: 25px;margin-right: 15px;padding-bottom: 10px;">
                 <t-pagination
-                    :total="30"
+                    :total="dongtai.length"
                     showJumper
                     showFirstAndLastPageBtn
                     :showPageSize="false"
                     showPreviousAndNextBtn
                     totalContent
+                    pageSize="15"
+                    @change="onChangePagination"
                 />
             </div>
         </div>
@@ -170,11 +91,242 @@ export default{
     name:'XinXiDongTai',
     data(){
         return{
-            prompt:'https://i.postimg.cc/jqZjDpQq/prompt.png'
+            prompt:'https://i.postimg.cc/jqZjDpQq/prompt.png',
+            dongtai:[
+                {
+                    title:'动态1',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态2',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态3',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态1',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态1',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态4',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态5',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态6',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态7',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态8',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态9',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态0',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态0',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态9',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态8',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态7',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态6',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态5',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态4',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态3',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态2',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态1',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态3',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态4',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态5',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态5',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态6',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态7',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态8',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态9',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态9',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态19',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态19',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态17',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态1',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态1',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态1',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态1',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态1',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态1',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态1',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态1',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态2',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态1',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态1',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态1',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态1',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态2',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态1',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态1',
+                    time:'2024-2-29'
+                },
+                {
+                    title:'动态1',
+                    time:'2024-2-29'
+                },
+            ],
+            dongtai_chunked:[],
+            current_page:[],
         }
     },
     methods:{
+        chunkArray(originalArray){
+            var chunkedArray = [];
+            for (let i = 0; i < originalArray.length; i += 15) {
+                const chunk = originalArray.slice(i, i + 15);
+                chunkedArray.push(chunk);
+            }
+            return chunkedArray
+        },
 
+        // 分页变化时触发,分页大小固定12
+        onChangePagination(e){
+            let current = e.current
+            // let previous = e.previous
+            this.current_page = this.dongtai_chunked[current-1]
+        },
+
+        initCurrentPage(){
+            this.dongtai_chunked = this.chunkArray(this.dongtai)
+            this.current_page = this.dongtai_chunked[0]
+        }
+
+    },
+    mounted(){
+        this.initCurrentPage()
     }
 }
 </script>
