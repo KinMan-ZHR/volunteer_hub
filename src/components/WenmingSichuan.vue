@@ -4,6 +4,7 @@
         <DaodeJianshe></DaodeJianshe>
         <WenmingShijian></WenmingShijian>
         <SiChuanDiFangWenMingWangZhan></SiChuanDiFangWenMingWangZhan>
+        <WenZhang></WenZhang>
     </div>
 </template>
 
@@ -12,6 +13,7 @@ import WMHeadLine from './WMHeadLine.vue';
 import DaodeJianshe from './DaodeJianshe.vue';
 import WenmingShijian from './WenmingShijian.vue';
 import SiChuanDiFangWenMingWangZhan from './DiFangWenMingWangZhan.vue';
+import WenZhang from './WenZhang.vue';
 
 
 export default {
@@ -21,6 +23,7 @@ export default {
         DaodeJianshe,
         WenmingShijian,
         SiChuanDiFangWenMingWangZhan,
+        WenZhang,
     },
     data() {
         return {

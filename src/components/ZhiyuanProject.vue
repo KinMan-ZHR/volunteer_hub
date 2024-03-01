@@ -104,7 +104,7 @@
                     <t-pagination :total="project.length" showPageNumber :showPageSize="false" showFirstAndLastPageBtn pageSize="12" @change="onChangePagination"/>
                 </div>
                 <div style="height:200px"></div>
-
+                <ProjectDetail></ProjectDetail>
             </div>
 
 
@@ -113,14 +113,12 @@
 </template>
 
 <script>
-
-
-
+import ProjectDetail from './ProjectDetail.vue';
 import { ref } from 'vue';
 export default{
     name:'ZhiyuanProject',
     components:{
-
+        ProjectDetail
     },
     data(){
         return{
