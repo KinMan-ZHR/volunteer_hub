@@ -47,13 +47,13 @@
             <t-divider />
             <!-- 中间的搜索栏 -->
             <div style="padding:0 24px;">
-                <t-form ref="form" :data="formData" :colon="true" :label-width="0" @reset="onReset" @submit="onSubmit" layout="inline" style="display: flex;">
-                    <t-form-item name="date_range">
+                <t-form ref="form" :data="formData" :colon="true" :label-width="0" @reset="onReset" @submit="onSubmit" layout="inline" >
+                    <t-form-item name="date_range" style="z-index : 999">
                         <label class="cate-title">项目起止日期 </label>
                         <t-date-range-picker allow-input clearable @pick="onPick" @change="onChange" v-model="formData.time_range"/>
                     </t-form-item>
 
-                    <t-form-item name="project_id">
+                    <t-form-item name="project_id" style="z-index : 999">
                         <label>
                             <p class="cate-title" style="width: 72px;">项目编号 </p>
                         </label>
@@ -61,7 +61,7 @@
                         </t-input>
                     </t-form-item>
 
-                    <t-form-item name="project_name">
+                    <t-form-item name="project_name" style="z-index : 999">
                         <label class="cate-title" >
                             <p class="cate-title" style="width: 72px;">项目名称 </p></label>
                         <t-input clearable placeholder="请输入项目名称" v-model="formData.project_name">
