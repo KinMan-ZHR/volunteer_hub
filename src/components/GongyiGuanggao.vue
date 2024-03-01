@@ -31,7 +31,7 @@
                         :showPageSize="false"
                         showPreviousAndNextBtn
                         totalContent
-                        pageSize="15"
+                        pageSize="9"
                         @change="onChangePagination"
                     />
                 </div>
@@ -54,7 +54,7 @@
                         :showPageSize="false"
                         showPreviousAndNextBtn
                         totalContent
-                        pageSize="15"
+                        pageSize="9"
                         @change="onChangePagination"
                     />
                 </div>
@@ -260,8 +260,8 @@ export default{
     methods:{
         chunkArray(originalArray){
             var chunkedArray = [];
-            for (let i = 0; i < originalArray.length; i += 15) {
-                const chunk = originalArray.slice(i, i + 15);
+            for (let i = 0; i < originalArray.length; i += 9) {
+                const chunk = originalArray.slice(i, i + 9);
                 chunkedArray.push(chunk);
             }
             return chunkedArray
