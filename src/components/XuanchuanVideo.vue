@@ -11,93 +11,93 @@
                 <div class="line">
                     <div class="card">
                         <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
-                        <template #footer>
-                            <t-comment>
-                                <template #author>
-                                    <div class="t-comment__name">标题</div>
-                                </template>
-                            </t-comment>
-                        </template>
-                    </t-card>
+                            <template #footer>
+                                <t-comment>
+                                    <template #author>
+                                        <div class="t-comment__name">标题</div>
+                                    </template>
+                                </t-comment>
+                            </template>
+                        </t-card>
                     </div>
                     <div class="card">
                         <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
-                        <template #footer>
-                            <t-comment>
-                                <template #author>
-                                    <div class="t-comment__name">标题</div>
-                                </template>
-                            </t-comment>
-                        </template>
-                    </t-card>
+                            <template #footer>
+                                <t-comment>
+                                    <template #author>
+                                        <div class="t-comment__name">标题</div>
+                                    </template>
+                                </t-comment>
+                            </template>
+                        </t-card>
                     </div>
                     <div class="card">
                         <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
-                        <template #footer>
-                            <t-comment>
-                                <template #author>
-                                    <div class="t-comment__name">标题</div>
-                                </template>
-                            </t-comment>
-                        </template>
-                    </t-card>
+                            <template #footer>
+                                <t-comment>
+                                    <template #author>
+                                        <div class="t-comment__name">标题</div>
+                                    </template>
+                                </t-comment>
+                            </template>
+                        </t-card>
                     </div>
                     <div class="card">
                         <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
-                        <template #footer>
-                            <t-comment>
-                                <template #author>
-                                    <div class="t-comment__name">标题</div>
-                                </template>
-                            </t-comment>
-                        </template>
-                    </t-card>
+                            <template #footer>
+                                <t-comment>
+                                    <template #author>
+                                        <div class="t-comment__name">标题</div>
+                                    </template>
+                                </t-comment>
+                            </template>
+                        </t-card>
                     </div>
                 </div>
                 <div class="line">
                     <div class="card">
                         <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
-                        <template #footer>
-                            <t-comment>
-                                <template #author>
-                                    <div class="t-comment__name">标题</div>
-                                </template>
-                            </t-comment>
-                        </template>
-                    </t-card>
+                            <template #footer>
+                                <t-comment>
+                                    <template #author>
+                                        <div class="t-comment__name">标题</div>
+                                    </template>
+                                </t-comment>
+                            </template>
+                        </t-card>
                     </div>
                     <div class="card">
                         <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
-                        <template #footer>
-                            <t-comment>
-                                <template #author>
-                                    <div class="t-comment__name">标题</div>
-                                </template>
-                            </t-comment>
-                        </template>
-                    </t-card>
+                            <template #footer>
+                                <t-comment>
+                                    <template #author>
+                                        <div class="t-comment__name">标题</div>
+                                    </template>
+                                </t-comment>
+                            </template>
+                        </t-card>
                     </div>
                     <div class="card">
                         <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
-                        <template #footer>
-                            <t-comment>
-                                <template #author>
-                                    <div class="t-comment__name">标题</div>
-                                </template>
-                            </t-comment>
-                        </template>
-                    </t-card>
+                            <template #footer>
+                                <t-comment>
+                                    <template #author>
+                                        <div class="t-comment__name">标题</div>
+                                    </template>
+                                </t-comment>
+                            </template>
+                        </t-card>
                     </div>
                     <div class="card">
                         <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
-                        <template #footer>
-                            <t-comment>
-                                <template #author>
-                                    <div class="t-comment__name">标题</div>
-                                </template>
-                            </t-comment>
-                        </template>
-                    </t-card>
+                            <template #footer>
+                                <t-comment>
+                                    <template #author>
+                                        <div class="t-comment__name">标题</div>
+                                    </template>
+                                </t-comment>
+                            </template>
+                        </t-card>
                     </div>
                 </div>
             </div>
@@ -106,93 +106,93 @@
                 <div class="line">
                     <div class="card">
                         <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
-                        <template #footer>
-                            <t-comment>
-                                <template #author>
-                                    <div class="t-comment__name">标题</div>
-                                </template>
-                            </t-comment>
-                        </template>
-                    </t-card>
+                            <template #footer>
+                                <t-comment>
+                                    <template #author>
+                                        <div class="t-comment__name">标题</div>
+                                    </template>
+                                </t-comment>
+                            </template>
+                        </t-card>
                     </div>
                     <div class="card">
                         <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
-                        <template #footer>
-                            <t-comment>
-                                <template #author>
-                                    <div class="t-comment__name">标题</div>
-                                </template>
-                            </t-comment>
-                        </template>
-                    </t-card>
+                            <template #footer>
+                                <t-comment>
+                                    <template #author>
+                                        <div class="t-comment__name">标题</div>
+                                    </template>
+                                </t-comment>
+                            </template>
+                        </t-card>
                     </div>
                     <div class="card">
                         <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
-                        <template #footer>
-                            <t-comment>
-                                <template #author>
-                                    <div class="t-comment__name">标题</div>
-                                </template>
-                            </t-comment>
-                        </template>
-                    </t-card>
+                            <template #footer>
+                                <t-comment>
+                                    <template #author>
+                                        <div class="t-comment__name">标题</div>
+                                    </template>
+                                </t-comment>
+                            </template>
+                        </t-card>
                     </div>
                     <div class="card">
                         <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
-                        <template #footer>
-                            <t-comment>
-                                <template #author>
-                                    <div class="t-comment__name">标题</div>
-                                </template>
-                            </t-comment>
-                        </template>
-                    </t-card>
+                            <template #footer>
+                                <t-comment>
+                                    <template #author>
+                                        <div class="t-comment__name">标题</div>
+                                    </template>
+                                </t-comment>
+                            </template>
+                        </t-card>
                     </div>
                 </div>
                 <div class="line">
                     <div class="card">
                         <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
-                        <template #footer>
-                            <t-comment>
-                                <template #author>
-                                    <div class="t-comment__name">标题</div>
-                                </template>
-                            </t-comment>
-                        </template>
-                    </t-card>
+                            <template #footer>
+                                <t-comment>
+                                    <template #author>
+                                        <div class="t-comment__name">标题</div>
+                                    </template>
+                                </t-comment>
+                            </template>
+                        </t-card>
                     </div>
                     <div class="card">
                         <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
-                        <template #footer>
-                            <t-comment>
-                                <template #author>
-                                    <div class="t-comment__name">标题</div>
-                                </template>
-                            </t-comment>
-                        </template>
-                    </t-card>
+                            <template #footer>
+                                <t-comment>
+                                    <template #author>
+                                        <div class="t-comment__name">标题</div>
+                                    </template>
+                                </t-comment>
+                            </template>
+                        </t-card>
                     </div>
                     <div class="card">
                         <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
-                        <template #footer>
-                            <t-comment>
-                                <template #author>
-                                    <div class="t-comment__name">标题</div>
-                                </template>
-                            </t-comment>
-                        </template>
-                    </t-card>
+                            <template #footer>
+                                <t-comment>
+                                    <template #author>
+                                        <div class="t-comment__name">标题</div>
+                                    </template>
+                                </t-comment>
+                            </template>
+                        </t-card>
                     </div>
                     <div class="card">
                         <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
-                        <template #footer>
-                            <t-comment>
-                                <template #author>
-                                    <div class="t-comment__name">标题</div>
-                                </template>
-                            </t-comment>
-                        </template>
-                    </t-card>
+                            <template #footer>
+                                <t-comment>
+                                    <template #author>
+                                        <div class="t-comment__name">标题</div>
+                                    </template>
+                                </t-comment>
+                            </template>
+                        </t-card>
                     </div>
                 </div>
             </div>
@@ -201,139 +201,139 @@
                 <div class="line">
                     <div class="card">
                         <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
-                        <template #footer>
-                            <t-comment>
-                                <template #author>
-                                    <div class="t-comment__name">标题</div>
-                                </template>
-                            </t-comment>
-                        </template>
-                    </t-card>
+                            <template #footer>
+                                <t-comment>
+                                    <template #author>
+                                        <div class="t-comment__name">标题</div>
+                                    </template>
+                                </t-comment>
+                            </template>
+                        </t-card>
                     </div>
                     <div class="card">
                         <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
-                        <template #footer>
-                            <t-comment>
-                                <template #author>
-                                    <div class="t-comment__name">标题</div>
-                                </template>
-                            </t-comment>
-                        </template>
-                    </t-card>
+                            <template #footer>
+                                <t-comment>
+                                    <template #author>
+                                        <div class="t-comment__name">标题</div>
+                                    </template>
+                                </t-comment>
+                            </template>
+                        </t-card>
                     </div>
                     <div class="card">
                         <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
-                        <template #footer>
-                            <t-comment>
-                                <template #author>
-                                    <div class="t-comment__name">标题</div>
-                                </template>
-                            </t-comment>
-                        </template>
-                    </t-card>
+                            <template #footer>
+                                <t-comment>
+                                    <template #author>
+                                        <div class="t-comment__name">标题</div>
+                                    </template>
+                                </t-comment>
+                            </template>
+                        </t-card>
                     </div>
                     <div class="card">
                         <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
-                        <template #footer>
-                            <t-comment>
-                                <template #author>
-                                    <div class="t-comment__name">标题</div>
-                                </template>
-                            </t-comment>
-                        </template>
-                    </t-card>
-                    </div>
-                </div>
-                <div class="line">
-                    <div class="card">
-                        <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
-                        <template #footer>
-                            <t-comment>
-                                <template #author>
-                                    <div class="t-comment__name">标题</div>
-                                </template>
-                            </t-comment>
-                        </template>
-                    </t-card>
-                    </div>
-                    <div class="card">
-                        <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
-                        <template #footer>
-                            <t-comment>
-                                <template #author>
-                                    <div class="t-comment__name">标题</div>
-                                </template>
-                            </t-comment>
-                        </template>
-                    </t-card>
-                    </div>
-                    <div class="card">
-                        <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
-                        <template #footer>
-                            <t-comment>
-                                <template #author>
-                                    <div class="t-comment__name">标题</div>
-                                </template>
-                            </t-comment>
-                        </template>
-                    </t-card>
-                    </div>
-                    <div class="card">
-                        <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
-                        <template #footer>
-                            <t-comment>
-                                <template #author>
-                                    <div class="t-comment__name">标题</div>
-                                </template>
-                            </t-comment>
-                        </template>
-                    </t-card>
+                            <template #footer>
+                                <t-comment>
+                                    <template #author>
+                                        <div class="t-comment__name">标题</div>
+                                    </template>
+                                </t-comment>
+                            </template>
+                        </t-card>
                     </div>
                 </div>
                 <div class="line">
                     <div class="card">
                         <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
-                        <template #footer>
-                            <t-comment>
-                                <template #author>
-                                    <div class="t-comment__name">标题</div>
-                                </template>
-                            </t-comment>
-                        </template>
-                    </t-card>
+                            <template #footer>
+                                <t-comment>
+                                    <template #author>
+                                        <div class="t-comment__name">标题</div>
+                                    </template>
+                                </t-comment>
+                            </template>
+                        </t-card>
                     </div>
                     <div class="card">
                         <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
-                        <template #footer>
-                            <t-comment>
-                                <template #author>
-                                    <div class="t-comment__name">标题</div>
-                                </template>
-                            </t-comment>
-                        </template>
-                    </t-card>
+                            <template #footer>
+                                <t-comment>
+                                    <template #author>
+                                        <div class="t-comment__name">标题</div>
+                                    </template>
+                                </t-comment>
+                            </template>
+                        </t-card>
                     </div>
                     <div class="card">
                         <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
-                        <template #footer>
-                            <t-comment>
-                                <template #author>
-                                    <div class="t-comment__name">标题</div>
-                                </template>
-                            </t-comment>
-                        </template>
-                    </t-card>
+                            <template #footer>
+                                <t-comment>
+                                    <template #author>
+                                        <div class="t-comment__name">标题</div>
+                                    </template>
+                                </t-comment>
+                            </template>
+                        </t-card>
                     </div>
                     <div class="card">
                         <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
-                        <template #footer>
-                            <t-comment>
-                                <template #author>
-                                    <div class="t-comment__name">标题</div>
-                                </template>
-                            </t-comment>
-                        </template>
-                    </t-card>
+                            <template #footer>
+                                <t-comment>
+                                    <template #author>
+                                        <div class="t-comment__name">标题</div>
+                                    </template>
+                                </t-comment>
+                            </template>
+                        </t-card>
+                    </div>
+                </div>
+                <div class="line">
+                    <div class="card">
+                        <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
+                            <template #footer>
+                                <t-comment>
+                                    <template #author>
+                                        <div class="t-comment__name">标题</div>
+                                    </template>
+                                </t-comment>
+                            </template>
+                        </t-card>
+                    </div>
+                    <div class="card">
+                        <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
+                            <template #footer>
+                                <t-comment>
+                                    <template #author>
+                                        <div class="t-comment__name">标题</div>
+                                    </template>
+                                </t-comment>
+                            </template>
+                        </t-card>
+                    </div>
+                    <div class="card">
+                        <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
+                            <template #footer>
+                                <t-comment>
+                                    <template #author>
+                                        <div class="t-comment__name">标题</div>
+                                    </template>
+                                </t-comment>
+                            </template>
+                        </t-card>
+                    </div>
+                    <div class="card">
+                        <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
+                            <template #footer>
+                                <t-comment>
+                                    <template #author>
+                                        <div class="t-comment__name">标题</div>
+                                    </template>
+                                </t-comment>
+                            </template>
+                        </t-card>
                     </div>
                 </div>
             </div>
