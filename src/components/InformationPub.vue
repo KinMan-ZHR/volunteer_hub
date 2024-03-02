@@ -7,7 +7,7 @@
                     <div style="line-height: 32px;">信息发布</div>
                     <div style="margin-top: 24px;">
                         <t-space :breakLine="true" size="13.33px">
-                            <t-card v-for="(item,index) in videoList2" :key="index" :cover="item.first_frame" bordered :style="{ width: '260px' }">
+                            <t-card v-for="(item,index) in videoList2" :key="index" :cover="item.first_frame" bordered :style="{ width: '260px', cursor: 'pointer' }" hoverShadow="true" @click="visible = true">
                                 <template #footer>
                                     <div style="display: flex;"><p>{{ item.title }}</p></div>
                                     <div style="display: flex;justify-content: center;">
@@ -41,13 +41,16 @@
             ></t-table> -->
         </div>
     </div>
+    <ChooseShipin></ChooseShipin>
 </template>
 
 <script>
 // import DragVue from './DragVue.vue'
 // import { MoveIcon } from 'tdesign-icons-vue-next';
+import ChooseShipin from './ChooseShipin.vue'
 
 export default{
+    name:'InfomationPub',
     data(){
         return{
             videoList1:[],
@@ -99,6 +102,7 @@ export default{
     },
     components:{
         // DragVue
+        ChooseShipin
     },
     methods:{
         onUploadChange(e){
