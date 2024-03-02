@@ -71,7 +71,8 @@ const onSubmit = async ({validateResult, firstError}) => {
     const result = await loginAPI({username, password}).then(
         (response) => {
           if (response.data.code === 200) {
-            userStore.setUserInfo(response.data);
+            console.log('Login Success: ', response.data);
+            userStore.setUserInfo(response.data.coredata.user);
           }
         }
     );
