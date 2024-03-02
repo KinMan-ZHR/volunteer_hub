@@ -3,7 +3,7 @@ import { MessagePlugin } from 'tdesign-vue-next';
 import {useUserStore}  from '@/dataStore/userdata.js'
 import router from "@/router";
 const httpRequest = axios.create({
-    baseURL: 'http://192.168.58.63:8080',
+    baseURL: 'http://192.168.58.78:8080',
     timeout: 10000,
 })
 
@@ -13,7 +13,7 @@ httpRequest.interceptors.request.use(config => {
         // 2.某些网络请求要求用户必须登录, 判断用户是否有token, 如果没有token跳转到login页面
         // 3.对请求的参数进行序列化(看服务器是否需要序列化)
         const userStore= useUserStore()
-        const  token=userStore.userInfo.coredata?userStore.userInfo.coredata.token:''
+        const  token=userStore.userInfo.token?userStore.userInfo.token:''
         if (token) {
             config.headers['token'] = token
         }
