@@ -16,7 +16,7 @@
             <div v-if="theme == 'card'">
                 <div style="margin: 10px;">
                     <t-space :breakLine="true" size="26.66px">
-                        <t-card v-for="(item,index) in current_page" :key="index" :cover="item.cover" bordered :style="{ width: '400px' }">
+                        <t-card v-for="(item,index) in current_page" :key="index" :cover="item.cover" bordered :style="{ width: '400px', cursor: 'pointer' }" hoverShadow="true" @click="visible = true">
                             <template #footer>
                                 <p class="biaoti">{{ item.title }}</p>
                             </template>
@@ -39,7 +39,7 @@
             <div v-if="theme == 'normal'">
                 <div style="margin: 10px;">
                     <t-space :breakLine="true" size="26.66px">
-                        <t-card v-for="(item,index) in current_page" :key="index" :cover="item.cover" bordered :style="{ width: '400px' }">
+                        <t-card v-for="(item,index) in current_page" :key="index" :cover="item.cover" bordered :style="{ width: '400px', cursor: 'pointer' }" hoverShadow="true" @click="visible = true">
                             <template #footer>
                                 <p class="biaoti">{{ item.title }}</p>
                             </template>
@@ -61,13 +61,28 @@
             </div>
             <div style="height: 50px;width: 100%;"></div>
         </div>
+        <t-dialog
+            :footer="false"
+            :header="false"
+            :preventScrollThrough="false"
+            showOverlay
+            placement="center"
+            v-model:visible="visible"
+            width="90%"
+            >
+            <WenZhangVideo></WenZhangVideo>
+        </t-dialog>
     </div>
 </template>
 
 <script>
 import { ref } from 'vue';
+import WenZhangVideo from './WenZhangVideo.vue';
 export default{
     name:'GongYiGuangGao',
+    components:{
+        WenZhangVideo
+    },
     data(){
         return{
             theme : ref('normal'),
@@ -277,7 +292,7 @@ export default{
         initCurrentPage(){
             this.shipin_chunked = this.chunkArray(this.shipin)
             this.current_page = this.shipin_chunked[0]
-        }
+        },
 
     },
     mounted(){

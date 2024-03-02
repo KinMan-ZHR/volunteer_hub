@@ -12,12 +12,15 @@
     "axios": "^1.6.7",
     "babel-eslint": "^10.1.0",
     "core-js": "^3.36.0",
+    "dayjs": "^1.11.10",
     "echarts": "^5.5.0",
     "jquery": "^3.7.1",
+
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",
     "tdesign-icons-vue-next": "^0.2.2",
     "tdesign-vue-next": "^1.8.1",
+    "vee-validate": "^4.12.5",
     "vue": "^3.4.20",
     "vue-router": "^4.3.0"
   },

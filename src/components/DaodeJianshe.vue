@@ -12,7 +12,7 @@
                             :duration="300"
                             :interval="20000"
                             >
-                                <t-swiper-item v-for="(item,index) in goodpeople" :key="index" >
+                                <t-swiper-item v-for="(item,index) in goodPeople" :key="index" >
                                     <div class="people-container">
                                         <t-space size="53.33px">
                                             <div v-for="(people,index) in item" :key="index">
@@ -76,126 +76,63 @@
 
 <script>
 
-export default{
-    name: 'DaodeJianshe',
-    data(){
-        return{
-            goodpeople:[],
-            model:[]
-        }
-    },
-    methods:{
-        getGoodPeople(){
-            this.goodpeople=[
-                {
-                    name:'周承志',
-                    image:'https://tse1-mm.cn.bing.net/th/id/OIP-C.HUA4zI2IXtdJdb-Xk8FByAAAAA?rs=1&pid=ImgDetMain'
-                },
-                {
-                    name:'周承志',
-                    image:'https://tse1-mm.cn.bing.net/th/id/OIP-C.HUA4zI2IXtdJdb-Xk8FByAAAAA?rs=1&pid=ImgDetMain'
-                },
-                {
-                    name:'周承志',
-                    image:'https://tse1-mm.cn.bing.net/th/id/OIP-C.HUA4zI2IXtdJdb-Xk8FByAAAAA?rs=1&pid=ImgDetMain'
-                },
-                {
-                    name:'周承志',
-                    image:'https://tse1-mm.cn.bing.net/th/id/OIP-C.HUA4zI2IXtdJdb-Xk8FByAAAAA?rs=1&pid=ImgDetMain'
-                },
-                {
-                    name:'周承志',
-                    image:'https://tse1-mm.cn.bing.net/th/id/OIP-C.HUA4zI2IXtdJdb-Xk8FByAAAAA?rs=1&pid=ImgDetMain'
-                },
-                {
-                    name:'周承志',
-                    image:'https://tse1-mm.cn.bing.net/th/id/OIP-C.HUA4zI2IXtdJdb-Xk8FByAAAAA?rs=1&pid=ImgDetMain'
-                },
-                {
-                    name:'周承志',
-                    image:'https://tse1-mm.cn.bing.net/th/id/OIP-C.HUA4zI2IXtdJdb-Xk8FByAAAAA?rs=1&pid=ImgDetMain'
-                },
-                {
-                    name:'周承志',
-                    image:'https://tse1-mm.cn.bing.net/th/id/OIP-C.HUA4zI2IXtdJdb-Xk8FByAAAAA?rs=1&pid=ImgDetMain'
-                },
-                {
-                    name:'周承志',
-                    image:'https://tse1-mm.cn.bing.net/th/id/OIP-C.HUA4zI2IXtdJdb-Xk8FByAAAAA?rs=1&pid=ImgDetMain'
-                },
-            ]
+import { ref, onMounted } from 'vue';
+import apiStore from '@/apis/wenmingSichuan.js';
 
+export default {
+  name: 'DaodeJianshe',
+  setup() {
+    const goodPeople = ref([]);
+    const model = ref([]);
 
-        },
-        getModel(){
-            this.model=[
-                {
-                    name:'周承志',
-                    image:'https://tse1-mm.cn.bing.net/th/id/OIP-C.HUA4zI2IXtdJdb-Xk8FByAAAAA?rs=1&pid=ImgDetMain'
-                },
-                {
-                    name:'周承志',
-                    image:'https://tse1-mm.cn.bing.net/th/id/OIP-C.HUA4zI2IXtdJdb-Xk8FByAAAAA?rs=1&pid=ImgDetMain'
-                },
-                {
-                    name:'周承志',
-                    image:'https://tse1-mm.cn.bing.net/th/id/OIP-C.HUA4zI2IXtdJdb-Xk8FByAAAAA?rs=1&pid=ImgDetMain'
-                },
-                {
-                    name:'周承志',
-                    image:'https://tse1-mm.cn.bing.net/th/id/OIP-C.HUA4zI2IXtdJdb-Xk8FByAAAAA?rs=1&pid=ImgDetMain'
-                },
-                {
-                    name:'周承志',
-                    image:'https://tse1-mm.cn.bing.net/th/id/OIP-C.HUA4zI2IXtdJdb-Xk8FByAAAAA?rs=1&pid=ImgDetMain'
-                },
-                {
-                    name:'周承志',
-                    image:'https://tse1-mm.cn.bing.net/th/id/OIP-C.HUA4zI2IXtdJdb-Xk8FByAAAAA?rs=1&pid=ImgDetMain'
-                },
-                {
-                    name:'周承志',
-                    image:'https://tse1-mm.cn.bing.net/th/id/OIP-C.HUA4zI2IXtdJdb-Xk8FByAAAAA?rs=1&pid=ImgDetMain'
-                },
-                {
-                    name:'周承志',
-                    image:'https://tse1-mm.cn.bing.net/th/id/OIP-C.HUA4zI2IXtdJdb-Xk8FByAAAAA?rs=1&pid=ImgDetMain'
-                },
-                {
-                    name:'周承志',
-                    image:'https://tse1-mm.cn.bing.net/th/id/OIP-C.HUA4zI2IXtdJdb-Xk8FByAAAAA?rs=1&pid=ImgDetMain'
-                },
-            ]
-        },
+    const getGoodPeople = async () => {
+      // 使用你的API获取数据
+      const response = await apiStore.getGoodPeopleAPI();
+      goodPeople.value = response.data.coreData;
+    };
 
-        chunkArray(originalArray){
-            var chunkedArray = [];
-            for (let i = 0; i < originalArray.length; i += 4) {
-                const chunk = originalArray.slice(i, i + 4);
-                chunkedArray.push(chunk);
-            }
-            return chunkedArray
-        },
+    const getModel = async () => {
+      // 使用你的API获取数据
+     const response= await apiStore.getModelAPI();
+      model.value = response.data.coreData;
+    };
 
-        onClickOuterWebsite(index){
-            if(index == 1){
-                window.open('https://wmdx.scwmw.cn/')
-            }else if(index == 2){
-                window.open('https://hrg.scwmw.cn/')
-            }else if(index == 3){
-                window.open('https://s.weibo.com/weibo?q=%23%E5%9B%9B%E5%B7%9D%E5%A5%BD%E4%BA%BA%23')
-            }
-        }
+    const chunkArray = (originalArray) => {
+      var chunkedArray = [];
+      for (let i = 0; i < originalArray.length; i += 4) {
+        const chunk = originalArray.slice(i, i + 4);
+        chunkedArray.push(chunk);
+      }
+      return chunkedArray;
+    };
 
-    },
-    mounted(){
-        this.getGoodPeople()
-        this.getModel()
-        this.goodpeople = this.chunkArray(this.goodpeople)
-        this.model = this.chunkArray(this.model)
+    const onClickOuterWebsite = (index) => {
+      if(index == 1){
+        window.open('https://wmdx.scwmw.cn/')
+      }else if(index == 2){
+        window.open('https://hrg.scwmw.cn/')
+      }else if(index == 3){
+        window.open('https://s.weibo.com/weibo?q=%23%E5%9B%9B%E5%B7%9D%E5%A5%BD%E4%BA%BA%23')
+      }
+    };
 
-    }
-}
+    onMounted(async () => {
+      await getGoodPeople();
+      await getModel();
+      goodPeople.value = chunkArray(goodPeople.value);
+      model.value = chunkArray(model.value);
+    });
+
+    return {
+      goodPeople,
+      model,
+      getGoodPeople,
+      getModel,
+      chunkArray,
+      onClickOuterWebsite
+    };
+  }
+};
 
 </script>
 
