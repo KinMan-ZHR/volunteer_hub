@@ -1,11 +1,20 @@
 <template>
     <div class="menu-container">
+
+      <!-- 头像上传组件 -->
+
         <div style="text-align: center; padding: 32px 0px 0px 0px;width: 100%;">
+          <t-upload
+              :request-method="requestMethod1"
+              :before-upload="beforeUpload"
+          >
             <t-avatar :image="userinfo.avatar" size="96px"/>
-            <div class="edit-container">
-                <t-icon name="camera" color="rgba(133, 142, 189, 1)"/>
-            </div>
+          </t-upload>
+          <div class="edit-container">
+            <t-icon name="camera" color="rgba(133, 142, 189, 1)"/>
+          </div>
         </div>
+
 
         <div class="username">
             {{ userinfo.username }}
@@ -28,29 +37,50 @@
 </template>
 
 
-<script>
+<script  setup>
 import '../assets/css/index.css'
+import {useUserStore} from "@/dataStore/userdata";
+import {MessagePlugin} from "tdesign-vue-next";
+import {editAvatarAPI} from "@/apis/usersHandler";
+import {reactive} from "vue";
 
-export default {
-    name: 'ProfileMenu',
-    data() {
-        return {
-            userinfo:{
-                username:'张三',
-                userrole:'管理员',
-                userphone:'12345678901',
-                useremail:'123456@foxmail.com',
-                useraddress:'北京市朝阳区',
-                avatar:'https://tdesign.gtimg.com/site/avatar.jpg',
-                gender:'男',
-                marry:'未婚',
-                birthday:'1999-01-01',
-                note:'这是一段备注',
-                lastUpdate:'2024-2-28'
-            }
+const userinfo =useUserStore().userInfo;
+const beforeUpload = (file) => {
+  if (file.size > 5 * 1024 * 1024) {
+    MessagePlugin.warning('上传的图片不能大于5M');
+    return false;
+  }
+  return true;
+};
+//todo 上传头像和id
+const requestMethod1 = async (file) => {
+  const id = userinfo.id;
+  const formData = reactive({
+    id: id,
+    avatar: file
+  });
+  console.log('formData', formData);
+  try {
+    const response = await editAvatarAPI(formData);
+    if (response.data.code === 200) {
+      MessagePlugin.success('上传成功');
+      return {
+        status: 'success',
+        response: {
+          url: response.data.url,
+          files: response.data.files
         }
-    },
-}
+      };
+    } else {
+      console.log('我输了？');
+      return {status: 'fail', error: response.data.message, response};
+    }
+  } catch (error) {
+    console.log('是老子捕获的', error);
+    return {status: 'fail', error: error.message};
+
+  }
+};
 
 </script>
 

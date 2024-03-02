@@ -48,3 +48,10 @@ export const addUserAPI = (data) => {
         data
     });
   };
+export const editAvatarAPI = (data) => {
+    return request({
+      url: "/editAvatar",
+      method: "post",
+        data
+    });
+  };
