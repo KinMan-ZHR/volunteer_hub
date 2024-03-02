@@ -12,11 +12,7 @@
                     <div class="card" v-for="(item,index) in video_list1" :key="index">
                         <t-card :cover="item.cover" theme="poster2" :style="{ width: '250px', cursor: 'pointer' }" hoverShadow="true"  @click="onClickVideo(index,1)">
                             <template #footer>
-                                <t-comment>
-                                    <template #author>
-                                        <div class="t-comment__name">{{ item.title }}</div>
-                                    </template>
-                                </t-comment>
+                                <div>{{ item.title }}</div>
                             </template>
                         </t-card>
                     </div>
@@ -28,11 +24,7 @@
                     <div class="card" v-for="(item,index) in video_list2" :key="index">
                         <t-card :cover="item.cover" theme="poster2" :style="{ width: '250px', cursor: 'pointer' }" hoverShadow="true"  @click="onClickVideo(index,2)">
                             <template #footer>
-                                <t-comment>
-                                    <template #author>
-                                        <div class="t-comment__name">{{ item.title }}</div>
-                                    </template>
-                                </t-comment>
+                                <div>{{ item.title }}</div>
                             </template>
                         </t-card>
                     </div>
@@ -44,11 +36,7 @@
                     <div class="card" v-for="(item,index) in video_list3" :key="index">
                         <t-card :cover="item.cover" theme="poster2" :style="{ width: '250px', cursor: 'pointer' }" hoverShadow="true" @click="onClickVideo(index,3)">
                             <template #footer>
-                                <t-comment>
-                                    <template #author>
-                                        <div class="t-comment__name">{{ item.title }}</div>
-                                    </template>
-                                </t-comment>
+                                <div>{{ item.title }}</div>
                             </template>
                         </t-card>
                     </div>
@@ -208,11 +196,7 @@ export default {
     margin-left: 20px;
     padding-top: 25px;
 }
-.t-comment__name {
-    font-weight: bold;
-    height: 10px;
-    align-items: center;
-}
+
 .card{
     padding: 25px;
 }

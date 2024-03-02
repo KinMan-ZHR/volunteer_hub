@@ -7,7 +7,7 @@
                     <div style="line-height: 32px;">信息发布</div>
                     <div style="margin-top: 24px;">
                         <t-space :breakLine="true" size="13.33px">
-                            <t-card v-for="(item,index) in videoList2" :key="index" :cover="item.first_frame" bordered :style="{ width: '260px', cursor: 'pointer' }" hoverShadow="true" @click="visible = true">
+                            <t-card v-for="(item,index) in videoList2" :key="index" :cover="item.cover" bordered :style="{ width: '260px', cursor: 'pointer' }" hoverShadow="true" @click="visible = true">
                                 <template #footer>
                                     <div style="display: flex;"><p>{{ item.title }}</p></div>
                                     <div style="display: flex;justify-content: center;">
@@ -15,6 +15,14 @@
                                             <t-icon name="play-circle" color="#ffffff" size="48px"></t-icon>
                                         </div>
                                     </div>
+
+                                    <!-- 气泡确认框 -->
+                                    <t-popconfirm content="确认删除吗" @confirm="onConfirmDelete(index)">
+                                        <div class="delete-btn-container">
+                                            <t-icon name="delete" color="red" size="16px"></t-icon>
+                                        </div>
+                                    </t-popconfirm>
+
                                 </template>
                             </t-card>
                         </t-space>
@@ -28,6 +36,13 @@
                         accept="video/*"
                         @change="onUploadChange"
                     />
+                    <div style="margin-top:12px">
+                        <t-button variant="outline" theme="primary" @click="onClickToChoseCloudVideo">
+                        <template #icon> <t-icon name="cloud-upload" /></template>
+                        云端视频
+                    </t-button>
+                    </div>
+
                 </div>
             </div>
             <!-- <t-table
@@ -40,14 +55,54 @@
                 @drag-sort="onDragSort"
             ></t-table> -->
         </div>
+
+        <t-dialog
+            v-model:visible="cloud_list_visible"
+            width="1147px"
+            :on-confirm="onConfirmVideo"
+            >
+            <!-- 自定义header -->
+            <template #header>
+                <div style="display:flex">
+                    <span style="display:flex;align-items:center"><t-icon name="cloud"></t-icon></span>
+                    <span style="line-height:32px">云端视频</span>
+                    <div style="width:36px;"></div>
+                    <span>
+                        <t-input placeholder="输入以搜索" clearable>
+                            <template #suffixIcon>
+                                <t-icon name="search" :style="{ cursor: 'pointer' }" size="16px"/>
+                            </template>
+                        </t-input>
+                    </span>
+                </div>
+            </template>
+
+            <div>
+                <t-space :breakLine="true" size="13.33px">
+
+                    <t-card v-for="(item,index) in cloud_video_list" :key="index" :cover="item.cover" bordered :style="{ width: '260px', cursor: 'pointer' }" hoverShadow="true" @click="visible = true">
+                        <template #footer>
+                            <div style="display: flex;"><p>{{ item.title }}</p></div>
+                            <div style="position:absolute;top: 6px;right: 0;"><t-checkbox :value="index" :key="index" :label="index" v-model:checked="item.is_choosed" ></t-checkbox></div>
+                            <div style="display: flex;justify-content: center;">
+                                <div style="position: absolute; top: calc(50% - 47px);">
+                                    <t-icon name="play-circle" color="#ffffff" size="48px"></t-icon>
+                                </div>
+                            </div>
+                        </template>
+                    </t-card>
+                </t-space>
+            </div>
+
+
+        </t-dialog>
     </div>
-    <ChooseShipin></ChooseShipin>
 </template>
 
 <script>
 // import DragVue from './DragVue.vue'
 // import { MoveIcon } from 'tdesign-icons-vue-next';
-import ChooseShipin from './ChooseShipin.vue'
+
 
 export default{
     name:'InfomationPub',
@@ -56,32 +111,24 @@ export default{
             videoList1:[],
             videoList2:[
                 {
-                    video:"https://prod-streaming-video-msn-com.akamaized.net/a8c412fa-f696-4ff2-9c76-e8ed9cdffe0f/604a87fc-e7bc-463e-8d56-cde7e661d690.mp4",
-                    first_frame:'https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AAOEcdM.img',
-                    title:'视频1',
+                    title:'2014央视公益广告《筷子》',
+                    cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
+                    link:'https://a5462a0a00cdede2829495b47fe56c8d.v.smtcdns.com/om.tc.qq.com/Aa_KRUeGlCQVO8R2dxyK9y78R_5lY-wMqk0Znz4oG6bU/B_JxNyiJmktHRgresXhfyMepNBqUi0rNULHXmHzThTLbhct0S7J8ZEOLI9qBzc0jb7/svp_50001/szg_78308739_50001_3a304177e8224eecbf7f2bde40edcc26.f632.mp4?sdtfrom=v1010&guid=524690aa801f54d6&vkey=33B39EB894F0C6B147B9AFAF11939409A558F07C0E2BA57C0CAADE4E5BC0CC2D2D689A01F050EC0303CC7EC743FEC9FCBA2AF4D409BE9337BCB2DD63B9E666E0D0ACF4F04361683390532AB60FCB03782172E38A3B016CFC8C74D8F9E1C708C0657C1E0D29B94FD4D354FAE5C3DA722514BD2E5580B9D6982818701459F1EE28FE7A8D41567B807D6D8EBEA9583BAC2D9D2AB230187E98CD8D99BFC5204F98910292285CF6F5D07B',
+                    description:'2014央视公益广告《筷子》',
+                    date:'2018-12-05',
                 },
                 {
-                    video:"https://prod-streaming-video-msn-com.akamaized.net/a8c412fa-f696-4ff2-9c76-e8ed9cdffe0f/604a87fc-e7bc-463e-8d56-cde7e661d690.mp4",
-                    first_frame:'https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AAOEcdM.img',
-                    title:'视频2',
-                },
-                {
-                    video:"https://prod-streaming-video-msn-com.akamaized.net/a8c412fa-f696-4ff2-9c76-e8ed9cdffe0f/604a87fc-e7bc-463e-8d56-cde7e661d690.mp4",
-                    first_frame:'https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AAOEcdM.img',
-                    title:'视频3',
-                },
-                {
-                    video:"https://prod-streaming-video-msn-com.akamaized.net/a8c412fa-f696-4ff2-9c76-e8ed9cdffe0f/604a87fc-e7bc-463e-8d56-cde7e661d690.mp4",
-                    first_frame:'https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AAOEcdM.img',
-                    title:'视频4',
-                },
-                {
-                    video:"https://prod-streaming-video-msn-com.akamaized.net/a8c412fa-f696-4ff2-9c76-e8ed9cdffe0f/604a87fc-e7bc-463e-8d56-cde7e661d690.mp4",
-                    first_frame:'https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AAOEcdM.img',
-                    title:'视频5',
+                    title:'公益广告五分钟',
+                    cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
+                    link:'https://apd-ugcvlive.apdcdn.tc.qq.com/om.tc.qq.com/AOxPyqZIzzHh521WwmMm3bJZefCoGzVKkQwRdr17m2Ew/B_JxNyiJmktHRgresXhfyMeo8fixGnaMJkCgsHKywTKlUvVsev9UdHRN_1kp6emuQq/svp_50200/njc_1000195_0bc3aicbgaaeluacjwmvvzrryawecmbaie2a.f2.mp4?sdtfrom=v1010&guid=e91979b79120cd89&vkey=63508C3A90D02AF43851A0631DBA911DE9486F2B8B2651CC44252CFE857481ACFD82D72C3E5B42E40C19F4BF0B4DBEA82ACDE69196019FA7771E5B619D0E173B266F81572C2E7CC6643D4D73DA106C15A1FEBE5BE384536AFDC73A01EB6322EC3B4E7A0CBD214CE948B808B311ED2FD363AB2D48ABC2A559042527EAEA1043FEC692AD39BB692195A6B8BEA1BF1AFC14F98662A37B9F0F24DD578979B44B372E41C3EC0791FF9214',
+                    description:'公益广告五分钟公益广告五分钟公益广告五分钟公益广告五分钟公益广告五分钟公益广告五分钟公益广告五分钟',
+                    date:'2018-12-05',
                 },
             ],
 
+            cloud_video_list:[],
+
+            // 此处待完成
             // columns:[
             //     {colKey:'drag',title: '排序',
             //         // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -98,23 +145,122 @@ export default{
             //     { colKey: 'operation', title: '操作', ellipsis: true },
 
             // ]
+
+            cloud_list_visible:false,
+
         }
     },
     components:{
         // DragVue
-        ChooseShipin
     },
     methods:{
         onUploadChange(e){
             console.log(e);
+        },
+
+        // 获取云端视频列表
+        getVideoList(){
+            // 从服务器获取所有视频列表
+            this.cloud_video_list=[
+                {
+                    title:'2014央视公益广告《筷子》',
+                    cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
+                    link:'https://a5462a0a00cdede2829495b47fe56c8d.v.smtcdns.com/om.tc.qq.com/Aa_KRUeGlCQVO8R2dxyK9y78R_5lY-wMqk0Znz4oG6bU/B_JxNyiJmktHRgresXhfyMepNBqUi0rNULHXmHzThTLbhct0S7J8ZEOLI9qBzc0jb7/svp_50001/szg_78308739_50001_3a304177e8224eecbf7f2bde40edcc26.f632.mp4?sdtfrom=v1010&guid=524690aa801f54d6&vkey=33B39EB894F0C6B147B9AFAF11939409A558F07C0E2BA57C0CAADE4E5BC0CC2D2D689A01F050EC0303CC7EC743FEC9FCBA2AF4D409BE9337BCB2DD63B9E666E0D0ACF4F04361683390532AB60FCB03782172E38A3B016CFC8C74D8F9E1C708C0657C1E0D29B94FD4D354FAE5C3DA722514BD2E5580B9D6982818701459F1EE28FE7A8D41567B807D6D8EBEA9583BAC2D9D2AB230187E98CD8D99BFC5204F98910292285CF6F5D07B',
+                    description:'2014央视公益广告《筷子》',
+                    date:'2018-12-05',
+                },
+                {
+                    title:'公益广告五分钟',
+                    cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
+                    link:'https://apd-ugcvlive.apdcdn.tc.qq.com/om.tc.qq.com/AOxPyqZIzzHh521WwmMm3bJZefCoGzVKkQwRdr17m2Ew/B_JxNyiJmktHRgresXhfyMeo8fixGnaMJkCgsHKywTKlUvVsev9UdHRN_1kp6emuQq/svp_50200/njc_1000195_0bc3aicbgaaeluacjwmvvzrryawecmbaie2a.f2.mp4?sdtfrom=v1010&guid=e91979b79120cd89&vkey=63508C3A90D02AF43851A0631DBA911DE9486F2B8B2651CC44252CFE857481ACFD82D72C3E5B42E40C19F4BF0B4DBEA82ACDE69196019FA7771E5B619D0E173B266F81572C2E7CC6643D4D73DA106C15A1FEBE5BE384536AFDC73A01EB6322EC3B4E7A0CBD214CE948B808B311ED2FD363AB2D48ABC2A559042527EAEA1043FEC692AD39BB692195A6B8BEA1BF1AFC14F98662A37B9F0F24DD578979B44B372E41C3EC0791FF9214',
+                    description:'公益广告五分钟公益广告五分钟公益广告五分钟公益广告五分钟公益广告五分钟公益广告五分钟公益广告五分钟',
+                    date:'2018-12-05',
+                },
+                {
+                    title:'2014央视公益广告《筷子》',
+                    cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
+                    link:'https://a5462a0a00cdede2829495b47fe56c8d.v.smtcdns.com/om.tc.qq.com/Aa_KRUeGlCQVO8R2dxyK9y78R_5lY-wMqk0Znz4oG6bU/B_JxNyiJmktHRgresXhfyMepNBqUi0rNULHXmHzThTLbhct0S7J8ZEOLI9qBzc0jb7/svp_50001/szg_78308739_50001_3a304177e8224eecbf7f2bde40edcc26.f632.mp4?sdtfrom=v1010&guid=524690aa801f54d6&vkey=33B39EB894F0C6B147B9AFAF11939409A558F07C0E2BA57C0CAADE4E5BC0CC2D2D689A01F050EC0303CC7EC743FEC9FCBA2AF4D409BE9337BCB2DD63B9E666E0D0ACF4F04361683390532AB60FCB03782172E38A3B016CFC8C74D8F9E1C708C0657C1E0D29B94FD4D354FAE5C3DA722514BD2E5580B9D6982818701459F1EE28FE7A8D41567B807D6D8EBEA9583BAC2D9D2AB230187E98CD8D99BFC5204F98910292285CF6F5D07B',
+                    description:'2014央视公益广告《筷子》',
+                    date:'2018-12-05',
+                },
+                {
+                    title:'公益广告五分钟',
+                    cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
+                    link:'https://apd-ugcvlive.apdcdn.tc.qq.com/om.tc.qq.com/AOxPyqZIzzHh521WwmMm3bJZefCoGzVKkQwRdr17m2Ew/B_JxNyiJmktHRgresXhfyMeo8fixGnaMJkCgsHKywTKlUvVsev9UdHRN_1kp6emuQq/svp_50200/njc_1000195_0bc3aicbgaaeluacjwmvvzrryawecmbaie2a.f2.mp4?sdtfrom=v1010&guid=e91979b79120cd89&vkey=63508C3A90D02AF43851A0631DBA911DE9486F2B8B2651CC44252CFE857481ACFD82D72C3E5B42E40C19F4BF0B4DBEA82ACDE69196019FA7771E5B619D0E173B266F81572C2E7CC6643D4D73DA106C15A1FEBE5BE384536AFDC73A01EB6322EC3B4E7A0CBD214CE948B808B311ED2FD363AB2D48ABC2A559042527EAEA1043FEC692AD39BB692195A6B8BEA1BF1AFC14F98662A37B9F0F24DD578979B44B372E41C3EC0791FF9214',
+                    description:'公益广告五分钟公益广告五分钟公益广告五分钟公益广告五分钟公益广告五分钟公益广告五分钟公益广告五分钟',
+                    date:'2018-12-05',
+                },
+                {
+                    title:'2014央视公益广告《筷子》',
+                    cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
+                    link:'https://a5462a0a00cdede2829495b47fe56c8d.v.smtcdns.com/om.tc.qq.com/Aa_KRUeGlCQVO8R2dxyK9y78R_5lY-wMqk0Znz4oG6bU/B_JxNyiJmktHRgresXhfyMepNBqUi0rNULHXmHzThTLbhct0S7J8ZEOLI9qBzc0jb7/svp_50001/szg_78308739_50001_3a304177e8224eecbf7f2bde40edcc26.f632.mp4?sdtfrom=v1010&guid=524690aa801f54d6&vkey=33B39EB894F0C6B147B9AFAF11939409A558F07C0E2BA57C0CAADE4E5BC0CC2D2D689A01F050EC0303CC7EC743FEC9FCBA2AF4D409BE9337BCB2DD63B9E666E0D0ACF4F04361683390532AB60FCB03782172E38A3B016CFC8C74D8F9E1C708C0657C1E0D29B94FD4D354FAE5C3DA722514BD2E5580B9D6982818701459F1EE28FE7A8D41567B807D6D8EBEA9583BAC2D9D2AB230187E98CD8D99BFC5204F98910292285CF6F5D07B',
+                    description:'2014央视公益广告《筷子》',
+                    date:'2018-12-05',
+                },
+            ]
+        },
+
+        processCloudVideo(){
+            // 为videoList的每个元素添加一个属性
+            for(var i = 0;i<this.cloud_video_list.length;i++){
+                this.cloud_video_list[i].is_choosed = false
+            }
+        },
+
+        onClickToChoseCloudVideo(){
+            // 点击选择云端视频
+            this.getVideoList()
+            this.processCloudVideo()
+            this.cloud_list_visible=true
+
+        },
+
+        onConfirmVideo(){
+            var choosed_video_list = []
+            choosed_video_list =  this.cloud_video_list.filter( item => item.is_choosed === true)
+            console.log(choosed_video_list);
+            this.cloud_list_visible = false
+            this.videoList2 = this.videoList2.concat(choosed_video_list)
+        },
+
+        onConfirmDelete(index){
+            // 确认删除视频
+            // console.log(index);
+            this.videoList2.splice(index,1)
         }
 
-    }
+
+    },
+
+
 
 }
 
 </script>
 
 <style scoped>
+
+.delete-btn-container{
+    border-radius:8px;
+    width:32px;
+    height:32px;
+    /* background-color:var(--td-gray-color-3); */
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position: absolute;
+    top: 0;
+    right: 0;
+
+}
+
+.delete-btn-container :hover{
+    background-color: #e7e7e766;
+    border-radius:4px;
+    width:32px;
+    height:32px;
+    padding:0 8px;
+
+}
 
 </style>
