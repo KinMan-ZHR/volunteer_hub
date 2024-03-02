@@ -7,7 +7,7 @@
             </div>
             <div style="margin: 10px;">
                 <t-list>
-                    <t-list-item v-for="(item,index) in current_page" :key="index">
+                    <t-list-item v-for="(item,index) in current_page" :key="index" style="cursor:pointer">
                         <div style="display: flex;">
                             <div class="circle"></div>
                             <p>{{ item.title }}</p>
