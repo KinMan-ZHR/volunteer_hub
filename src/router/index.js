@@ -13,7 +13,7 @@ import InformationPub from '@/components/InformationPub.vue'
 import MyProfile from '@/components/MyProfile.vue'
 import ZhiyuanProject from '@/components/ZhiyuanProject.vue'
 import XinxiDongtai from '@/components/XinxiDongtai.vue'
-import XuanChuanVideo from '@/components/XuanChuanVideo.vue'
+import XuanchuanVideo from '@/components/XuanchuanVideo.vue'
 import HuodongMap from '@/components/HuodongMap.vue'
 import GongyiHuodong from '@/components/GongyiHuodong.vue'
 import GongyiGuanggao from '@/components/GongyiGuanggao.vue'
@@ -74,7 +74,7 @@ const routes = [
                     {
                         path: '/zhiyuan/zyvideo',
                         name: 'zyvideo',
-                        component:XuanChuanVideo
+                        component:XuanchuanVideo
                     },
                     {
                         path: '/zhiyuan/zyactivitiesmap',
