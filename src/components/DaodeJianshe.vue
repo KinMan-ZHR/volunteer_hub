@@ -30,6 +30,7 @@
 
                         </t-tab-panel>
                         <t-tab-panel :value="2" label="身边好人">
+                        <div style="padding: 24px 0;">
                             <t-swiper
                             :duration="300"
                             :interval="3000"
@@ -47,6 +48,8 @@
                                 </div>
                             </t-swiper-item>
                         </t-swiper>
+                        </div>
+
                         </t-tab-panel>
                     </t-tabs>
                 </div>

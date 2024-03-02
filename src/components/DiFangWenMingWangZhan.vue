@@ -1,161 +1,165 @@
 <template>
     <div>
         <div style="margin-top: 34px;">四川地方文明网站</div>
-        <div style="margin-top: 17px;display: flex;">
-            <div style="padding: 10px;">
+        <t-space :breakLine="true" style="padding: 12px 0;">
+            <div>
                 <t-space>
                 <t-dropdown :options="Chengdu" :min-column-width="88" :hideAfterItemClick="false">
                 <t-button theme="primary" variant="base" href="http://cd.wenming.cn/" target="_blank" size="large"> 成都市 </t-button>
                 </t-dropdown>
                 </t-space>
             </div>
-            <div style="padding: 10px;">
+            <div>
                 <t-space>
                 <t-dropdown :options="Zigong" :min-column-width="88" :hideAfterItemClick="false">
                 <t-button theme="primary" variant="base" href="http://sczg.wenming.cn/" target="_blank" size="large"> 自贡市 </t-button>
                 </t-dropdown>
                 </t-space>
             </div>
-            <div style="padding: 10px;">
+            <div >
                 <t-space>
                 <t-dropdown :options="Panzhihua" :min-column-width="88" :hideAfterItemClick="false">
                 <t-button theme="primary" variant="base" href="http://scpzh.wenming.cn/" target="_blank" size="large"> 攀枝花市 </t-button>
                 </t-dropdown>
                 </t-space>
             </div>
-            <div style="padding: 10px;">
+            <div >
                 <t-space>
                 <t-dropdown :options="Luzhou" :min-column-width="88" :hideAfterItemClick="false">
                 <t-button theme="primary" variant="base" href="http://sclz.wenming.cn/" target="_blank" size="large"> 泸州市 </t-button>
                 </t-dropdown>
                 </t-space>
             </div>
-            <div style="padding: 10px;">
+            <div >
                 <t-space>
                 <!-- <t-dropdown :options="Deyang" :min-column-width="88" :hideAfterItemClick="false"> -->
                 <t-button theme="primary" variant="base" href="http://scdy.wenming.cn/" target="_blank" size="large"> 德阳市 </t-button>
                 <!-- </t-dropdown> -->
                 </t-space>
             </div>
-            <div style="padding: 10px;">
+            <div >
                 <t-space>
                 <t-dropdown :options="Mianyang" :min-column-width="88" :hideAfterItemClick="false">
                 <t-button theme="primary" variant="base" href="http://scmy.wenming.cn/" target="_blank" size="large"> 绵阳市 </t-button>
                 </t-dropdown>
                 </t-space>
             </div>
-            <div style="padding: 10px;">
+            <div >
                 <t-space>
                 <t-dropdown :options="Guangyuan" :min-column-width="88" :hideAfterItemClick="false">
                 <t-button theme="primary" variant="base" href="https://zm.sm-tc.cn/?src=l4uLj8XQ0JiG0YyciJKI0ZyR0NyOk5WGz8w%3D&uid=&restype=1&from=&depth=146&v=1&link_type=270" target="_blank" size="large"> 广元市 </t-button>
                 </t-dropdown>
                 </t-space>
             </div>
-            <div style="padding: 10px;">
+            <div >
                 <t-space>
                 <t-dropdown :options="Suining" :min-column-width="88" :hideAfterItemClick="false">
                 <t-button theme="primary" variant="base" href="http://scsn.wenming.cn/" target="_blank" size="large"> 遂宁市 </t-button>
                 </t-dropdown>
                 </t-space>
             </div>
-            <div style="padding: 10px;">
+            <div >
                 <t-space>
                 <t-dropdown :options="Neijiang" :min-column-width="88" :hideAfterItemClick="false">
                 <t-button theme="primary" variant="base" href="https://zm.sm-tc.cn/?src=l4uLj8XQ0JGV0YyciJKI0ZyR0A%3D%3D&uid=&restype=1&from=derive&depth=221&link_type=60&force=true&bu=ss_doc&v=1" target="_blank" size="large"> 内江市 </t-button>
                 </t-dropdown>
                 </t-space>
             </div>
-            <div style="padding: 10px;">
+            <div >
                 <t-space>
                 <!-- <t-dropdown :options="Leshan" :min-column-width="88" :hideAfterItemClick="false"> -->
                 <t-button theme="primary" variant="base" href="https://zm.sm-tc.cn/?src=l4uLj8XQ0JOM0YyciJKI0ZyR0A%3D%3D&uid=&restype=1&from=&depth=95&link_type=60&v=1" target="_blank" size="large"> 乐山市 </t-button>
                 <!-- </t-dropdown> -->
                 </t-space>
             </div>
-            <div style="padding: 10px;">
+            <div >
                 <t-space>
                 <t-dropdown :options="Nanchong" :min-column-width="88" :hideAfterItemClick="false">
                 <t-button theme="primary" variant="base" href="https://zm.sm-tc.cn/?src=l4uLj8XQ0JGc0YyciJKI0ZyR0JiY&uid=&restype=1&from=derive&depth=156&force=true&v=1&link_type=270" target="_blank" size="large"> 南充市 </t-button>
                 </t-dropdown>
                 </t-space>
             </div>
-
-        </div>
-        <div style="display: flex;">
-            <div style="padding: 10px;">
+            <div >
                 <t-space>
                 <t-dropdown :options="Yibin" :min-column-width="88" :hideAfterItemClick="false">
                 <t-button theme="primary" variant="base" href="http://yb.wenming.cn/" target="_blank" size="large"> 宜宾市 </t-button>
                 </t-dropdown>
                 </t-space>
             </div>
-            <div style="padding: 10px;">
+            <div >
                 <t-space>
                 <t-dropdown :options="Guangan" :min-column-width="88" :hideAfterItemClick="false">
                 <t-button theme="primary" variant="base" href="http://ga.wenming.cn/" target="_blank" size="large"> 广安市 </t-button>
                 </t-dropdown>
                 </t-space>
             </div>
-            <div style="padding: 10px;">
+            <div >
                 <t-space>
                 <t-dropdown :options="Dazhou" :min-column-width="88" :hideAfterItemClick="false">
                 <t-button theme="primary" variant="base" href="https://zm.sm-tc.cn/?src=l4uLj8XQ0JuF0YyciJKI0ZyR0A%3D%3D&uid=&restype=1&from=derive&depth=228&force=true&v=1&link_type=250" target="_blank" size="large"> 达州市 </t-button>
                 </t-dropdown>
                 </t-space>
             </div>
-            <div style="padding: 10px;">
+            <div >
                 <t-space>
                 <t-dropdown :options="Bazhong" :min-column-width="88" :hideAfterItemClick="false">
                 <t-button theme="primary" variant="base" href="http://scbz.wenming.cn/" target="_blank" size="large"> 巴中市 </t-button>
                 </t-dropdown>
                 </t-space>
             </div>
-            <div style="padding: 10px;">
+            <div >
                 <t-space>
                 <t-dropdown :options="Yaan" :min-column-width="88" :hideAfterItemClick="false">
                 <t-button theme="primary" variant="base" href="https://zm.sm-tc.cn/?src=l4uLj8XQ0Iae0YyciJKI0ZyR0IiSnJXQlpGbmoegzNGXi5I%3D&uid=&restype=1&from=derive&depth=35&link_type=60&v=1" target="_blank" size="large"> 雅安市 </t-button>
                 </t-dropdown>
                 </t-space>
             </div>
-            <div style="padding: 10px;">
+            <div >
                 <t-space>
                 <t-dropdown :options="Meishan" :min-column-width="88" :hideAfterItemClick="false">
                 <t-button theme="primary" variant="base" href="https://zm.sm-tc.cn/?src=l4uLj8XQ0JKM0YyciJKI0ZyR0A%3D%3D&uid=&restype=1&from=derive&depth=2&v=1&link_type=250" target="_blank" size="large"> 眉山市 </t-button>
                 </t-dropdown>
                 </t-space>
             </div>
-            <div style="padding: 10px;">
+            <div >
                 <t-space>
                 <t-dropdown :options="Ziyang" :min-column-width="88" :hideAfterItemClick="false">
                 <t-button theme="primary" variant="base" href="http://sc.wenming.cn/zbsc/zy/index_1.shtml" target="_blank" size="large"> 资阳市 </t-button>
                 </t-dropdown>
                 </t-space>
             </div>
-            <div style="padding: 10px;">
+            <div >
                 <t-space>
                 <!-- <t-dropdown :options="Abazhou" :min-column-width="88" :hideAfterItemClick="false"> -->
                 <t-button theme="primary" variant="base" href="https://zm.sm-tc.cn/?src=l4uLj8XQ0J6d0YyciJKI0ZyR0A%3D%3D&uid=&restype=1&from=&depth=95&link_type=60&v=1" target="_blank" size="large"> 阿坝州 </t-button>
                 <!-- </t-dropdown> -->
                 </t-space>
             </div>
-            <div style="padding: 10px;">
+            <div >
                 <t-space>
                 <!-- <t-dropdown :options="Ganzi" :min-column-width="88" :hideAfterItemClick="false"> -->
                 <t-button theme="primary" variant="base" href="https://zm.sm-tc.cn/?src=l4uLj8XQ0JiF0YyciJKI0ZyR0A%3D%3D&uid=&restype=1&from=&depth=145&v=1&link_type=250" target="_blank" size="large"> 甘孜州 </t-button>
                 <!-- </t-dropdown> -->
                 </t-space>
             </div>
-            <div style="padding: 10px;">
+            <div >
                 <t-space>
                 <t-dropdown :options="Liangshan" :min-column-width="88" :hideAfterItemClick="false">
                 <t-button theme="primary" variant="base" href="https://zm.sm-tc.cn/?src=l4uLj8XQ0JOMhdGMnIiSiNGckdA%3D&uid=&restype=1&from=&depth=73&link_type=60&v=1" target="_blank" size="large"> 凉山州 </t-button>
                 </t-dropdown>
                 </t-space>
             </div>
+        </t-space>
+        <!-- <div style="margin-top: 17px;display: flex;">
+
+
         </div>
+        <div style="display: flex;">
+
+        </div> -->
     </div>
 
-    
+
 </template>
 
 <script>
@@ -163,7 +167,7 @@ export default{
     name:'SiChuanDiFangWenMingWangZhan',
     data(){
         return{
-            Chengdu:[                
+            Chengdu:[
                 { content: '都江堰', value: 1 ,onClick: () => window.open('http://scdjy.wenming.cn/', '_blank')},
                 { content: '崇州', value: 2 ,onClick: () => window.open('https://www.scwmw.cn/topic/2021/czbyll/', '_blank')},
                 { content: '简阳', value: 3 ,onClick: () => window.open('http://scjys.wenming.cn/', '_blank')},
@@ -214,7 +218,7 @@ export default{
                 { content: '高县', value: 7 ,onClick: () => window.open('https://zm.sm-tc.cn/?src=l4uLj8XQ0IadmIeM0YyciJKI0ZyR0IaIlZU%3D&uid=&restype=1&from=derive&depth=134&force=true&v=1&link_type=270', '_blank')},
                 { content: '江安', value: 8 ,onClick: () => window.open('https://zm.sm-tc.cn/?src=l4uLj8XQ0IadlZ7RjJyIkojRnJHQ&uid=&restype=1&from=derive&depth=66&link_type=60&force=true&v=1', '_blank')},
                 { content: '南溪', value: 9 ,onClick: () => window.open('https://zm.sm-tc.cn/?src=l4uLj8XQ0IadkYfRjJyIkojRnJHQhog%3D&uid=&restype=1&from=derive&depth=25&bu=web&v=1&link_type=270', '_blank')},
-            
+
             ],
             Guangan:[
                 { content: '华蓥', value: 1 ,onClick: () => window.open('https://zm.sm-tc.cn/?src=l4uLj8XQ0Jiel4bRjJyIkojRnJHQ&uid=&restype=1&from=derive&depth=132&link_type=60&force=true&v=1', '_blank')},
