@@ -41,36 +41,47 @@
 import '../assets/css/index.css'
 import {useUserStore} from "@/dataStore/userdata";
 import {MessagePlugin} from "tdesign-vue-next";
-import {updateUserAPI} from "@/apis/usersHandler";
+import {editAvatarAPI} from "@/apis/usersHandler";
 import {reactive} from "vue";
 
 const userinfo =useUserStore().userInfo;
-let tempAvatar;
 const beforeUpload = (file) => {
   if (file.size > 5 * 1024 * 1024) {
     MessagePlugin.warning('上传的图片不能大于5M');
     return false;
   }
-  tempAvatar = file;
   return true;
 };
 //todo 上传头像和id
-const requestMethod1 = async () => {
+const requestMethod1 = async (file) => {
   const id = userinfo.id;
-  const formData = new reactive(null);
-  console.log('tempAvatar', tempAvatar);
-  console.log('id', id);
-  // formData.append('avatar', tempAvatar);
-  // formData.append('id', id);
-  updateUserAPI(formData).then(
-      (response) => {
-        if (response.data.code === 200) {
-          MessagePlugin.success('上传成功');
+  const formData = reactive({
+    id: id,
+    avatar: file
+  });
+  console.log('formData', formData);
+  try {
+    const response = await editAvatarAPI(formData);
+    if (response.data.code === 200) {
+      MessagePlugin.success('上传成功');
+      return {
+        status: 'success',
+        response: {
+          url: response.data.url,
+          files: response.data.files
         }
-      }
-  );
+      };
+    } else {
+      console.log('我输了？');
+      return {status: 'fail', error: response.data.message, response};
+    }
+  } catch (error) {
+    console.log('是老子捕获的', error);
+    return {status: 'fail', error: error.message};
 
+  }
 };
+
 </script>
 
 <style scoped>
