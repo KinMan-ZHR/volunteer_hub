@@ -64,7 +64,7 @@
         <t-dialog
             :footer="false"
             :header="false"
-            :preventScrollThrough="false"
+            preventScrollThrough
             showOverlay
             placement="center"
             v-model:visible="visible"
