@@ -10,7 +10,7 @@
                 <div class="title">A分类</div>
                 <div class="line">
                     <div class="card">
-                        <t-card :cover="cover" theme="poster2" :style="{ width: '250px' }">
+                        <t-card :cover="cover" theme="poster2" :style="{ width: '250px', cursor: 'pointer' }" hoverShadow="true" @click="visible = true">
                             <template #footer>
                                 <t-comment>
                                     <template #author>
@@ -338,23 +338,58 @@
                 </div>
             </div>
         </t-space>
+        <t-dialog
+            :footer="false"
+            :header="false"
+            preventScrollThrough
+            showOverlay
+            placement="center"
+            v-model:visible="visible"
+            width="90%"
+            >
+            <WenZhangVideo></WenZhangVideo>
+        </t-dialog>
     </div>
 </template>
 
-<script setup>
+<script>
 import { computed, getCurrentInstance } from 'vue';
 import get from 'lodash/get';
+import WenZhangVideo from './WenZhangVideo.vue';
 
-const { appContext } = getCurrentInstance();
-const path = computed(() => get(appContext, '$route.path', ''));
+export default {
+    name:'XuanChuanVideo',
+    components:{
+        WenZhangVideo
+    },
+    setup() {
+        const { appContext } = getCurrentInstance();
+        const path = computed(() => get(appContext, '$route.path', ''));
 
-const handleClick = ({ e, href, title }) => {
-  e.preventDefault();
-  console.log('click', href, title);
+        const handleClick = ({ e, href, title }) => {
+        e.preventDefault();
+        console.log('click', href, title);
+        };
+
+        const cover = 'https://tdesign.gtimg.com/site/source/card-demo.png';
+
+        return {
+            path,
+            handleClick,
+            cover
+        };
+    },
+    data(){
+        return{
+            visible:'false',
+        }
+    },
+    methods:{
+        
+    }
 };
-
-const cover = 'https://tdesign.gtimg.com/site/source/card-demo.png';
 </script>
+
 <style scoped>
 .anchor-container-demo {
   display: flex;
