@@ -11,7 +11,6 @@ import './assets/css/index.css'
 //导入pinia
 import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
-
 const pinia = createPinia().use(piniaPluginPersistedstate)
 
 const app = createApp(App);
