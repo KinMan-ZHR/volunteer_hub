@@ -7,7 +7,7 @@
             </div>
             <div style="margin: 10px;">
                 <t-list>
-                    <t-list-item v-for="(item,index) in current_page" :key="index" style="cursor:pointer" >
+                    <t-list-item v-for="(item,index) in current_page" :key="index" style="cursor:pointer" @click="onClickToReadDongtai(index)">
                         <div style="display: flex;">
                             <div class="circle"></div>
                             <p>{{ item.title }}</p>
@@ -39,31 +39,13 @@
                 </div>
                 <div style="margin: 10px;">
                     <t-list>
-                    <t-list-item>
-                        <div style="display: flex;">
-                            <div class="circle"></div>
-                            <p>列表内容的描述性文字</p>
-                        </div>
-                    </t-list-item>
-                    <t-list-item>
-                        <div style="display: flex;">
-                            <div class="circle"></div>
-                            <p>列表内容的描述性文字</p>
-                        </div>
-                    </t-list-item>
-                    <t-list-item>
-                        <div style="display: flex;">
-                            <div class="circle"></div>
-                            <p>列表内容的描述性文字</p>
-                        </div>
-                    </t-list-item>
-                    <t-list-item>
-                        <div style="display: flex;">
-                            <div class="circle"></div>
-                            <p>列表内容的描述性文字</p>
-                        </div>
-                    </t-list-item>
-                </t-list>
+                        <t-list-item v-for="(item, index) in hot_news" :key="index" @click="onClickToReadHotNews(index)" style="cursor: pointer;">
+                            <div style="display: flex;">
+                                <div class="circle"></div>
+                                <p>{{item.title}}</p>
+                            </div>
+                        </t-list-item>
+                    </t-list>
                 </div>
             </div>
             <div class="right-down">
@@ -72,262 +54,176 @@
                     <p class="title">热点图片</p>
                 </div>
                 <div style="display: flex;margin-top: 10px;justify-content: center;align-items: center;">
-                    <div style="margin: 25px;">
-                        <img src="../assets/img/news_photo1.png" width="200" height="150"/>
-                        <t-breadcrumbItem :max-width="'200'"> 面包屑中文案过长时可缩略显示，鼠标hover时显示全部 </t-breadcrumbItem>
-                    </div>
-                    <div style="margin: 25px;">
-                        <img src="../assets/img/news_photo2.png" width="200" height="150"/>
-                        <t-breadcrumbItem :max-width="'200'"> 面包屑中文案过长时可缩略显示，鼠标hover时显示全部 </t-breadcrumbItem>
+                    <div style="margin: 25px;" v-for="(item,index) in hot_photo" :key="index" @click="onClickToReadHotPhotos(index)">
+                        <img :src="item.image" width="200" height="150"/>
+                        <t-breadcrumbItem :max-width="'200'"> {{ item.title }} </t-breadcrumbItem>
                     </div>
                 </div>
             </div>
         </div>
+
+        <t-dialog
+            v-model:visible="article_visible"
+            header="文章详情"
+            body="对话框内容"
+            :cancel-btn="null"
+            width="90%"
+            top="50px"
+            :confirm-btn="null"
+        >
+        <template #header>
+            <t-icon name="component-space"></t-icon>
+            <p>文章详情</p>
+        </template>
+            <WenZhang :current_article="current_article"></WenZhang>
+        </t-dialog>
+
     </div>
 </template>
 
 <script>
+// import ArticlePage from './ArticlePage.vue';
+import WenZhang from './WenZhang.vue';
+
 export default{
-    name:'XinXiDongTai',
-    data(){
-        return{
-            prompt:'https://i.postimg.cc/jqZjDpQq/prompt.png',
-            dongtai:[
-                {
-                    title:'动态1',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态2',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态3',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态1',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态1',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态4',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态5',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态6',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态7',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态8',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态9',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态0',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态0',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态9',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态8',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态7',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态6',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态5',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态4',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态3',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态2',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态1',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态3',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态4',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态5',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态5',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态6',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态7',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态8',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态9',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态9',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态19',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态19',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态17',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态1',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态1',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态1',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态1',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态1',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态1',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态1',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态1',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态2',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态1',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态1',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态1',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态1',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态2',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态1',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态1',
-                    time:'2024-2-29'
-                },
-                {
-                    title:'动态1',
-                    time:'2024-2-29'
-                },
-            ],
-            dongtai_chunked:[],
-            current_page:[],
-        }
+    name: 'XinXiDongTai',
+    components:{
+        // ArticlePage,
+        WenZhang
     },
-    methods:{
-        chunkArray(originalArray){
+    data() {
+        return {
+            prompt: 'https://i.postimg.cc/jqZjDpQq/prompt.png',
+            // 动态列表
+            dongtai: [],
+            // 热点新闻列表
+            hot_news: [],
+            // 热点图片列表
+            hot_photo: [],
+
+            dongtai_chunked: [],
+            current_page: [],
+            article_visible: false,
+
+            // 必须要有默认值
+            current_article:{
+                title:'文章标题1',
+                time:'2024-03-01',
+                source:'新华社',
+                text:'必须把坚持高质量发展作为新时代的硬道理”——习近平总书记在去年中央经济工作会议上深刻总结新时代做好经济工作的“五个必须”规律性认识，其中这个“硬道理”居于首位。\n今年是新中国成立75周年，是实现“十四五”规划目标任务的关键一年。在这个重要年份召开的全国两会，如何聚焦高质量发展这个硬道理，进一步擘画出推进高质量发展的路线图、施工图，备受各方关注。',
+                image:'https://ts1.cn.mm.bing.net/th/id/R-C.171e8fe1aa1544a1868ab710eed82d82?rik=FLPxvVVL9C9bnQ&riu=http%3a%2f%2fwww.pp3.cn%2fuploads%2fallimg%2f200710%2f14-200G00Z321.jpg&ehk=Lb0IHCCZIdqYQOi28m%2borU8c1ARGbTEC%2f8WYzfwRuHo%3d&risl=&pid=ImgRaw&r=0'
+            }
+        };
+    },
+    methods: {
+        chunkArray(originalArray) {
             var chunkedArray = [];
             for (let i = 0; i < originalArray.length; i += 15) {
                 const chunk = originalArray.slice(i, i + 15);
                 chunkedArray.push(chunk);
             }
-            return chunkedArray
+            return chunkedArray;
         },
-
         // 分页变化时触发,分页大小固定12
-        onChangePagination(e){
-            let current = e.current
+        onChangePagination(e) {
+            let current = e.current;
             // let previous = e.previous
-            this.current_page = this.dongtai_chunked[current-1]
+            this.current_page = this.dongtai_chunked[current - 1];
+        },
+        initCurrentPage() {
+            this.dongtai_chunked = this.chunkArray(this.dongtai);
+            this.current_page = this.dongtai_chunked[0];
         },
 
-        initCurrentPage(){
-            this.dongtai_chunked = this.chunkArray(this.dongtai)
-            this.current_page = this.dongtai_chunked[0]
-        }
+        getDongtai(){
+            // 获取动态
+            // 从服务器获取动态
+            this.dongtai=[
+                {
+                    title:'文章标题1',
+                    time:'2024-03-01',
+                    source:'新华社',
+                    text:'必须把坚持高质量发展作为新时代的硬道理”——习近平总书记在去年中央经济工作会议上深刻总结新时代做好经济工作的“五个必须”规律性认识，其中这个“硬道理”居于首位。\n今年是新中国成立75周年，是实现“十四五”规划目标任务的关键一年。在这个重要年份召开的全国两会，如何聚焦高质量发展这个硬道理，进一步擘画出推进高质量发展的路线图、施工图，备受各方关注。',
+                    image:'https://ts1.cn.mm.bing.net/th/id/R-C.171e8fe1aa1544a1868ab710eed82d82?rik=FLPxvVVL9C9bnQ&riu=http%3a%2f%2fwww.pp3.cn%2fuploads%2fallimg%2f200710%2f14-200G00Z321.jpg&ehk=Lb0IHCCZIdqYQOi28m%2borU8c1ARGbTEC%2f8WYzfwRuHo%3d&risl=&pid=ImgRaw&r=0'
+                },
+                {
+                    title:'文章标题2',
+                    time:'2024-03-01',
+                    source:'新华社',
+                    text:'必须把坚持高质量发展作为新时代的硬道理”——习近平总书记在去年中央经济工作会议上深刻总结新时代做好经济工作的“五个必须”规律性认识，其中这个“硬道理”居于首位。\n今年是新中国成立75周年，是实现“十四五”规划目标任务的关键一年。在这个重要年份召开的全国两会，如何聚焦高质量发展这个硬道理，进一步擘画出推进高质量发展的路线图、施工图，备受各方关注。',
+                    image:'https://ts1.cn.mm.bing.net/th/id/R-C.171e8fe1aa1544a1868ab710eed82d82?rik=FLPxvVVL9C9bnQ&riu=http%3a%2f%2fwww.pp3.cn%2fuploads%2fallimg%2f200710%2f14-200G00Z321.jpg&ehk=Lb0IHCCZIdqYQOi28m%2borU8c1ARGbTEC%2f8WYzfwRuHo%3d&risl=&pid=ImgRaw&r=0'
+                },
+                {
+                    title:'文章标题1',
+                    time:'2024-03-01',
+                    source:'新华社',
+                    text:'必须把坚持高质量发展作为新时代的硬道理”——习近平总书记在去年中央经济工作会议上深刻总结新时代做好经济工作的“五个必须”规律性认识，其中这个“硬道理”居于首位。\n今年是新中国成立75周年，是实现“十四五”规划目标任务的关键一年。在这个重要年份召开的全国两会，如何聚焦高质量发展这个硬道理，进一步擘画出推进高质量发展的路线图、施工图，备受各方关注。',
+                    image:'https://ts1.cn.mm.bing.net/th/id/R-C.171e8fe1aa1544a1868ab710eed82d82?rik=FLPxvVVL9C9bnQ&riu=http%3a%2f%2fwww.pp3.cn%2fuploads%2fallimg%2f200710%2f14-200G00Z321.jpg&ehk=Lb0IHCCZIdqYQOi28m%2borU8c1ARGbTEC%2f8WYzfwRuHo%3d&risl=&pid=ImgRaw&r=0'
+                },
+            ]
+        },
 
+        onClickToReadDongtai(index){
+            this.current_article = this.dongtai[index];
+            this.article_visible = true;
+        },
+
+        getHotNews(){
+            // 获取新闻
+            this.hot_news=[
+                {
+                    title:'热点新闻1',
+                    time:'2024-03-01',
+                    source:'新华社',
+                    text:'必须把坚持高质量发展作为新时代的硬道理”——习近平总书记在去年中央经济工作会议上深刻总结新时代做好经济工作的“五个必须”规律性认识，其中这个“硬道理”居于首位。\n今年是新中国成立75周年，是实现“十四五”规划目标任务的关键一年。在这个重要年份召开的全国两会，如何聚焦高质量发展这个硬道理，进一步擘画出推进高质量发展的路线图、施工图，备受各方关注。',
+                    image:'https://ts1.cn.mm.bing.net/th/id/R-C.171e8fe1aa1544a1868ab710eed82d82?rik=FLPxvVVL9C9bnQ&riu=http%3a%2f%2fwww.pp3.cn%2fuploads%2fallimg%2f200710%2f14-200G00Z321.jpg&ehk=Lb0IHCCZIdqYQOi28m%2borU8c1ARGbTEC%2f8WYzfwRuHo%3d&risl=&pid=ImgRaw&r=0'
+                },
+                {
+                    title:'热点新闻2',
+                    time:'2024-03-01',
+                    source:'新华社',
+                    text:'必须把坚持高质量发展作为新时代的硬道理”——习近平总书记在去年中央经济工作会议上深刻总结新时代做好经济工作的“五个必须”规律性认识，其中这个“硬道理”居于首位。\n今年是新中国成立75周年，是实现“十四五”规划目标任务的关键一年。在这个重要年份召开的全国两会，如何聚焦高质量发展这个硬道理，进一步擘画出推进高质量发展的路线图、施工图，备受各方关注。',
+                    image:'https://ts1.cn.mm.bing.net/th/id/R-C.171e8fe1aa1544a1868ab710eed82d82?rik=FLPxvVVL9C9bnQ&riu=http%3a%2f%2fwww.pp3.cn%2fuploads%2fallimg%2f200710%2f14-200G00Z321.jpg&ehk=Lb0IHCCZIdqYQOi28m%2borU8c1ARGbTEC%2f8WYzfwRuHo%3d&risl=&pid=ImgRaw&r=0'
+                },
+            ]
+        },
+
+        onClickToReadHotNews(index){
+            this.current_article = this.hot_news[index];
+            this.article_visible = true;
+        },
+
+        getHotPhotos(){
+            // 获取热点图片,注意热点图片有且仅有两个
+            this.hot_photo=[
+                {
+                    title:'热点图片1',
+                    time:'2024-03-01',
+                    source:'新华社',
+                    text:'必须把坚持高质量发展作为新时代的硬道理”——习近平总书记在去年中央经济工作会议上深刻总结新时代做好经济工作的“五个必须”规律性认识，其中这个“硬道理”居于首位。\n今年是新中国成立75周年，是实现“十四五”规划目标任务的关键一年。在这个重要年份召开的全国两会，如何聚焦高质量发展这个硬道理，进一步擘画出推进高质量发展的路线图、施工图，备受各方关注。',
+                    image:'https://ts1.cn.mm.bing.net/th/id/R-C.171e8fe1aa1544a1868ab710eed82d82?rik=FLPxvVVL9C9bnQ&riu=http%3a%2f%2fwww.pp3.cn%2fuploads%2fallimg%2f200710%2f14-200G00Z321.jpg&ehk=Lb0IHCCZIdqYQOi28m%2borU8c1ARGbTEC%2f8WYzfwRuHo%3d&risl=&pid=ImgRaw&r=0'
+                },
+                {
+                    title:'热点图片2',
+                    time:'2024-03-01',
+                    source:'新华社',
+                    text:'必须把坚持高质量发展作为新时代的硬道理”——习近平总书记在去年中央经济工作会议上深刻总结新时代做好经济工作的“五个必须”规律性认识，其中这个“硬道理”居于首位。\n今年是新中国成立75周年，是实现“十四五”规划目标任务的关键一年。在这个重要年份召开的全国两会，如何聚焦高质量发展这个硬道理，进一步擘画出推进高质量发展的路线图、施工图，备受各方关注。',
+                    image:'https://ts1.cn.mm.bing.net/th/id/R-C.171e8fe1aa1544a1868ab710eed82d82?rik=FLPxvVVL9C9bnQ&riu=http%3a%2f%2fwww.pp3.cn%2fuploads%2fallimg%2f200710%2f14-200G00Z321.jpg&ehk=Lb0IHCCZIdqYQOi28m%2borU8c1ARGbTEC%2f8WYzfwRuHo%3d&risl=&pid=ImgRaw&r=0'
+                },
+            ]
+        },
+
+        onClickToReadHotPhotos(index){
+            this.current_article = this.hot_photo[index];
+            this.article_visible = true;
+        },
     },
-    mounted(){
-        this.initCurrentPage()
-    }
+    mounted() {
+        this.getDongtai()
+        this.getHotNews()
+        this.getHotPhotos()
+        this.initCurrentPage();
+    },
 }
 </script>
 
