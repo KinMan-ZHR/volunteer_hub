@@ -131,6 +131,7 @@ const routes = [
                 children:[
                     {
                         path: '/myprofile',
+                        name: 'myprofile',
                         component: MyProfile,
                     }
 

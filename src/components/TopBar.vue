@@ -19,9 +19,9 @@
         </div>
         <!-- 末尾的图标区域 -->
         <div style="display: flex;align-items: center;padding: 24px;">
-            <Icon name="logo-github" size="24"></Icon>
+            <div class="icon-container" @click="onClickGithub"><Icon name="logo-github" size="24" class="icon-hover"></Icon></div>
             <div style="width: 20px;"></div>
-            <icon name="user" size="24"></icon>
+            <div class="icon-container" @click="onClickUser"><icon name="user" size="24" class="icon-hover"></icon></div>
         </div>
     </div>
 </template>
@@ -60,7 +60,12 @@ export default {
           top_bar_index:0
         }
     },
-    props:["props_data"],
+    props:{
+        props_data:{
+            type:Object,
+            required:true
+        },
+    },
     computed: {
         showTopBarTabs() {
             // console.log(this.props_data.top_bar_index);
@@ -76,6 +81,15 @@ export default {
         onChangeTabs(TabValue){
             // console.log(TabValue);
             router.push({name:this.top_bar_tabs[this.top_bar_index][TabValue-1].pathname})
+        },
+
+        onClickGithub(){
+            window.open('https://github.com/LZY2275/volunteer_hub')
+        },
+
+        onClickUser(){
+            this.$emit('onClickUser')
+            router.push('/myprofile')
         }
     }
 
@@ -91,5 +105,16 @@ export default {
     display: flex;
     border-bottom: 2px solid rgba(0,0,0,0.05);;
 }
+
+.icon-container{
+    /* padding: 8px; */
+    cursor: pointer;
+}
+
+.icon-container :hover{
+    color: var(--td-brand-color);
+}
+
+
 
 </style>

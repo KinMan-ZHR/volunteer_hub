@@ -1,5 +1,5 @@
 <template>
-    <t-menu theme="light" defaultValue="item1" :collapsed="collapsed" @change="changeHandler" height="550px">
+    <t-menu theme="light" defaultValue="item1" :collapsed="collapsed" @change="changeHandler" height="550px" v-model:value="active_value">
       <div><img :width="collapsed ? 50 : 200" :src="iconUrl" alt="logo" /></div>
       <t-menu-group title="内容展示区">
         <t-menu-item value="item1" href="/#/wenming" >
@@ -75,12 +75,19 @@ export default {
     TMenuItem,
   },
   props: ['handleUpdateIndex'],
-  setup (props) {
+  data(){
+    return{
 
+    }
+  },
+
+  setup (props) {
+    const active_value = ref('item1')
     const collapsed = ref(false)
     const iconUrl = computed(() => collapsed.value ? require('../assets/img/logo_1@3x.png') : require('../assets/img/logo@3x.png'))
     function changeHandler (active) {
       // console.log('change', active)
+      active_value.value = active
       // 点击退出登录时
       if(active == 'item7'){
         onClickToLogin()
@@ -89,6 +96,7 @@ export default {
       // 调用父组件的方法handleUpdateIndex传入参数active.match(/\d+/)[0]
       props.handleUpdateIndex(active.match(/\d+/)[0]);
     }
+
 
     function changeCollapsed () {
       collapsed.value = !collapsed.value
@@ -103,9 +111,10 @@ export default {
     return {
       collapsed,
       iconUrl,
+      active_value,
       changeHandler,
       changeCollapsed,
-      onClickToLogin
+      onClickToLogin,
     }
   }
 }
