@@ -22,7 +22,6 @@ import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 // Vue.prototype.$echarts = echarts
 
 const pinia = createPinia().use(piniaPluginPersistedstate)
-
 const app = createApp(App);
 app.use(TDesign);
 app.use(router);
