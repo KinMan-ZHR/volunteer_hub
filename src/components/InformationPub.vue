@@ -12,7 +12,7 @@
                                     <div style="display: flex;"><p>{{ item.title }}</p></div>
                                     <div style="display: flex;justify-content: center;">
                                         <div style="position: absolute; top: calc(50% - 47px);">
-                                            <t-icon name="play-circle" color="#ffffff" size="48px"></t-icon>
+                                            <t-icon name="play-circle" color="#ffffff" size="48px" @click="onClickToPlayUploadedVideo(index)"></t-icon>
                                         </div>
                                     </div>
 
@@ -80,13 +80,13 @@
             <div>
                 <t-space :breakLine="true" size="13.33px">
 
-                    <t-card v-for="(item,index) in cloud_video_list" :key="index" :cover="item.cover" bordered :style="{ width: '260px', cursor: 'pointer' }" hoverShadow="true" @click="visible = true">
+                    <t-card v-for="(item,index) in cloud_video_list" :key="index" :cover="item.cover" bordered :style="{ width: '260px', cursor: 'pointer' }" hoverShadow="true" >
                         <template #footer>
                             <div style="display: flex;"><p>{{ item.title }}</p></div>
                             <div style="position:absolute;top: 6px;right: 0;"><t-checkbox :value="index" :key="index" :label="index" v-model:checked="item.is_choosed" ></t-checkbox></div>
                             <div style="display: flex;justify-content: center;">
                                 <div style="position: absolute; top: calc(50% - 47px);">
-                                    <t-icon name="play-circle" color="#ffffff" size="48px"></t-icon>
+                                    <t-icon name="play-circle" color="#ffffff" size="48px" @click="onClickToPlayVideo(index)"></t-icon>
                                 </div>
                             </div>
                         </template>
@@ -96,12 +96,26 @@
 
 
         </t-dialog>
+
+        <t-dialog
+            :footer="false"
+            header="视频播放"
+            preventScrollThrough
+            showOverlay
+            placement="center"
+            v-model:visible="play_visible"
+            width="1080px"
+            theme="info"
+            >
+            <WenZhangVideo :current_video="current_video" :is_play="play_visible"></WenZhangVideo>
+        </t-dialog>
     </div>
 </template>
 
 <script>
 // import DragVue from './DragVue.vue'
 // import { MoveIcon } from 'tdesign-icons-vue-next';
+import WenZhangVideo from './WenZhangVideo.vue'
 
 
 export default{
@@ -126,7 +140,10 @@ export default{
                 },
             ],
 
-            cloud_video_list:[],
+            // 一定要给默认数据，为了防止报错。
+            cloud_video_list:[
+
+            ],
 
             // 此处待完成
             // columns:[
@@ -148,10 +165,21 @@ export default{
 
             cloud_list_visible:false,
 
+            play_visible:false,
+
+            current_video:[{
+                title:'公益广告五分钟',
+                cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
+                link:'https://apd-ugcvlive.apdcdn.tc.qq.com/om.tc.qq.com/AOxPyqZIzzHh521WwmMm3bJZefCoGzVKkQwRdr17m2Ew/B_JxNyiJmktHRgresXhfyMeo8fixGnaMJkCgsHKywTKlUvVsev9UdHRN_1kp6emuQq/svp_50200/njc_1000195_0bc3aicbgaaeluacjwmvvzrryawecmbaie2a.f2.mp4?sdtfrom=v1010&guid=e91979b79120cd89&vkey=63508C3A90D02AF43851A0631DBA911DE9486F2B8B2651CC44252CFE857481ACFD82D72C3E5B42E40C19F4BF0B4DBEA82ACDE69196019FA7771E5B619D0E173B266F81572C2E7CC6643D4D73DA106C15A1FEBE5BE384536AFDC73A01EB6322EC3B4E7A0CBD214CE948B808B311ED2FD363AB2D48ABC2A559042527EAEA1043FEC692AD39BB692195A6B8BEA1BF1AFC14F98662A37B9F0F24DD578979B44B372E41C3EC0791FF9214',
+                description:'公益广告五分钟公益广告五分钟公益广告五分钟公益广告五分钟公益广告五分钟公益广告五分钟公益广告五分钟',
+                date:'2018-12-05',
+            }],
+
         }
     },
     components:{
         // DragVue
+        WenZhangVideo
     },
     methods:{
         onUploadChange(e){
@@ -227,7 +255,21 @@ export default{
             // 确认删除视频
             // console.log(index);
             this.videoList2.splice(index,1)
-        }
+        },
+
+        onClickToPlayVideo(index){
+            // 点击播放视频
+            this.current_video = this.cloud_video_list[index]
+            this.play_visible = true
+        },
+
+
+        onClickToPlayUploadedVideo(index){
+            // 点击播放已上传的视频
+            // console.log(index);
+            this.current_video = this.videoList2[index]
+            this.play_visible = true
+        },
 
 
     },
