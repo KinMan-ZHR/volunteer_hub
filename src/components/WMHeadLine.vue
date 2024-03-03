@@ -10,7 +10,7 @@
                 :navigation="{ placement: 'outside' }"
 
                 >
-                    <t-swiper-item v-for="(item,index) in headline1" :key="index" >
+                    <t-swiper-item v-for="(item,index) in headline.list1" :key="index" >
                         <div>
                             <img :src="item.image" alt="" height="500px" style="object-fit: cover;display: block;margin: 0 auto;">
                             <div class="headline-title">
@@ -24,7 +24,7 @@
             <div style="width: 18px;"></div>
             <div style="flex-grow: 1;">
                 <t-space direction="vertical" :size="18" style="width: 100%;" class="headline-wo-image-container">
-                    <div class="headline-wo-image-item" v-for="(item,index) in headline2" :key="index" >
+                    <div class="headline-wo-image-item" v-for="(item,index) in headline.list2" :key="index" >
                         <!-- :style="{ background: 'url(' + item.image + ') no-repeat center' }" style="background-size: cover;" -->
                         {{ item.title }}
                     </div>
@@ -51,15 +51,21 @@ export default {
     const hoverItem = ref(null);
 
     const splitHeadline = (headlineList) => {
-      var length = headlineList.length;
+      const length = headlineList.length;
+      console.log(length);
       headline.list1 = headlineList.slice(0, length - 4);
       headline.list2 = headlineList.slice(length - 4, length);
     };
 
     const getHeadline = async () => {
       // 使用你的API获取数据
-     const response= await apiStore.getHeadlineAPI();
-      headline.list = response.data.coreData;
+     await apiStore.getHeadlineAPI().then((response) => {
+       if (response.data.code === 200) {
+         headline.list = response.data.coredata.headlineList;
+         console.log(response.data.coredata.headlineList);
+       }
+      });
+
     };
 
     const hover = (item) => {
@@ -72,6 +78,7 @@ export default {
 
     onMounted(async () => {
       await getHeadline();
+      console.log(headline.list);
       splitHeadline(headline.list);
     });
 

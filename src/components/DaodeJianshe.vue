@@ -16,7 +16,7 @@
                                     <div class="people-container">
                                         <t-space size="53.33px">
                                             <div v-for="(people,index) in item" :key="index">
-                                                <img :src="people.image">
+                                                <img :src="people.image" alt="好人图片">
                                                 <div class="people-name-container">
                                                     <p>{{ people.name }}</p>
                                                 </div>
@@ -38,7 +38,7 @@
                                 <div class="people-container">
                                     <t-space size="53.33px">
                                         <div v-for="(people,index) in item" :key="index">
-                                            <img :src="people.image">
+                                            <img :src="people.image" alt="模范图片">
                                             <div class="people-name-container">
                                                 <p>{{ people.name }}</p>
                                             </div>
@@ -73,25 +73,40 @@
 
 <script>
 
+// eslint-disable-next-line no-unused-vars
 import { ref, onMounted } from 'vue';
 import apiStore from '@/apis/wenmingSichuan.js';
 
 export default {
   name: 'DaodeJianshe',
+  async created() {
+   await this.getGoodPeople();
+    await this.getModel();
+    this.goodPeople.value = this.chunkArray(this.goodPeople.value);
+    this.model.value = this.chunkArray(this.model.value);
+  },
+
   setup() {
     const goodPeople = ref([]);
     const model = ref([]);
 
     const getGoodPeople = async () => {
       // 使用你的API获取数据
-      const response = await apiStore.getGoodPeopleAPI();
-      goodPeople.value = response.data.coreData;
+     await apiStore.getGoodPeopleAPI().then((response) => {
+       if (response.data.code===200)  {
+         goodPeople.value = response.data.coredata.goodpeopleList;
+         console.log("goodPe",response.data.coredata.goodpeopleList);
+       }
+     });
     };
 
     const getModel = async () => {
       // 使用你的API获取数据
-     const response= await apiStore.getModelAPI();
-      model.value = response.data.coreData;
+       await apiStore.getModelAPI().then((response) => {
+         model.value = response.data.coredata.modelList;
+         console.log("modelList",response.data.coredata.modelList);
+       });
+
     };
 
     const chunkArray = (originalArray) => {
@@ -104,21 +119,24 @@ export default {
     };
 
     const onClickOuterWebsite = (index) => {
-      if(index == 1){
+      if(index === 1){
         window.open('https://wmdx.scwmw.cn/')
-      }else if(index == 2){
+      }else if(index === 2){
         window.open('https://hrg.scwmw.cn/')
-      }else if(index == 3){
+      }else if(index === 3){
         window.open('https://s.weibo.com/weibo?q=%23%E5%9B%9B%E5%B7%9D%E5%A5%BD%E4%BA%BA%23')
       }
     };
 
-    onMounted(async () => {
-      await getGoodPeople();
-      await getModel();
-      goodPeople.value = chunkArray(goodPeople.value);
-      model.value = chunkArray(model.value);
-    });
+    // onMounted(
+    //     async () => {
+    //   await getGoodPeople();
+    //   await getModel();
+    //   goodPeople.value = chunkArray(goodPeople.value);
+    //   model.value = chunkArray(model.value);
+    //   console.log(goodPeople.value);
+    //   console.log(model.value);
+    // });
 
     return {
       goodPeople,

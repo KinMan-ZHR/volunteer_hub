@@ -7,15 +7,17 @@
           <t-upload
               :request-method="requestMethod1"
               :before-upload="beforeUpload"
+              v-model="file1"
+              theme="custom"
+              accept="image/*"
           >
-            <t-avatar :image="userinfo.avatar" size="96px"/>
+            <img :src="userinfo.avatar" style="object-fit: cover;border-radius: 999px;width: 96px;height: 96px"  alt="头像"/>
+
           </t-upload>
           <div class="edit-container">
             <t-icon name="camera" color="rgba(133, 142, 189, 1)"/>
           </div>
         </div>
-
-
         <div class="username">
             {{ userinfo.username }}
         </div>
@@ -42,46 +44,44 @@ import '../assets/css/index.css'
 import {useUserStore} from "@/dataStore/userdata";
 import {MessagePlugin} from "tdesign-vue-next";
 import {editAvatarAPI} from "@/apis/usersHandler";
-import {reactive} from "vue";
-
+// eslint-disable-next-line no-unused-vars
+import {reactive, ref} from "vue";
+const file1 = ref([]);
+// eslint-disable-next-line no-unused-vars
 const userinfo =useUserStore().userInfo;
-const beforeUpload = (file) => {
+// eslint-disable-next-line no-unused-vars
+const beforeUpload = async(file) => {
+  console.log('file', file);
   if (file.size > 5 * 1024 * 1024) {
-    MessagePlugin.warning('上传的图片不能大于5M');
+    await MessagePlugin.warning('上传的图片不能大于5M');
     return false;
   }
   return true;
 };
 //todo 上传头像和id
+// eslint-disable-next-line no-unused-vars
 const requestMethod1 = async (file) => {
-  const id = userinfo.id;
-  const formData = reactive({
-    id: id,
-    avatar: file
-  });
-  console.log('formData', formData);
+  console.log('file',file);
+  const formData = new FormData();
+  formData.append('id', userinfo.id);
+  formData.append('avatar', file.raw);
   try {
     const response = await editAvatarAPI(formData);
     if (response.data.code === 200) {
-      MessagePlugin.success('上传成功');
+      userinfo.avatar = response.data.coredata.url;
       return {
         status: 'success',
         response: {
-          url: response.data.url,
-          files: response.data.files
+          url: response.data.coredata.url,
         }
       };
     } else {
-      console.log('我输了？');
       return {status: 'fail', error: response.data.message, response};
     }
   } catch (error) {
-    console.log('是老子捕获的', error);
     return {status: 'fail', error: error.message};
-
   }
 };
-
 </script>
 
 <style scoped>

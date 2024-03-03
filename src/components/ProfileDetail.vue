@@ -146,6 +146,7 @@ export default {
       console.log(errors)
       // 提交表单
       console.log('保存成功', formData);
+      formData.id = userStore.userInfo.id;
       updateUserAPI(formData).then((response) => {
             if (response.data.code === 200) {
                 userStore.setUserInfo(response.data.coredata.user);
