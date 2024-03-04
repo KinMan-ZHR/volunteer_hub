@@ -110,12 +110,14 @@
             <WenZhangVideo :current_video="current_video" :is_play="play_visible"></WenZhangVideo>
         </t-dialog>
     </div>
+    <ManageUser></ManageUser>
 </template>
 
 <script>
 // import DragVue from './DragVue.vue'
 // import { MoveIcon } from 'tdesign-icons-vue-next';
 import WenZhangVideo from './WenZhangVideo.vue'
+import ManageUser from './ManageUser.vue'
 
 
 export default{
@@ -179,7 +181,8 @@ export default{
     },
     components:{
         // DragVue
-        WenZhangVideo
+        WenZhangVideo,
+        ManageUser
     },
     methods:{
         onUploadChange(e){
