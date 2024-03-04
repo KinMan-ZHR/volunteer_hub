@@ -92,13 +92,13 @@
                     <t-card v-for="(item,index) in current_page" :key="index" :cover="item.cover" bordered :style="{ width: '300px',cursor:'pointer' }" :hoverShadow="true" @click="onClickProject(index)">
                         <template #footer>
                             <div style="display: flex;"><p>{{ item.name }}</p>
-                                <t-icon name="refresh" v-if="item.project_state == 1" style="color: green; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
-                                <t-icon name="pending" v-if="item.project_state == 2" style="color: var(--td-brand-color-4); line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
-                                <t-icon name="assignment" v-if="item.project_state == 0" style="color: red; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
+                                <t-icon name="refresh" v-if="item.project_state === 1" style="color: green; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
+                                <t-icon name="pending" v-if="item.project_state === 2" style="color: var(--td-brand-color-4); line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
+                                <t-icon name="assignment" v-if="item.project_state === 0" style="color: red; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
                                 <div style="padding: 0px 4px ;">
-                                    <p class="note" v-if="item.project_state == 1" style="color: green;">进行中</p>
-                                    <p class="note" v-if="item.project_state == 2" style="color: var(--td-brand-color-4);">待启动</p>
-                                    <p class="note" v-if="item.project_state == 0" style="color: red;">已结项</p>
+                                    <p class="note" v-if="item.project_state === 1" style="color: green;">进行中</p>
+                                    <p class="note" v-if="item.project_state === 2" style="color: var(--td-brand-color-4);">待启动</p>
+                                    <p class="note" v-if="item.project_state === 0" style="color: red;">已结项</p>
                                 </div>
                             </div>
                             <p class="note">{{ item.description }}</p>
@@ -120,6 +120,7 @@
 <script>
 import ProjectDetail from './ProjectDetail.vue';
 import { ref } from 'vue';
+import {searchProjectAPI} from "@/apis/zhiyuanSIchuan";
 export default{
     name:'ZhiyuanProject',
     components:{
@@ -230,8 +231,6 @@ export default{
                 checkTagValueCate : ref([1]),
                 checkTagValueState : ref([1]),
                 time_range: ['',''],
-                start_time : '',
-                end_time : '',
                 id : '',
                 name: '',
             },
@@ -287,15 +286,11 @@ export default{
         // 日期选择器变化时触发
         onChange(e){
             console.log(e);
-            this.formData.start_time = e[0]
-            this.formData.end_time = e[1]
             this.formData.time_range = e
         },
 
         onReset(){
             console.log('reset');
-            this.formData.start_time = ''
-            this.formData.end_time = ''
             this.formData.time_range = ['','']
         },
 
@@ -402,12 +397,45 @@ export default{
             this.project_show = this.project[id]
             this.dialog_show = true
         },
-
+      // id:"",
+      // name:"项目1",
+      // location:"恩阳区关公镇神牛溪",
+      // pub_date:'2024-03-01',
+      // time_range:['2024-03-01','2024-03-03']
+      //
+      // //这里的【值】对应着前端的显示
+      //
+      // region:[1,3],
+      // type:[1,12],
+      // target:[1,12,14,3],
+      // //1 代表进行中；0代表已结项；2代表待开始
+      // state:'1'
+      // scope:[1,3],
+      // teamSize:[1,3],
+      //
+      // cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
+      // description:'组织志愿者通过走访慰问、生活帮扶、节日慰问等方式，为他们提供政策宣传、精神慰籍、陪伴照料、物质援助、信息咨询等服务，助力乡村振兴。',
+      // // 网站链接
+      // address:'https://tdesign.gtimg.com'
 
         // 点击搜索按钮时触发搜索项目+标签发生变化时触发搜索
-        onSearchProject(){
-            console.log(this.formData);
-
+        async onSearchProject(){
+            const formData = new FormData();
+            formData.append('region', this.formData.checkTagValueRegion.value);
+            formData.append('type', this.formData.checkTagValueCate.value);
+            formData.append('state', this.formData.checkTagValueState.value);
+            formData.append('scale', this.formData.checkTagValueScale.value);
+            formData.append('target', this.formData.checkTagValueService.value);
+            formData.append('size', this.formData.checkTagValuePeoplenum.value);
+            formData.append('time_range', this.formData.time_range);
+            formData.append('id', this.formData.id);
+            formData.append('name', this.formData.name);
+            console.log(formData);
+           await searchProjectAPI(formData).then(res=>{
+                if(res.data.code!==200){
+                    this.project=res.data.coredata.projectList;
+                }
+            })
             // 这里获取搜索的数据
             // ……
             // this.project = ***
