@@ -11,7 +11,7 @@
               theme="custom"
               accept="image/*"
           >
-            <img :src="userinfo.avatar" style="object-fit: cover;border-radius: 999px;width: 96px;height: 96px"  alt="头像"/>
+            <img :src="userinfo.avatar" style="object-fit: cover;border-radius: 999px;width: 96px;height: 96px;"  alt="头像"/>
 
           </t-upload>
           <div class="edit-container">
@@ -76,7 +76,8 @@
 import '../assets/css/index.css'
 import {useUserStore} from "@/dataStore/userdata";
 import {MessagePlugin} from "tdesign-vue-next";
-import {editAvatarAPI} from "@/apis/usersHandler";
+// eslint-disable-next-line no-unused-vars
+import {editAvatarAPI, editPasswordAPI} from "@/apis/usersHandler";
 // eslint-disable-next-line no-unused-vars
 import {reactive, ref} from "vue";
 import { computed, watch } from 'vue';
@@ -159,9 +160,17 @@ watch(password_fromData, () => {
   isFormValid.value
 })
 
-const onConfirmModify = () =>{
+const onConfirmModify = async () =>{
   if(isFormValid.value){
-    console.log('提交！');
+    const formData = new FormData();
+    formData.append('id', userinfo.id);
+    formData.append('originalPassword', password_fromData.original_password);
+    formData.append('newPassword', password_fromData.new_password);
+    await editPasswordAPI(formData).then((response) => {
+      if (response.data.code === 200) {
+        modifyPassword_visible.value = false
+      }
+    });
   }else{
     console.log('提交失败');
   }
