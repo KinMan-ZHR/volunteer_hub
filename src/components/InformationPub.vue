@@ -120,6 +120,7 @@ import {upLoadVideoAPI} from "@/apis/videoHandler";
 import UploadTest from "@/test/UploadTest.vue";
 
 
+
 export default{
     name:'InfomationPub',
     data(){
@@ -181,7 +182,7 @@ export default{
     },
     components:{
         // DragVue
-        WenZhangVideo
+        WenZhangVideo,
     },
     methods:{
       async requestMethod(file){
