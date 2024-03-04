@@ -248,6 +248,7 @@ export default{
                     type:[1,3],
                     // 项目状态，需要处理获取
                     project_state:'1',
+                    state:'0',
                     // 项目的服务对象
                     target:[1,12,14,3],
                     cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
@@ -263,9 +264,10 @@ export default{
                     // 服务类别
                     type:[1,3],
                     // 项目状态，需要初始化处理获取
-                    project_state:'1',
+                    project_state:'0',
                     // 项目的服务对象
                     target:[1,11,14,3],
+                    state:'1',
                     cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
                     description:'组织志愿者通过走访慰问、生活帮扶、节日慰问等方式，为他们提供政策宣传、精神慰籍、陪伴照料、物质援助、信息咨询等服务，助力乡村振兴。',
                     address:'https://tdesign.gtimg.com'
@@ -324,44 +326,44 @@ export default{
             window.open(address)
         },
 
-        // 处理project数据，根据今天的日期添加state
-        initProjectState(){
-            // 要判断的特定日期
-            var specificDate = this.getToday();
+        // // 处理project数据，根据今天的日期添加state
+        // initProjectState(){
+        //     // 要判断的特定日期
+        //     var specificDate = this.getToday();
 
-            for(var i = 0;i<this.project.length;i++){
-                // 给定的时间范围
-                var timeRange = this.project[i].time_range;
+        //     for(var i = 0;i<this.project.length;i++){
+        //         // 给定的时间范围
+        //         var timeRange = this.project[i].time_range;
 
-                // 将时间范围和特定日期转换为 Date 对象
-                var rangeStart = new Date(timeRange[0]);
-                var rangeEnd = new Date(timeRange[1]);
-                var date = new Date(specificDate);
+        //         // 将时间范围和特定日期转换为 Date 对象
+        //         var rangeStart = new Date(timeRange[0]);
+        //         var rangeEnd = new Date(timeRange[1]);
+        //         var date = new Date(specificDate);
 
-                // 检查特定日期是否在时间范围内
-                var isWithinRange = date >= rangeStart && date <= rangeEnd;
+        //         // 检查特定日期是否在时间范围内
+        //         var isWithinRange = date >= rangeStart && date <= rangeEnd;
 
-                // 检查特定日期是否在时间范围前面
-                var isBeforeRange = date < rangeStart;
+        //         // 检查特定日期是否在时间范围前面
+        //         var isBeforeRange = date < rangeStart;
 
-                // 检查特定日期是否在时间范围后面
-                var isAfterRange = date > rangeEnd;
+        //         // 检查特定日期是否在时间范围后面
+        //         var isAfterRange = date > rangeEnd;
 
-                // 根据检查结果输出相应的消息
-                if (isWithinRange) {
-                    console.log('特定日期在时间范围内');
-                    this.project[i].project_state = '1'
-                } else if (isBeforeRange) {
-                    console.log('特定日期在时间范围前面');
-                    this.project[i].project_state = '2'
-                } else if (isAfterRange) {
-                    console.log('特定日期在时间范围后面');
-                    this.project[i].project_state = '0'
-                }
-            }
+        //         // 根据检查结果输出相应的消息
+        //         if (isWithinRange) {
+        //             console.log('特定日期在时间范围内');
+        //             this.project[i].project_state = '1'
+        //         } else if (isBeforeRange) {
+        //             console.log('特定日期在时间范围前面');
+        //             this.project[i].project_state = '2'
+        //         } else if (isAfterRange) {
+        //             console.log('特定日期在时间范围后面');
+        //             this.project[i].project_state = '0'
+        //         }
+        //     }
 
 
-        },
+        // },
 
         // 处理project数据，根据tag的值对应tag的名称
         initProjectTagName(){
@@ -394,17 +396,6 @@ export default{
 
         },
 
-        getToday(){
-            // 获取当前日期并以 YYYY-MM-DD 格式打印
-            var today = new Date();
-            var year = today.getFullYear();
-            var month = today.getMonth() + 1; // 月份从 0 开始，因此需要加 1
-            var day = today.getDate();
-
-            // 今天的日期
-            var formattedDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-            return formattedDate
-        },
 
         onClickProject(e){
             var id = e
@@ -452,7 +443,7 @@ export default{
     },
     mounted(){
         this.getProject()
-        this.initProjectState()
+        // this.initProjectState()
         this.initProjectTagName()
         this.initProjectDateStr()
         this.initProjectShow()
