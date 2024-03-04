@@ -25,13 +25,46 @@
         <div style="margin-top: 16px; padding: 0px 24px;">
             <div class="menu-item-container">
                 <div style="display:flex ;">
-                    <div class="menu-icon-container" >
+                    <div class="menu-icon-container" style="">
                         <t-icon name="user" color="white" size="24px"/>
                     </div>
                     <div style="margin-left: 16px;font-size: 14px;display: flex;align-items: center;" >个人信息</div>
                 </div>
             </div>
         </div>
+
+        <div style="margin-top: 16px; padding: 0px 24px;">
+            <div class="menu-item-container" style="cursor: pointer;" @click="onClickChangePassword">
+                <div style="display:flex ;">
+                    <div class="menu-icon-container" >
+                        <t-icon name="user-password" size="24px" color="white"/>
+                    </div>
+                    <div style="margin-left: 16px;font-size: 14px;display: flex;align-items: center;" >修改密码</div>
+                </div>
+            </div>
+        </div>
+
+
+        <t-dialog
+        v-model:visible="modifyPassword_visible"
+        header="密码修改"
+        width="40%"
+        :on-confirm="onConfirmModify"
+      >
+        <t-space direction="vertical" style="width: 100%">
+          <t-form>
+            <t-form-item label="原密码" name="original_password">
+              <t-input  placeholder="请输入原密码" type="password" v-model:value="password_fromData.original_password"/>
+            </t-form-item>
+            <t-form-item label="新密码" name="new_password">
+              <t-input :status="isOriginalPasswordSameAsNewPassword || isNotInputNewPassword? 'warning' : 'success'" :tips="isOriginalPasswordSameAsNewPassword || isNotInputNewPassword? '新密码与原密码相同or未输入新密码' : ''" placeholder="请输入新密码" type="password" v-model:value="password_fromData.new_password"/>
+            </t-form-item>
+            <t-form-item label="确认新密码" name="new_password_confirm">
+              <t-input :status="isNewPasswordSameAsConfirmPassword && !isNotInputNewPassword? 'success' : 'warning'" :tips="isNewPasswordSameAsConfirmPassword && !isNotInputNewPassword? '' : '两次输入的新密码不同or未输入新密码'" placeholder="请确认新密码" type="password" v-model:value="password_fromData.new_password_confirm"/>
+            </t-form-item>
+          </t-form>
+        </t-space>
+      </t-dialog>
 
     </div>
 </template>
@@ -42,8 +75,16 @@ import '../assets/css/index.css'
 import {useUserStore} from "@/dataStore/userdata";
 import {MessagePlugin} from "tdesign-vue-next";
 import {updateUserAPI} from "@/apis/usersHandler";
-import {reactive} from "vue";
+import {reactive, ref} from "vue";
+import { computed, watch } from 'vue';
 
+const modifyPassword_visible = ref(false)
+const password_fromData = reactive({
+  original_password:'',
+  new_password:'',
+  new_password_confirm:''
+
+})
 const userinfo =useUserStore().userInfo;
 let tempAvatar;
 const beforeUpload = (file) => {
@@ -71,6 +112,49 @@ const requestMethod1 = async () => {
   );
 
 };
+
+const onClickChangePassword = () => {
+  modifyPassword_visible.value = true
+}
+
+
+// 校验是否未输入新密码
+const isNotInputNewPassword = computed(() => {
+  return password_fromData.new_password === ''
+})
+
+// 校验原密码和新密码是否相同
+const isOriginalPasswordSameAsNewPassword = computed(() => {
+  return password_fromData.original_password === password_fromData.new_password
+})
+
+// 校验两次输入的新密码是否相同
+const isNewPasswordSameAsConfirmPassword = computed(() => {
+  return password_fromData.new_password === password_fromData.new_password_confirm
+})
+
+// 校验表单是否有效
+const isFormValid = computed(() => {
+  return !isOriginalPasswordSameAsNewPassword.value && isNewPasswordSameAsConfirmPassword.value && !isNotInputNewPassword.value
+})
+
+// 监听表单输入的变化，实时更新校验结果
+watch(password_fromData, () => {
+  isOriginalPasswordSameAsNewPassword.value
+  isNewPasswordSameAsConfirmPassword.value
+  isNotInputNewPassword.value
+  isFormValid.value
+})
+
+const onConfirmModify = () =>{
+  if(isFormValid.value){
+    console.log('提交！');
+    modifyPassword_visible.value = false
+  }else{
+    console.log('提交失败');
+  }
+}
+
 </script>
 
 <style scoped>
@@ -106,8 +190,8 @@ const requestMethod1 = async () => {
     width: 262px;
     border-radius: 8px;
     background-color: white;
-    box-shadow: 0px 4px 16px  rgba(179, 192, 231, 0.32);
     padding: 8px;
+    box-shadow: 0px 4px 16px  rgba(179, 192, 231, 0.32);
 }
 
 .menu-item{
@@ -115,9 +199,12 @@ const requestMethod1 = async () => {
 }
 
 .menu-icon-container{
-    background-color: var(--td-brand-color-4); width: 40px; height: 40px; border-radius: 8px;
+    width: 40px; height: 40px; border-radius: 8px;
     display: flex;justify-content: center;align-items: center;
+    background-color: var(--td-brand-color-4);
 }
+
+
 
 
 </style>
