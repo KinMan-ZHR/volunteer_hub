@@ -7,15 +7,17 @@
           <t-upload
               :request-method="requestMethod1"
               :before-upload="beforeUpload"
+              v-model="file1"
+              theme="custom"
+              accept="image/*"
           >
-            <t-avatar :image="userinfo.avatar" size="96px"/>
+            <img :src="userinfo.avatar" style="object-fit: cover;border-radius: 999px;width: 96px;height: 96px"  alt="头像"/>
+
           </t-upload>
           <div class="edit-container">
             <t-icon name="camera" color="rgba(133, 142, 189, 1)"/>
           </div>
         </div>
-
-
         <div class="username">
             {{ userinfo.username }}
         </div>
@@ -74,87 +76,46 @@
 import '../assets/css/index.css'
 import {useUserStore} from "@/dataStore/userdata";
 import {MessagePlugin} from "tdesign-vue-next";
-import {updateUserAPI} from "@/apis/usersHandler";
+import {editAvatarAPI} from "@/apis/usersHandler";
+// eslint-disable-next-line no-unused-vars
 import {reactive, ref} from "vue";
-import { computed, watch } from 'vue';
-
-const modifyPassword_visible = ref(false)
-const password_fromData = reactive({
-  original_password:'',
-  new_password:'',
-  new_password_confirm:''
-
-})
+const file1 = ref([]);
+// eslint-disable-next-line no-unused-vars
 const userinfo =useUserStore().userInfo;
-let tempAvatar;
-const beforeUpload = (file) => {
+// eslint-disable-next-line no-unused-vars
+const beforeUpload = async(file) => {
+  console.log('file', file);
   if (file.size > 5 * 1024 * 1024) {
-    MessagePlugin.warning('上传的图片不能大于5M');
+    await MessagePlugin.warning('上传的图片不能大于5M');
     return false;
   }
-  tempAvatar = file;
   return true;
 };
 //todo 上传头像和id
-const requestMethod1 = async () => {
-  const id = userinfo.id;
-  const formData = new reactive(null);
-  console.log('tempAvatar', tempAvatar);
-  console.log('id', id);
-  // formData.append('avatar', tempAvatar);
-  // formData.append('id', id);
-  updateUserAPI(formData).then(
-      (response) => {
-        if (response.data.code === 200) {
-          MessagePlugin.success('上传成功');
+// eslint-disable-next-line no-unused-vars
+const requestMethod1 = async (file) => {
+  console.log('file',file);
+  const formData = new FormData();
+  formData.append('id', userinfo.id);
+  formData.append('avatar', file.raw);
+  try {
+    const response = await editAvatarAPI(formData);
+    if (response.data.code === 200) {
+      userinfo.avatar = response.data.coredata.url;
+      return {
+        status: 'success',
+        response: {
+          url: response.data.coredata.url,
         }
-      }
-  );
+      };
+    } else {
+      return {status: 'fail', error: response.data.message, response};
+    }
+  } catch (error) {
+    return {status: 'fail', error: error.message};
+  }
 
 };
-
-const onClickChangePassword = () => {
-  modifyPassword_visible.value = true
-}
-
-
-// 校验是否未输入新密码
-const isNotInputNewPassword = computed(() => {
-  return password_fromData.new_password === ''
-})
-
-// 校验原密码和新密码是否相同
-const isOriginalPasswordSameAsNewPassword = computed(() => {
-  return password_fromData.original_password === password_fromData.new_password
-})
-
-// 校验两次输入的新密码是否相同
-const isNewPasswordSameAsConfirmPassword = computed(() => {
-  return password_fromData.new_password === password_fromData.new_password_confirm
-})
-
-// 校验表单是否有效
-const isFormValid = computed(() => {
-  return !isOriginalPasswordSameAsNewPassword.value && isNewPasswordSameAsConfirmPassword.value && !isNotInputNewPassword.value
-})
-
-// 监听表单输入的变化，实时更新校验结果
-watch(password_fromData, () => {
-  isOriginalPasswordSameAsNewPassword.value
-  isNewPasswordSameAsConfirmPassword.value
-  isNotInputNewPassword.value
-  isFormValid.value
-})
-
-const onConfirmModify = () =>{
-  if(isFormValid.value){
-    console.log('提交！');
-    modifyPassword_visible.value = false
-  }else{
-    console.log('提交失败');
-  }
-}
-
 </script>
 
 <style scoped>
