@@ -109,15 +109,12 @@
             <WenZhangVideo :current_video="current_video" :is_play="play_visible"></WenZhangVideo>
         </t-dialog>
     </div>
-    <ManageUser></ManageUser>
 </template>
 
 <script>
 // import DragVue from './DragVue.vue'
 // import { MoveIcon } from 'tdesign-icons-vue-next';
 import WenZhangVideo from './WenZhangVideo.vue'
-
-import ManageUser from './ManageUser.vue'
 import {upLoadVideoAPI} from "@/apis/videoHandler";
 // eslint-disable-next-line no-unused-vars
 import UploadTest from "@/test/UploadTest.vue";
@@ -186,7 +183,6 @@ export default{
     components:{
         // DragVue
         WenZhangVideo,
-        ManageUser
     },
     methods:{
       async requestMethod(file){
