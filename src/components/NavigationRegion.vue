@@ -35,6 +35,26 @@
           信息发布
         </t-menu-item>
       </t-menu-group>
+      <t-menu-group title="系统管理区">
+        <t-menu-item value="item8"  href="/#/usermanage">
+          <template #icon>
+            <icon name="user-list" />
+          </template>
+          管理用户
+        </t-menu-item>
+        <t-menu-item value="item9" href="/#/datamanage">
+          <template #icon>
+            <icon name="data-base" />
+          </template>
+          数据管理
+        </t-menu-item>
+        <t-menu-item value="item10" href="/#/systeminfo">
+          <template #icon>
+            <icon name="system-2" />
+          </template>
+          系统信息
+        </t-menu-item>
+      </t-menu-group>
       <t-menu-group title="更多">
         <t-menu-item value="item6" href="/#/myprofile">
           <template #icon>

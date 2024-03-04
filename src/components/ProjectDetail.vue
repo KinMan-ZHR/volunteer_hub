@@ -6,10 +6,10 @@
                 <t-descriptions colon size="small" layout="vertical" >
                     <template #title>
                         <div style="font-size: 22px;margin-left: 13px;">
-                            {{ project_show.project_name }}
+                            {{ project_show.name }}
                         </div>
                     </template>
-                    <t-descriptions-item label="项目编号">{{ project_show.project_id }}</t-descriptions-item>
+                    <t-descriptions-item label="项目编号">{{ project_show.id }}</t-descriptions-item>
                     <t-descriptions-item label="项目类别">{{ project_show.cate_str }}</t-descriptions-item>
                 </t-descriptions>
             </div>

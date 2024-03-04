@@ -55,6 +55,10 @@ export default {
             // ['公益活动','公益广告'],
             [],
             [],
+            [],
+            [],
+            [],
+            [],
             []
           ],
           top_bar_index:0
@@ -79,7 +83,7 @@ export default {
             this.top_bar_index = i
         },
         onChangeTabs(TabValue){
-            // console.log(TabValue);
+            // console.log('tabValue',TabValue);
             router.push({name:this.top_bar_tabs[this.top_bar_index][TabValue-1].pathname})
         },
 
