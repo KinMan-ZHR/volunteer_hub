@@ -92,13 +92,13 @@
                     <t-card v-for="(item,index) in current_page" :key="index" :cover="item.cover" bordered :style="{ width: '300px',cursor:'pointer' }" :hoverShadow="true" @click="onClickProject(index)">
                         <template #footer>
                             <div style="display: flex;"><p>{{ item.project_name }}</p>
-                                <t-icon name="refresh" v-if="item.project_state == 1" style="color: green; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
-                                <t-icon name="pending" v-if="item.project_state == 2" style="color: var(--td-brand-color-4); line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
-                                <t-icon name="assignment" v-if="item.project_state == 0" style="color: red; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
+                                <t-icon name="refresh" v-if="item.project_state === 1" style="color: green; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
+                                <t-icon name="pending" v-if="item.project_state === 2" style="color: var(--td-brand-color-4); line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
+                                <t-icon name="assignment" v-if="item.project_state === 0" style="color: red; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
                                 <div style="padding: 0px 4px ;">
-                                    <p class="note" v-if="item.project_state == 1" style="color: green;">进行中</p>
-                                    <p class="note" v-if="item.project_state == 2" style="color: var(--td-brand-color-4);">待启动</p>
-                                    <p class="note" v-if="item.project_state == 0" style="color: red;">已结项</p>
+                                    <p class="note" v-if="item.project_state === 1" style="color: green;">进行中</p>
+                                    <p class="note" v-if="item.project_state === 2" style="color: var(--td-brand-color-4);">待启动</p>
+                                    <p class="note" v-if="item.project_state === 0" style="color: red;">已结项</p>
                                 </div>
                             </div>
                             <p class="note">{{ item.description }}</p>
@@ -120,6 +120,7 @@
 <script>
 import ProjectDetail from './ProjectDetail.vue';
 import { ref } from 'vue';
+import {searchProjectAPI} from "@/apis/zhiyuanSIchuan";
 export default{
     name:'ZhiyuanProject',
     components:{
@@ -391,7 +392,7 @@ export default{
                 cate_str = ""
                 for( const item of this.project[i].project_service){
                     for(const options of this.options_service){
-                        if( item === options.value && item != 1){
+                        if( item === options.value && item !== 1){
                             service_str += options.label + ",";
                         }
                     }
@@ -424,9 +425,35 @@ export default{
 
 
         // 点击搜索按钮时触发搜索项目+标签发生变化时触发搜索
-        onSearchProject(){
-            console.log(this.formData);
+      // {
+    //   region:"全国",
+    //   type:"全部",
+    //   state:"全部",
+    //   scope:"公开招募",
+    //   target:"全部",
+    //   teamSize:"全部",
+      // time_range:['2024-03-01','2024-03-03']
+    //   id:"",
+    //   name:"项目1",
+    // }
 
+        async onSearchProject(){
+            console.log("发生什么事了",this.formData);
+            const formData = new FormData();
+            formData.append('region', this.formData.checkTagValueRegion);
+            formData.append('type', this.formData.checkTagValueCate);
+            formData.append('state', this.formData.checkTagValueState);
+            formData.append('scope', this.formData.checkTagValueScale);
+            formData.append('target', this.formData.checkTagValueService);
+            formData.append('teamSize', this.formData.checkTagValuePeoplenum);
+            formData.append('time_range', this.formData.time_range);
+            formData.append('id', this.formData.project_id);
+            formData.append('name', this.formData.project_name);
+            await searchProjectAPI(formData).then((response) => {
+                if (response.data.code === 200) {
+                    this.project = response.data.coredata
+                }
+            });
             // 这里获取搜索的数据
             // ……
             // this.project = ***

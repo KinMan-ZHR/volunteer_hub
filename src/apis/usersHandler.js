@@ -54,7 +54,14 @@ export const editAvatarAPI = (data) => {
       method: "post",
         data,
         headers: {
-            'Content-Type': 'multipart/form-data' // 传递图片 headers 里得这样写
+            'Content-Type': 'multipart/form-data' // 传递文件类型
         }
+    });
+  };
+export const editPasswordAPI = (data) => {
+    return request({
+      url: "/editPassword",
+      method: "post",
+        data
     });
   };

@@ -31,10 +31,10 @@
                 <div style="flex-grow: 1;"></div>
                 <div>
                     <t-upload
-                        action="https://service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
-                        multiple
+                        :multiple="true"
                         accept="video/*"
-                        @change="onUploadChange"
+                        :request-method="requestMethod"
+                        :before-upload="beforeUpload"
                     />
                     <div style="margin-top:12px">
                         <t-button variant="outline" theme="primary" @click="onClickToChoseCloudVideo">
@@ -96,7 +96,6 @@
 
 
         </t-dialog>
-
         <t-dialog
             :footer="false"
             header="视频播放"
@@ -116,6 +115,9 @@
 // import DragVue from './DragVue.vue'
 // import { MoveIcon } from 'tdesign-icons-vue-next';
 import WenZhangVideo from './WenZhangVideo.vue'
+import {upLoadVideoAPI} from "@/apis/videoHandler";
+// eslint-disable-next-line no-unused-vars
+import UploadTest from "@/test/UploadTest.vue";
 
 
 export default{
@@ -182,10 +184,26 @@ export default{
         WenZhangVideo
     },
     methods:{
-        onUploadChange(e){
-            console.log(e);
+      async requestMethod(file){
+            console.log(file);
+        const formData = new FormData();
+        formData.append('video', file[0].raw);
+        try {
+          const response = await upLoadVideoAPI(formData);
+          if (response.data.code === 200) {
+            return {
+              status: 'success',
+              response: {
+                url: response.data.coredata.url,
+              }
+            };
+          } else {
+            return {status: 'fail', error: response.data.message, response};
+          }
+        } catch (error) {
+          return {status: 'fail', error: error.message};
+        }
         },
-
         // 获取云端视频列表
         getVideoList(){
             // 从服务器获取所有视频列表
