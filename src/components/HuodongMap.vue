@@ -27,7 +27,7 @@ export default{
                     location:'四川省雅安市蒙顶山',
                     img:'https://tdesign.gtimg.com/site/source/card-demo.png',
                     description:'这是一段描述',
-                    state:1,
+                    state:'1',
                     link:'http://sc.chinavolunteer.mca.gov.cn/subsite/sichuan/projectInfo/b0f1f7d451474e07bc5ddb10070f1dc5/511323000000000000'
                 },
                 {
@@ -36,7 +36,7 @@ export default{
                     location:'四川省雅安市',
                     img:'https://tdesign.gtimg.com/site/source/card-demo.png',
                     description:'这是第二段描述',
-                    state:0,
+                    state:'0',
                     link:'http://sc.chinavolunteer.mca.gov.cn/subsite/sichuan/projectInfo/b0f1f7d451474e07bc5ddb10070f1dc5/511323000000000000'
                 },
                 {
@@ -45,7 +45,7 @@ export default{
                     location:'四川省雅安市',
                     img:'https://tdesign.gtimg.com/site/source/card-demo.png',
                     description:'这是第二段描述',
-                    state:2,
+                    state:'2',
                     link:'http://sc.chinavolunteer.mca.gov.cn/subsite/sichuan/projectInfo/b0f1f7d451474e07bc5ddb10070f1dc5/511323000000000000'
                 },
             ],

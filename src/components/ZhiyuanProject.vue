@@ -58,18 +58,18 @@
                         <t-date-range-picker allow-input clearable  @change="onChange" v-model="formData.time_range"/>
                     </t-form-item>
 
-                    <t-form-item name="project_id" style="z-index : 999">
+                    <t-form-item name="id" style="z-index : 999">
                         <label>
                             <p class="cate-title" style="width: 72px;">项目编号 </p>
                         </label>
-                        <t-input clearable placeholder="请输入项目ID" v-model="formData.project_id">
+                        <t-input clearable placeholder="请输入项目ID" v-model="formData.id">
                         </t-input>
                     </t-form-item>
 
-                    <t-form-item name="project_name" style="z-index : 999">
+                    <t-form-item name="name" style="z-index : 999">
                         <label class="cate-title" >
                             <p class="cate-title" style="width: 72px;">项目名称 </p></label>
-                        <t-input clearable placeholder="请输入项目名称" v-model="formData.project_name">
+                        <t-input clearable placeholder="请输入项目名称" v-model="formData.name">
                         </t-input>
                     </t-form-item>
 
@@ -91,14 +91,14 @@
                 <t-space :breakLine="true" size="26.66px">
                     <t-card v-for="(item,index) in current_page" :key="index" :cover="item.cover" bordered :style="{ width: '300px',cursor:'pointer' }" :hoverShadow="true" @click="onClickProject(index)">
                         <template #footer>
-                            <div style="display: flex;"><p>{{ item.project_name }}</p>
-                                <t-icon name="refresh" v-if="item.project_state == 1" style="color: green; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
-                                <t-icon name="pending" v-if="item.project_state == 2" style="color: var(--td-brand-color-4); line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
-                                <t-icon name="assignment" v-if="item.project_state == 0" style="color: red; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
+                            <div style="display: flex;"><p>{{ item.name }}</p>
+                                <t-icon name="refresh" v-if="item.project_state === 1" style="color: green; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
+                                <t-icon name="pending" v-if="item.project_state === 2" style="color: var(--td-brand-color-4); line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
+                                <t-icon name="assignment" v-if="item.project_state === 0" style="color: red; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
                                 <div style="padding: 0px 4px ;">
-                                    <p class="note" v-if="item.project_state == 1" style="color: green;">进行中</p>
-                                    <p class="note" v-if="item.project_state == 2" style="color: var(--td-brand-color-4);">待启动</p>
-                                    <p class="note" v-if="item.project_state == 0" style="color: red;">已结项</p>
+                                    <p class="note" v-if="item.project_state === 1" style="color: green;">进行中</p>
+                                    <p class="note" v-if="item.project_state === 2" style="color: var(--td-brand-color-4);">待启动</p>
+                                    <p class="note" v-if="item.project_state === 0" style="color: red;">已结项</p>
                                 </div>
                             </div>
                             <p class="note">{{ item.description }}</p>
@@ -120,6 +120,7 @@
 <script>
 import ProjectDetail from './ProjectDetail.vue';
 import { ref } from 'vue';
+import {searchProjectAPI} from "@/apis/zhiyuanSIchuan";
 export default{
     name:'ZhiyuanProject',
     components:{
@@ -230,52 +231,40 @@ export default{
                 checkTagValueCate : ref([1]),
                 checkTagValueState : ref([1]),
                 time_range: ['',''],
-                start_time : '',
-                end_time : '',
-                project_id : '',
-                project_name: '',
+                id : '',
+                name: '',
             },
 
             // state = 1表示进行中，0表示已结束,2表示未开始
             project:[
                 {
-                    project_name:'项目1',
-                    project_id:'P51190324030028878',
+                    name:'项目1',
+                    id:'P51190324030028878',
                     location:'恩阳区关公镇神牛溪',
-                    classify:'其他,文明风尚,文化艺术',
                     pub_date:'2024-03-01',
                     time_range:['2024-03-01','2024-03-03'],
-                    // 地区对应
-                    project_region:[1,19],
                     // 服务类别
-                    project_cate:[1,3],
+                    type:[1,3],
                     // 项目状态，需要处理获取
                     project_state:'1',
-                    // 项目的报名范围
-                    project_scale:[1,2],
                     // 项目的服务对象
-                    project_service:[1,12,14,3],
+                    target:[1,12,14,3],
                     cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
                     description:'组织志愿者通过走访慰问、生活帮扶、节日慰问等方式，为他们提供政策宣传、精神慰籍、陪伴照料、物质援助、信息咨询等服务，助力乡村振兴。',
                     address:'https://tdesign.gtimg.com'
                 },
                 {
-                    project_name:'项目2',
-                    project_id:'P51190324030028878',
+                    name:'项目2',
+                    id:'P51190324030028878',
                     location:'恩阳区关公镇神牛溪',
-                    classify:'其他,文明风尚,文化艺术',
                     pub_date:'2024-03-01',
                     time_range:['2024-03-01','2024-03-13'],
-                    // 地区对应
-                    project_region:[1,18],
                     // 服务类别
-                    project_cate:[1,3],
+                    type:[1,3],
                     // 项目状态，需要初始化处理获取
                     project_state:'1',
-                    // 项目的报名范围
-                    project_scale:[1,2],
                     // 项目的服务对象
-                    project_service:[1,11,14,3],
+                    target:[1,11,14,3],
                     cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
                     description:'组织志愿者通过走访慰问、生活帮扶、节日慰问等方式，为他们提供政策宣传、精神慰籍、陪伴照料、物质援助、信息咨询等服务，助力乡村振兴。',
                     address:'https://tdesign.gtimg.com'
@@ -295,15 +284,11 @@ export default{
         // 日期选择器变化时触发
         onChange(e){
             console.log(e);
-            this.formData.start_time = e[0]
-            this.formData.end_time = e[1]
             this.formData.time_range = e
         },
 
         onReset(){
             console.log('reset');
-            this.formData.start_time = ''
-            this.formData.end_time = ''
             this.formData.time_range = ['','']
         },
 
@@ -379,7 +364,7 @@ export default{
             let service_str="";
 
             for(var i = 0;i<this.project.length;i++){
-                for( const item of this.project[i].project_cate){
+                for( const item of this.project[i].type){
                     for(const options of this.options_cate){
                         if( item === options.value && item != 1){
                             cate_str += options.label + ",";
@@ -389,7 +374,7 @@ export default{
                 cate_str = cate_str.slice(0, -1);
                 this.project[i].cate_str = cate_str
                 cate_str = ""
-                for( const item of this.project[i].project_service){
+                for( const item of this.project[i].target){
                     for(const options of this.options_service){
                         if( item === options.value && item != 1){
                             service_str += options.label + ",";
@@ -421,12 +406,45 @@ export default{
             this.project_show = this.project[id]
             this.dialog_show = true
         },
-
+      // id:"",
+      // name:"项目1",
+      // location:"恩阳区关公镇神牛溪",
+      // pub_date:'2024-03-01',
+      // time_range:['2024-03-01','2024-03-03']
+      //
+      // //这里的【值】对应着前端的显示
+      //
+      // region:[1,3],
+      // type:[1,12],
+      // target:[1,12,14,3],
+      // //1 代表进行中；0代表已结项；2代表待开始
+      // state:'1'
+      // scope:[1,3],
+      // teamSize:[1,3],
+      //
+      // cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
+      // description:'组织志愿者通过走访慰问、生活帮扶、节日慰问等方式，为他们提供政策宣传、精神慰籍、陪伴照料、物质援助、信息咨询等服务，助力乡村振兴。',
+      // // 网站链接
+      // address:'https://tdesign.gtimg.com'
 
         // 点击搜索按钮时触发搜索项目+标签发生变化时触发搜索
-        onSearchProject(){
-            console.log(this.formData);
-
+        async onSearchProject(){
+            const formData = new FormData();
+            formData.append('region', this.formData.checkTagValueRegion.value);
+            formData.append('type', this.formData.checkTagValueCate.value);
+            formData.append('state', this.formData.checkTagValueState.value);
+            formData.append('scale', this.formData.checkTagValueScale.value);
+            formData.append('target', this.formData.checkTagValueService.value);
+            formData.append('size', this.formData.checkTagValuePeoplenum.value);
+            formData.append('time_range', this.formData.time_range);
+            formData.append('id', this.formData.id);
+            formData.append('name', this.formData.name);
+            console.log(formData);
+           await searchProjectAPI(formData).then(res=>{
+                if(res.data.code!==200){
+                    this.project=res.data.coredata.projectList;
+                }
+            })
             // 这里获取搜索的数据
             // ……
             // this.project = ***

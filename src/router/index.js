@@ -17,6 +17,9 @@ import XuanchuanVideo from '@/components/XuanchuanVideo.vue'
 import HuodongMap from '@/components/HuodongMap.vue'
 import GongyiHuodong from '@/components/GongyiHuodong.vue'
 import GongyiGuanggao from '@/components/GongyiGuanggao.vue'
+import UserManage from '@/components/UserManage.vue'
+import DataManage from '@/components/DataManage.vue'
+import SystemInformation from '@/components/SystemInformation.vue'
 
 // import TestVueVue from '@/views/home/Testview.vue'
 
@@ -137,6 +140,36 @@ const routes = [
 
                 ]
             },
+            {
+                path:'/usermanage',
+                component:UserManage,
+                children:[
+                    {
+                        path:'/usermanage',
+                        component:UserManage,
+                    }
+                ]
+            },
+            {
+                path:'/datamanage',
+                component:DataManage,
+                children:[
+                    {
+                        path:'/datamanage',
+                        component:DataManage,
+                    }
+                ]
+            },
+            {
+                path:'/systeminfo',
+                component:SystemInformation,
+                children:[
+                    {
+                        path:'/systeminfo',
+                        component:SystemInformation,
+                    }
+                ]
+            }
         ]
     }
 
