@@ -92,13 +92,13 @@
                     <t-card v-for="(item,index) in current_page" :key="index" :cover="item.cover" bordered :style="{ width: '300px',cursor:'pointer' }" :hoverShadow="true" @click="onClickProject(index)">
                         <template #footer>
                             <div style="display: flex;"><p>{{ item.name }}</p>
-                                <t-icon name="refresh" v-if="item.project_state === 1" style="color: green; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
-                                <t-icon name="pending" v-if="item.project_state === 2" style="color: var(--td-brand-color-4); line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
-                                <t-icon name="assignment" v-if="item.project_state === 0" style="color: red; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
+                                <t-icon name="refresh" v-if="item.project_state === '1'" style="color: green; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
+                                <t-icon name="pending" v-if="item.project_state === '2'" style="color: var(--td-brand-color-4); line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
+                                <t-icon name="assignment" v-if="item.project_state === '0'" style="color: red; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
                                 <div style="padding: 0px 4px ;">
-                                    <p class="note" v-if="item.project_state === 1" style="color: green;">进行中</p>
-                                    <p class="note" v-if="item.project_state === 2" style="color: var(--td-brand-color-4);">待启动</p>
-                                    <p class="note" v-if="item.project_state === 0" style="color: red;">已结项</p>
+                                    <p class="note" v-if="item.project_state === '1'" style="color: green;">进行中</p>
+                                    <p class="note" v-if="item.project_state === '2'" style="color: var(--td-brand-color-4);">待启动</p>
+                                    <p class="note" v-if="item.project_state === '0'" style="color: red;">已结项</p>
                                 </div>
                             </div>
                             <p class="note">{{ item.description }}</p>
