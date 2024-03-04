@@ -79,6 +79,15 @@ import {MessagePlugin} from "tdesign-vue-next";
 import {editAvatarAPI} from "@/apis/usersHandler";
 // eslint-disable-next-line no-unused-vars
 import {reactive, ref} from "vue";
+import { computed, watch } from 'vue';
+
+const modifyPassword_visible = ref(false)
+const password_fromData = reactive({
+  original_password:'',
+  new_password:'',
+  new_password_confirm:''
+
+})
 const file1 = ref([]);
 // eslint-disable-next-line no-unused-vars
 const userinfo =useUserStore().userInfo;
@@ -116,6 +125,48 @@ const requestMethod1 = async (file) => {
   }
 
 };
+
+const onClickChangePassword = () => {
+  modifyPassword_visible.value = true
+}
+
+
+// 校验是否未输入新密码
+const isNotInputNewPassword = computed(() => {
+  return password_fromData.new_password === ''
+})
+
+// 校验原密码和新密码是否相同
+const isOriginalPasswordSameAsNewPassword = computed(() => {
+  return password_fromData.original_password === password_fromData.new_password
+})
+
+// 校验两次输入的新密码是否相同
+const isNewPasswordSameAsConfirmPassword = computed(() => {
+  return password_fromData.new_password === password_fromData.new_password_confirm
+})
+
+// 校验表单是否有效
+const isFormValid = computed(() => {
+  return !isOriginalPasswordSameAsNewPassword.value && isNewPasswordSameAsConfirmPassword.value && !isNotInputNewPassword.value
+})
+
+// 监听表单输入的变化，实时更新校验结果
+watch(password_fromData, () => {
+  isOriginalPasswordSameAsNewPassword.value
+  isNewPasswordSameAsConfirmPassword.value
+  isNotInputNewPassword.value
+  isFormValid.value
+})
+
+const onConfirmModify = () =>{
+  if(isFormValid.value){
+    console.log('提交！');
+  }else{
+    console.log('提交失败');
+  }
+}
+
 </script>
 
 <style scoped>
