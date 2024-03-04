@@ -27,3 +27,5 @@ app.use(TDesign);
 app.use(router);
 app.use(pinia);
 app.mount('#app')
+// 在 main.js 或者 main.ts 中
+
