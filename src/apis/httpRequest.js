@@ -4,7 +4,7 @@ import {useUserStore}  from '@/dataStore/userdata.js'
 import router from "@/router";
 const httpRequest = axios.create({
     baseURL: 'http://192.168.58.102:8080',
-    timeout: 5000,
+    timeout: 10000,
 })
 
 // 请求拦截器
