@@ -84,6 +84,7 @@
 <script>
 // import ArticlePage from './ArticlePage.vue';
 import WenZhang from './WenZhang.vue';
+import {clickToReadArticleAPI, getDongTaiAPI, getHotNewsAPI} from "@/apis/articleHandler";
 
 export default{
     name: 'XinXiDongTai',
@@ -134,6 +135,14 @@ export default{
             this.dongtai_chunked = this.chunkArray(this.dongtai);
             this.current_page = this.dongtai_chunked[0];
         },
+        // async getDongTai(){
+        //   await getDongTaiAPI(this.current_page,12).then((response) => {
+        //     if (response.data.code === 200) {
+        //       this.dongtai = response.data.coredata.articleList;
+        //     }
+        //   });
+
+        // },
 
         getDongtai(){
             // 获取动态
@@ -165,6 +174,10 @@ export default{
                 },
             ]
         },
+
+        // 这里之后直接调用后端接口接口当前文章的内容
+        // async onClickToReadDongtai(index){
+
 
         onClickToReadDongtai(index){
 
@@ -269,9 +282,8 @@ export default{
         },
     },
     mounted() {
-        this.getDongtai()
+        this.getDongTai()
         this.getHotNews()
-        this.getHotPhotos()
         this.initCurrentPage();
     },
 }
