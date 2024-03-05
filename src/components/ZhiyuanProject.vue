@@ -368,7 +368,7 @@ export default{
             for(var i = 0;i<this.project.length;i++){
                 for( const item of this.project[i].type){
                     for(const options of this.options_cate){
-                        if( item === options.value && item != 1){
+                        if( item === options.value && item !== 1){
                             cate_str += options.label + ",";
                         }
                     }
@@ -378,7 +378,7 @@ export default{
                 cate_str = ""
                 for( const item of this.project[i].target){
                     for(const options of this.options_service){
-                        if( item === options.value && item != 1){
+                        if( item === options.value && item !== 1){
                             service_str += options.label + ",";
                         }
                     }
