@@ -7,7 +7,7 @@
                     <div style="line-height: 32px;">信息发布</div>
                     <div style="margin-top: 24px;">
                         <t-space :breakLine="true" size="13.33px">
-                            <t-card v-for="(item,index) in videoList2" :key="index" :cover="item.cover" bordered :style="{ width: '260px', cursor: 'pointer' }" hoverShadow="true" @click="visible = true">
+                            <t-card v-for="(item,index) in videoList2" :key="index" :cover="item.cover" bordered :style="{ width: '260px', cursor: 'pointer' }" :hoverShadow="true" @click="visible = true">
                                 <template #footer>
                                     <div style="display: flex;"><p>{{ item.title }}</p></div>
                                     <div style="display: flex;justify-content: center;">
@@ -38,9 +38,9 @@
                     />
                     <div style="margin-top:12px">
                         <t-button variant="outline" theme="primary" @click="onClickToChoseCloudVideo">
-                        <template #icon> <t-icon name="cloud-upload" /></template>
-                        云端视频
-                    </t-button>
+                            <template #icon> <t-icon name="cloud-upload" /></template>
+                            云端视频
+                        </t-button>
                     </div>
 
                 </div>
@@ -207,7 +207,9 @@ export default{
         },
         // 获取云端视频列表
         getVideoList(){
+            // 从List(){
             // 从服务器获取所有视频列表
+            console.log('获取云端视频');
             this.cloud_video_list=[
                 {
                     title:'2014央视公益广告《筷子》',
