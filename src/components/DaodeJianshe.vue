@@ -82,12 +82,6 @@ import apiStore from '@/apis/wenmingSichuan.js';
 
 export default {
   name: 'DaodeJianshe',
-  async created() {
-   await this.getGoodPeople();
-    await this.getModel();
-    this.goodPeople.value = this.chunkArray(this.goodPeople.value);
-    this.model.value = this.chunkArray(this.model.value);
-  },
 
   setup() {
     const goodPeople = ref([]);
@@ -113,7 +107,7 @@ export default {
     };
 
     const chunkArray = (originalArray) => {
-      var chunkedArray = [];
+      const chunkedArray = [];
       for (let i = 0; i < originalArray.length; i += 4) {
         const chunk = originalArray.slice(i, i + 4);
         chunkedArray.push(chunk);
@@ -131,15 +125,13 @@ export default {
       }
     };
 
-    // onMounted(
-    //     async () => {
-    //   await getGoodPeople();
-    //   await getModel();
-    //   goodPeople.value = chunkArray(goodPeople.value);
-    //   model.value = chunkArray(model.value);
-    //   console.log(goodPeople.value);
-    //   console.log(model.value);
-    // });
+    onMounted(
+        async () => {
+      await getGoodPeople();
+      goodPeople.value = chunkArray(goodPeople.value);
+      await getModel();
+      model.value = chunkArray(model.value);
+    });
 
     return {
       goodPeople,
