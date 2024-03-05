@@ -27,7 +27,7 @@
 
 <script lang="jsx">
 import { MessagePlugin,Input, Select, DatePicker } from 'tdesign-vue-next';
-import { ref,computed} from 'vue';
+import { ref,computed, reactive} from 'vue';
 
 export default {
     name: 'UserManage',
@@ -243,8 +243,8 @@ export default {
                         </t-link>
                         )}
                         {(
-                        <t-popconfirm content="确认删除吗">
-                            <t-link theme="primary" hover="color" data-id={row.key} onClick={onDelete}>
+                        <t-popconfirm content="确认删除吗" data-id={row.key} onConfirm={() => onConfirmDelete(row)}>
+                            <t-link theme="primary" hover="color" data-id={row.key}>
                                 删除
                             </t-link>
                         </t-popconfirm>
@@ -332,18 +332,7 @@ export default {
         ];
 
 
-        // const realData = new Array(initialData.length).fill(null).map((_, i) => ({
-        //     console.log(i);
-        // }));
-
         const realData = new Array(1).fill(initialData).flat();
-        // const realData = new Array(initialData.length)
-        // for(var i = 0;i<initialData.length;i++){
-        //     const realData = new Array(initialData.length).fill(null).
-        // }
-
-
-        // console.log(realData);
 
         const data = ref([...realData]);
 
@@ -363,16 +352,36 @@ export default {
             // data.value = newData;
         };
 
-        const pagination = {
+        const pagination = reactive({
             defaultCurrent: 1,
             defaultPageSize: 5,
             total: data.value.length
-        }
+        })
 
-        const onDelete = (e) =>{
-            onCancel(e)
-            const { id } = e.currentTarget.dataset;
-            console.log("delete",id);
+        const onConfirmDelete = (row) =>{
+            // const { id } = e.currentTarget.dataset;
+            console.log("confirmdelete",row.key);
+            // console.log('tableRef',tableRef.value);
+            // 移除当前节点
+            // tableRef.value.remove(row.key);
+
+            // 找到要删除的元素索引
+            const indexToDelete = data.value.findIndex((item) => item.key === row.key);
+
+            // 删除元素
+            data.value.splice(indexToDelete, 1);
+
+            // 更新剩余元素的 key
+            for(var i = 0;i<data.value.length;i++){
+                data.value[i].key = String(i+1)
+            }
+
+            pagination.total = data.value.length
+
+            console.log(data.value);
+
+
+            MessagePlugin.success('删除成功');
         }
 
         const onEdit = (e) => {
@@ -420,6 +429,7 @@ export default {
                         // data[current.rowIndex]=current.editedRow
                         console.log('save:current',current);
                         console.log('data:',data);
+
                         MessagePlugin.success('保存成功');
                     }
                     updateEditState(currentSaveId.value);
@@ -454,7 +464,7 @@ export default {
             pagination,
             onRowValidate,
             onValidate,
-            onDelete
+            onConfirmDelete
         };
     },
 }
