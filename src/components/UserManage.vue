@@ -1,24 +1,26 @@
 <template>
-    <div class="container">
-        <div style="line-height: 32px;">管理用户</div>
-        <div style="width: 1030px">
-            <t-table
-            ref="tableRef"
-            row-key="key"
-            :data="data"
-            :columns="columns"
-            :editable-row-keys="editableRowKeys"
-            :pagination="pagination"
-            table-layout="fixed"
-            
-            bordered
-            resizable
-            lazy-load
-            @row-edit="onRowEdit"
-            @row-validate="onRowValidate"
-            @validate="onValidate"
-            >
-            </t-table>
+    <div class="container" style="display: flex;justify-content: center;">
+        <div>
+            <div style="line-height: 32px;margin-top: 24px;">管理用户</div>
+            <div style="width: 1280px;margin-top: 12px;">
+                <t-table
+                ref="tableRef"
+                row-key="key"
+                :data="data"
+                :columns="columns"
+                :editable-row-keys="editableRowKeys"
+                :pagination="pagination"
+                table-layout="fixed"
+
+                bordered
+                resizable
+                lazy-load
+                @row-edit="onRowEdit"
+                @row-validate="onRowValidate"
+                @validate="onValidate"
+                >
+                </t-table>
+            </div>
         </div>
     </div>
 </template>
@@ -64,7 +66,7 @@ export default {
                         { max: 10, message: '字符数量不能超过 10', type: 'warning' },
                     ],
                     showEditIcon: false,
-                },    
+                },
             },
 
             { colKey: 'password', title: '密码', width: '170' ,
@@ -85,7 +87,7 @@ export default {
                             { max: 10, message: '字符数量不能超过 10', type: 'warning' },
                         ],
                         showEditIcon: false,
-                    },    
+                    },
              },
             { colKey: 'icon', title: '头像', width: '120' },
             { colKey: 'sex', title: '性别', width: '100',
@@ -150,7 +152,7 @@ export default {
                     // updateEditedCellValue({ rowValue: 2, letters: [] });
                 },
                 }),
-            } 
+            }
             },
             { colKey: 'birthDate', title: '出生年月' ,width:'220px',
                 edit: {
@@ -172,7 +174,7 @@ export default {
                         autoWidth: true,
                     },
                     showEditIcon: false,
-                },    
+                },
             },
             { colKey: 'tel', title: '电话号码', width: '180', ellipsis: true,
                 edit: {
@@ -187,7 +189,7 @@ export default {
                             type:'tel'
                         },
                         showEditIcon: false,
-                },    
+                },
             },
             { colKey: 'address', title: '详细地址', width: '180', ellipsis: true,
                 edit: {
@@ -201,7 +203,7 @@ export default {
                             autoWidth: true,
                         },
                         showEditIcon: false,
-                },    
+                },
             },
             { colKey: 'statement', title: '个人简介', width: '180', ellipsis: true ,
                 edit: {
@@ -224,7 +226,7 @@ export default {
                     // console.log('row_key:',row.key);
                     const editable = editableRowKeys.value.includes(row.key);
                     return (
-                    <div class="table-operations">
+                    <t-space class="table-operations">
                         {!editable && (
                         <t-link theme="primary" hover="color" data-id={row.key} onClick={onEdit}>
                             编辑
@@ -240,13 +242,20 @@ export default {
                             取消
                         </t-link>
                         )}
-                    </div>
+                        {(
+                        <t-popconfirm content="确认删除吗">
+                            <t-link theme="primary" hover="color" data-id={row.key} onClick={onDelete}>
+                                删除
+                            </t-link>
+                        </t-popconfirm>
+                        )}
+                    </t-space>
                     );
                 },
-                width: 120,
+                width: 150,
                 fixed: 'right'
             },
-        ]) 
+        ])
         const initialData= [
             {
                 key: '1',
@@ -332,7 +341,7 @@ export default {
         // for(var i = 0;i<initialData.length;i++){
         //     const realData = new Array(initialData.length).fill(null).
         // }
-        
+
 
         // console.log(realData);
 
@@ -347,7 +356,7 @@ export default {
                 ...params,
                 editedRow,
             };
-        
+
             // ⚠️ 重要：以下内容应用于全量数据校验（单独的行校验不需要）
             // const newData = [...data.value];
             // newData[rowIndex] = editedRow;
@@ -358,6 +367,12 @@ export default {
             defaultCurrent: 1,
             defaultPageSize: 5,
             total: data.value.length
+        }
+
+        const onDelete = (e) =>{
+            onCancel(e)
+            const { id } = e.currentTarget.dataset;
+            console.log("delete",id);
         }
 
         const onEdit = (e) => {
@@ -416,13 +431,13 @@ export default {
         const onRowValidate = (params) => {
             console.log('Event Table Row Validate:', params);
         };
-        
+
         // 表格全量数据校验反馈事件，tableRef.value.validateTableData() 执行结束后触发
         function onValidate(params) {
             console.log('Event Table Data Validate:', params);
         }
 
-            
+
 
         return {
             editableRowKeys,
@@ -439,6 +454,7 @@ export default {
             pagination,
             onRowValidate,
             onValidate,
+            onDelete
         };
     },
 }
@@ -446,10 +462,9 @@ export default {
 
 <style scoped>
 .container{
-    width: 90%;
-    margin-top: 20px;
+    width: 100%;
+    height: calc(100vh - 74px);
     background-color: white;
-    padding: 24px;
 }
 
 </style>
