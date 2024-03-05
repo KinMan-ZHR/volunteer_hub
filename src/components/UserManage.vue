@@ -6,12 +6,11 @@
                 <t-table
                 ref="tableRef"
                 row-key="key"
-                :data="data"
+                :data="initialData"
                 :columns="columns"
                 :editable-row-keys="editableRowKeys"
                 :pagination="pagination"
                 table-layout="fixed"
-
                 bordered
                 resizable
                 lazy-load
@@ -256,7 +255,7 @@ export default {
                 fixed: 'right'
             },
         ])
-        const initialData= [
+        const initialData= ref([
             {
                 key: '1',
                 username: '贾明',
@@ -329,12 +328,7 @@ export default {
                 address: '扭矩输出v的女',
                 statement: '警方次哦安居房不好弄青蛙',
             },
-        ];
-
-
-        const realData = new Array(1).fill(initialData).flat();
-
-        const data = ref([...realData]);
+        ]);
 
         const onRowEdit = (params) => {
             console.log('onrowedit',params);
@@ -355,7 +349,7 @@ export default {
         const pagination = reactive({
             defaultCurrent: 1,
             defaultPageSize: 5,
-            total: data.value.length
+            total: initialData.value.length
         })
 
         const onConfirmDelete = (row) =>{
@@ -366,19 +360,19 @@ export default {
             // tableRef.value.remove(row.key);
 
             // 找到要删除的元素索引
-            const indexToDelete = data.value.findIndex((item) => item.key === row.key);
+            const indexToDelete = initialData.value.findIndex((item) => item.key === row.key);
 
             // 删除元素
-            data.value.splice(indexToDelete, 1);
-
+            initialData.value.splice(indexToDelete, 1);
+           console.log("更新key前",initialData.value);
             // 更新剩余元素的 key
-            for(var i = 0;i<data.value.length;i++){
-                data.value[i].key = String(i+1)
+            for(let i = 0; i<initialData.value.length; i++){
+                initialData.value[i].key = String(i+1)
             }
 
-            pagination.total = data.value.length
+            pagination.total = initialData.value.length
 
-            console.log(data.value);
+            console.log(initialData.value);
 
 
             MessagePlugin.success('删除成功');
@@ -425,10 +419,10 @@ export default {
                 if (params.trigger === 'parent' && !params.result.length) {
                     const current = editMap[currentSaveId.value];
                     if (current) {
-                        data.value.splice(current.rowIndex, 1, current.editedRow);
+                        initialData.value.splice(current.rowIndex, 1, current.editedRow);
                         // data[current.rowIndex]=current.editedRow
                         console.log('save:current',current);
-                        console.log('data:',data);
+                        console.log('data:',initialData);
 
                         MessagePlugin.success('保存成功');
                     }
@@ -452,7 +446,7 @@ export default {
         return {
             editableRowKeys,
             columns,
-            data,
+            initialData,
             tableRef,
             currentSaveId,
             editMap,
