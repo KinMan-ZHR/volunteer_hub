@@ -9,7 +9,7 @@
                     </div>
                 </div>
                 <div style="width: 100%;height: 90%;margin-top: 20px; border-radius: 10px;">
-                    <t-textarea placeholder="请输入内容" readonly :autosize="{ minRows: 30}"/>
+                    <t-textarea placeholder="请输入内容" readonly :autosize="{ minRows: 30}" disabled v-model:value="operation_log"/>
                 </div>
             </div>
             <div class="right">
@@ -28,7 +28,7 @@
                         <t-descriptions-item label="组件库">{{ zujian }}</t-descriptions-item>
                     </t-descriptions>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -46,9 +46,10 @@ export default{
             author:'赖周友，李珈锋，张浩然，丁利，唐小伟，梅洋荣',
             banquan:'该网站版权不归作者所有，如有雷同，纯属意外',
             yinsi:'我们收集了您的相关信息，请您不要害怕，因为我们会将其公布',
-            connect:'2275164894@qq.com',
+            connect:'联系信息',
             tech:'Vue3，Java，Javascript，CSS，HTML',
-            zujian:'TDesign'
+            zujian:'TDesign',
+            operation_log:'这是日志文字'
         }
     },
     methods:{
