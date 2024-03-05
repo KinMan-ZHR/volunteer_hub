@@ -84,7 +84,7 @@
 <script>
 // import ArticlePage from './ArticlePage.vue';
 import WenZhang from './WenZhang.vue';
-import {clickToReadArticleAPI, getDongTaiAPI, getHotNewsAPI} from "@/apis/articleHandler";
+// import {clickToReadArticleAPI, getDongTaiAPI, getHotNewsAPI} from "@/apis/articleHandler";
 
 export default{
     name: 'XinXiDongTai',
@@ -135,6 +135,8 @@ export default{
             this.dongtai_chunked = this.chunkArray(this.dongtai);
             this.current_page = this.dongtai_chunked[0];
         },
+
+
         // async getDongTai(){
         //   await getDongTaiAPI(this.current_page,12).then((response) => {
         //     if (response.data.code === 200) {
@@ -144,7 +146,7 @@ export default{
 
         // },
 
-        getDongtai(){
+        getDongTai(){
             // 获取动态
             // 从服务器获取动态
             this.dongtai=[
@@ -284,6 +286,7 @@ export default{
     mounted() {
         this.getDongTai()
         this.getHotNews()
+        this.getHotPhotos()
         this.initCurrentPage();
     },
 }
