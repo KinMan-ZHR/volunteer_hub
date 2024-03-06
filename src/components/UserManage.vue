@@ -48,8 +48,11 @@ export default {
           pageSize,
           total
         })
-      //使用hook，此乃接口核心，返回的是一个对象，包含了增删改查的方法，可以直接把row传入
-      let { userList, addUser, delUser, editUser,getUser }=useUserManager(pageSize,current,total);
+
+        //使用hook，此乃接口核心，返回的是一个对象，包含了增删改查的方法，可以直接把row传入
+        let { userList, addUser, delUser, editUser,getUser }=useUserManager(pageSize,current,total);
+
+
         //雷打不动的选项
         const MARRY_OPTIONS=[
             { label: '已婚', value: '已婚' },
@@ -289,68 +292,68 @@ export default {
         ])
       //console.log('userList:',userList.value);
         // TODO：伪造数据开始
-        // userList=[
-        //     {
-        //         username: '贾明',
-        //         id:'16',
-        //         password: '624978165',
-        //         sex: '男',
-        //         maritalStatus: '宣传物料制作费用',
-        //         birthDate: '2022-01-01',
-        //         email: 'w.cezkdudy@lhll.au',
-        //         tel: '471923654912',
-        //         address: '扭矩输出v的女',
-        //         statement: '警方次哦安居房不好弄青蛙',
-        //     },
-        //     {
-        //         username: '贾明2',
-        //         id:'12',
-        //         password: '624978165',
-        //         sex: '男',
-        //         maritalStatus: '宣传物料制作费用',
-        //         birthDate: '2022-01-01',
-        //         email: 'w.cezkdudy@lhll.au',
-        //         tel: '471923654912',
-        //         address: '扭矩输出v的女',
-        //         statement: '警方次哦安居房不好弄青蛙',
-        //     },
-        //     {
-        //         username: '贾明3',
-        //         id:'124',
-        //         password: '624978165',
-        //         sex: '男',
-        //         maritalStatus: '宣传物料制作费用',
-        //         birthDate: '2022-01-01',
-        //         email: 'w.cezkdudy@lhll.au',
-        //         tel: '471923654912',
-        //         address: '扭矩输出v的女',
-        //         statement: '警方次哦安居房不好弄青蛙',
-        //     },
-        //     {
-        //         username: '贾明4',
-        //         id:'112',
-        //         password: '624978165',
-        //         sex: '男',
-        //         maritalStatus: '宣传物料制作费用',
-        //         birthDate: '2022-01-01',
-        //         email: 'w.cezkdudy@lhll.au',
-        //         tel: '471923654912',
-        //         address: '扭矩输出v的女',
-        //         statement: '警方次哦安居房不好弄青蛙',
-        //     },
-        //     {
-        //         username: '贾明5',
-        //         id:'15',
-        //         password: '624978165',
-        //         sex: '男',
-        //         maritalStatus: '宣传物料制作费用',
-        //         birthDate: '2022-01-01',
-        //         email: 'w.cezkdudy@lhll.au',
-        //         tel: '471923654912',
-        //         address: '扭矩输出v的女',
-        //         statement: '警方次哦安居房不好弄青蛙',
-        //     },
-        // ];
+        userList.value=[
+            {
+                username: '贾明',
+                id:'16',
+                password: '624978165',
+                sex: '男',
+                maritalStatus: '宣传物料制作费用',
+                birthDate: '2022-01-01',
+                email: 'w.cezkdudy@lhll.au',
+                tel: '471923654912',
+                address: '扭矩输出v的女',
+                statement: '警方次哦安居房不好弄青蛙',
+            },
+            {
+                username: '贾明2',
+                id:'12',
+                password: '624978165',
+                sex: '男',
+                maritalStatus: '宣传物料制作费用',
+                birthDate: '2022-01-01',
+                email: 'w.cezkdudy@lhll.au',
+                tel: '471923654912',
+                address: '扭矩输出v的女',
+                statement: '警方次哦安居房不好弄青蛙',
+            },
+            {
+                username: '贾明3',
+                id:'124',
+                password: '624978165',
+                sex: '男',
+                maritalStatus: '宣传物料制作费用',
+                birthDate: '2022-01-01',
+                email: 'w.cezkdudy@lhll.au',
+                tel: '471923654912',
+                address: '扭矩输出v的女',
+                statement: '警方次哦安居房不好弄青蛙',
+            },
+            {
+                username: '贾明4',
+                id:'112',
+                password: '624978165',
+                sex: '男',
+                maritalStatus: '宣传物料制作费用',
+                birthDate: '2022-01-01',
+                email: 'w.cezkdudy@lhll.au',
+                tel: '471923654912',
+                address: '扭矩输出v的女',
+                statement: '警方次哦安居房不好弄青蛙',
+            },
+            {
+                username: '贾明5',
+                id:'15',
+                password: '624978165',
+                sex: '男',
+                maritalStatus: '宣传物料制作费用',
+                birthDate: '2022-01-01',
+                email: 'w.cezkdudy@lhll.au',
+                tel: '471923654912',
+                address: '扭矩输出v的女',
+                statement: '警方次哦安居房不好弄青蛙',
+            },
+        ];
         // TODO：伪造数据结束，请求相关开始
         const onConfirmDelete = async (row) =>{
             // const { id } = e.currentTarget.dataset;
@@ -359,13 +362,14 @@ export default {
             // 移除当前节点
             // tableRef.value.remove(row.id);
             // TODO：根据indexToDelete获取用户id，根据用户id删除数据库的用户根据current和pageSize再次获取当前页面的数据,同时更新total的值（使用之前定义的userNum）
-            await delUser(row);
+            // await delUser(row);
             // ISSUE：前端效果实现逻辑在下面，后续可能要删掉
             // 前端视图层删除元素，后端未必真删除
            // 找到要删除的元素索引
             const indexToDelete = userList.value.findIndex((item) => item.id === row.id);
-            console.log('要删除的id是：',userList.value[indexToDelete].id);
+            console.log('要删除的索引是：',indexToDelete);
             userList.value.splice(indexToDelete, 1);
+            console.log('删除后',userList);
             MessagePlugin.success('删除成功');
         }
 
@@ -409,12 +413,11 @@ export default {
           if (params.trigger === 'parent' && !params.result.length) {
             const current = editMap[currentSaveId.value];
             if (current) {
-              userList.value.splice(current.rowIndex, 1, current.editedRow);
-              // userList[current.rowIndex]=current.editedRow
-              console.log('save:current', current);
-              console.log('userList:', userList.value);
+            //   userList.value.splice(current.rowIndex, 1, current.editedRow);
+              userList.value[current.rowIndex]=current.editedRow
+
               // TODO：将新数据userList.value根据pageSize和current传输到后端
-              await editUser(current.editedRow);
+            //   await editUser(current.editedRow);
               // TODO（可选）：根据current和pageSize再次获取当前的页面数据
               // userList.value,pageSize,current
 
