@@ -1,11 +1,11 @@
 import request from "./httpRequest.js";
-export const getDongTaiAPI = (pageCurr,pageSize) => {
+export const getDongTaiAPI = (currPage,pageSize) => {
     return request({
         url: "/articleList",
         method: "get",
         params:{
             type: "time",
-            pageCurr: pageCurr,
+            currPage: currPage,
             pageSize: pageSize
         }
     })
@@ -15,14 +15,30 @@ export const getHotNewsAPI = () => {
         url: "/articleList",
         method: "get",
         params:{
-            type: "time"
+            type: "hot",
+            currPage: 1,
+            pageSize: 5,
         }
     })
 };
-export const  clickToReadArticleAPI = (id) => {
+export const getHotPhotoAPI = () => {
     return request({
         url: "/articleList",
         method: "get",
-        params: id
+        params:{
+            type: "photo",
+            currPage: 1,
+            pageSize: 2,
+        }
+    })
+};
+
+export const  clickToReadArticleAPI = (id) => {
+    return request({
+        url: "/article",
+        method: "get",
+        params: {
+            id: id
+        }
     })
 };
