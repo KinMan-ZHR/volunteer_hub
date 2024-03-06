@@ -78,7 +78,8 @@
 
 // eslint-disable-next-line no-unused-vars
 import { ref, onMounted } from 'vue';
-import apiStore from '@/apis/wenmingSichuan.js';
+import {getGoodPeopleListAPI} from "@/apis/goodPeoplesHandler";
+import {getModelListAPI} from "@/apis/modelsHandler";
 
 export default {
   name: 'DaodeJianshe',
@@ -89,17 +90,17 @@ export default {
 
     const getGoodPeople = async () => {
       // 使用你的API获取数据
-     await apiStore.getGoodPeopleAPI().then((response) => {
+     await getGoodPeopleListAPI().then((response) => {
        if (response.data.code===200)  {
-         goodPeople.value = response.data.coredata.goodpeopleList;
-         console.log("goodPe",response.data.coredata.goodpeopleList);
+         goodPeople.value = response.data.coredata.goodPeopleList;
+         console.log("goodPe",response.data.coredata.goodPeopleList);
        }
      });
     };
 
     const getModel = async () => {
       // 使用你的API获取数据
-       await apiStore.getModelAPI().then((response) => {
+       await getModelListAPI().then((response) => {
          model.value = response.data.coredata.modelList;
          console.log("modelList",response.data.coredata.modelList);
        });

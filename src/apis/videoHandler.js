@@ -1,9 +1,18 @@
 import request from "./httpRequest.js";
-export const getVideoListAPI = () => {
+export const getCloudVideoListAPI = () => {
+    return request({
+        url: "/cloudVideoList",
+        method: "get",
+    })
+};
+export const getVideoListAPI = (id) => {
     return request({
         url: "/videoList",
         method: "get",
-    })
+        params: {
+            id
+        }
+    });
 };
 export const upLoadVideoAPI = (data) => {
     return request({
