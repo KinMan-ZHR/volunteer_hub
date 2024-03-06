@@ -21,20 +21,23 @@ export const registerAPI = ({username,password,email}) => {
       }
     });
   };
-export const getUserListAPI = (data) => {
+export const getUserListAPI = (pageSize,currPage) => {
     return request({
       url: "/userList",
       method: "get",
-        params:data
+        params:{
+            pageSize,
+            currPage
+        }
     });
   };
-export const deleteUserAPI = (data) => {
+export const deleteUserAPI = (id) => {
     return request({
-      url: "/userList/"+data,
+      url: "/userList/"+id,
       method: "delete",
     });
   };
-export const updateUserAPI = (data) => {
+export const editUserAPI = (data) => {
     return request({
       url: "/userList",
       method: "put",
