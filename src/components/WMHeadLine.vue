@@ -37,7 +37,7 @@
 
 <script>
 import { ref, reactive, onMounted } from 'vue';
-import apiStore from '@/apis/wenmingSichuan.js';
+import {getHeadlineListAPI} from '@/apis/headlinesHandler.js';
 export default {
   name: 'WMHeadLine',
   components: {},
@@ -59,7 +59,7 @@ export default {
 
     const getHeadline = async () => {
       // 使用你的API获取数据
-     await apiStore.getHeadlineAPI().then((response) => {
+     await getHeadlineListAPI().then((response) => {
        if (response.data.code === 200) {
          headline.list = response.data.coredata.headlineList;
          console.log(response.data.coredata.headlineList);
