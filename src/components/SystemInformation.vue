@@ -16,7 +16,7 @@
                 <p class="title">基本信息</p>
                 <div style="margin-left: -15px;margin-top: 10px;">
                     <t-descriptions layout="vertical" colon style="width: 700px;">
-                        <t-descriptions-item label="名称">{{ uname }}</t-descriptions-item>
+                        <t-descriptions-item label="名称" >{{ uname }}</t-descriptions-item>
                         <t-descriptions-item label="地址">{{ url }}</t-descriptions-item>
                         <t-descriptions-item label="描述">{{ description }}</t-descriptions-item>
                         <t-descriptions-item label="关键词">{{ keyword }}</t-descriptions-item>
