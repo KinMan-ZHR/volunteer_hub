@@ -112,6 +112,7 @@ const requestMethod1 = async (file) => {
     const response = await editAvatarAPI(formData);
     if (response.data.code === 200) {
       userinfo.avatar = response.data.coredata.url;
+      userinfo.lastUpdate=response.data.coredata.user.lastUpdate;
       return {
         status: 'success',
         response: {

@@ -101,7 +101,7 @@ import { MessagePlugin } from 'tdesign-vue-next';
 import {useUserStore} from "@/dataStore/userdata";
 // eslint-disable-next-line no-unused-vars
 import dayjs from 'dayjs';
-import {updateUserAPI} from "@/apis/usersHandler";
+import {editUserAPI} from "@/apis/usersHandler";
 // 定义规则
 export default {
   name: 'ProfileDetail',
@@ -147,7 +147,7 @@ export default {
       // 提交表单
       console.log('保存成功', formData);
       formData.id = userStore.userInfo.id;
-      updateUserAPI(formData).then((response) => {
+      editUserAPI(formData).then((response) => {
             if (response.data.code === 200) {
                 userStore.setUserInfo(response.data.coredata.user);
                 initialFormData();
