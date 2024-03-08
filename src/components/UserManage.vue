@@ -108,16 +108,9 @@ export default {
                         component: Input,
                         // props, 透传全部属性到 Input 组件
                         props: {
-                            clearable: true,
-                            autofocus: true,
-                            autoWidth: true,
-                            type:'password'
+                            type:'password',
+                            disabled:true
                         },
-                        // 校验规则，此处同 Form 表单
-                        rules: [
-                            { required: true, message: '不能为空' },
-                            { max: 10, message: '字符数量不能超过 10', type: 'warning' },
-                        ],
                         showEditIcon: false,
                     },
              },
