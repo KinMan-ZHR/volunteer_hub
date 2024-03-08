@@ -31,7 +31,7 @@
                 </t-table>
             </div>
         </div>
-        <t-dialog v-model:visible="add_visible" width="1080px">
+        <t-dialog v-model:visible="add_visible" width="1080px" :cancelBtn="null" :confirmBtn="null">
             <!-- 自定义header -->
             <template #header>
                 <div style="display:flex">
