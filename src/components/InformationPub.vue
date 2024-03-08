@@ -7,7 +7,7 @@
                     <div style="line-height: 32px;">信息发布</div>
                     <div style="margin-top: 24px;">
                         <t-space :breakLine="true" size="13.33px">
-                            <t-card v-for="(item,index) in videoList2" :key="index" :cover="item.cover" bordered :style="{ width: '260px', cursor: 'pointer' }" :hoverShadow="true" @click="visible = true">
+                            <t-card v-for="(item,index) in userVideoList" :key="index" :cover="item.cover" bordered :style="{ width: '260px', cursor: 'pointer' }" :hoverShadow="true" @click="visible = true">
                                 <template #footer>
                                     <div style="display: flex;"><p>{{ item.title }}</p></div>
                                     <div style="display: flex;justify-content: center;">
@@ -115,9 +115,10 @@
 // import DragVue from './DragVue.vue'
 // import { MoveIcon } from 'tdesign-icons-vue-next';
 import WenZhangVideo from './WenZhangVideo.vue'
-import {getVideoListAPI, upLoadVideoAPI} from "@/apis/videoHandler";
+import {getCloudVideoListAPI, getVideoListAPI, upLoadVideoAPI} from "@/apis/videoHandler";
 // eslint-disable-next-line no-unused-vars
 import UploadTest from "@/test/UploadTest.vue";
+import {useUserStore} from "@/dataStore/userdata";
 
 
 
@@ -125,8 +126,7 @@ export default{
     name:'InfomationPub',
     data(){
         return{
-            videoList1:[],
-            videoList2:[
+            userVideoList:[
                 {
                     title:'2014央视公益广告《筷子》',
                     cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
@@ -209,11 +209,17 @@ export default{
         console.log(file);
         return true;
       },
-
+      async getVideoList(){
+       await getVideoListAPI(useUserStore().userInfo.id).then(res=>{
+         if(res.data.code===200){
+           this.videoList=res.data.coredata.videoList;
+           console.log(this.videoList);
+         }
+       })
+      },
         // 获取云端视频列表
-        async getVideoList(){
-
-          await getVideoListAPI().then(res=>{
+        async getCloudVideoList(){
+          await getCloudVideoListAPI().then(res=>{
             if(res.data.code===200){
               this.cloud_video_list=res.data.coredata.videoList;
               console.log("你好",this.cloud_video_list);
@@ -230,7 +236,7 @@ export default{
 
         onClickToChoseCloudVideo(){
             // 点击选择云端视频
-            this.getVideoList()
+            this.getCloudVideoList()
             this.processCloudVideo()
             this.cloud_list_visible=true
 
@@ -241,13 +247,13 @@ export default{
             choosed_video_list =  this.cloud_video_list.filter( item => item.is_choosed === true)
             console.log(choosed_video_list);
             this.cloud_list_visible = false
-            this.videoList2 = this.videoList2.concat(choosed_video_list)
+            this.userVideoList = this.userVideoList.concat(choosed_video_list)
         },
 
         onConfirmDelete(index){
             // 确认删除视频
             // console.log(index);
-            this.videoList2.splice(index,1)
+            this.userVideoList.splice(index,1)
         },
 
         onClickToPlayVideo(index){
@@ -260,12 +266,14 @@ export default{
         onClickToPlayUploadedVideo(index){
             // 点击播放已上传的视频
             // console.log(index);
-            this.current_video = this.videoList2[index]
+            this.current_video = this.userVideoList[index]
             this.play_visible = true
         },
 
-
     },
+  mounted(){
+    this.getVideoList()
+  }
 
 
 
