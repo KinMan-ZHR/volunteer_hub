@@ -258,7 +258,6 @@ export default {
 
                     //判断是否属于修改行，如果是则显示保存和取消按钮，否则显示编辑和删除按钮
                     const editable = editableRowKeys.value.includes(row.id);
-                    console.log('editable:',editable);
                     return (
                     <t-space class="table-operations">
                         {!editable && (
