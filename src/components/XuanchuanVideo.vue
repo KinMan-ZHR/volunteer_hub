@@ -62,6 +62,7 @@
 import { computed, getCurrentInstance } from 'vue';
 import get from 'lodash/get';
 import WenZhangVideo from './WenZhangVideo.vue';
+import {getCloudVideoListAPI} from "@/apis/videoHandler";
 
 export default {
     name:'XuanChuanVideo',
@@ -144,9 +145,12 @@ export default {
 
             this.visible = true
         },
-        getVideoList(){
+        async getVideoList(){
             // 从数据库获取宣传视频
             // this.video_list=...
+          await getCloudVideoListAPI().then(res=>{
+            this.video_list=res.data.coredata.videoList;
+          })
         },
         initVideoCate(){
             // 将视频列表按category分为三类
