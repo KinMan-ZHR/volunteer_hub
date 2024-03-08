@@ -4,7 +4,7 @@ import { Card as TCard, Icon as TIcon, Link as TLink} from "tdesign-vue-next";
 
 defineProps({
   title: String,
-  img: String,
+  cover: String,
   state: Number,
   link: String
 })
@@ -12,7 +12,7 @@ defineProps({
 
 <template>
   <div>
-    <t-card :cover="img" bordered :style="{ width: '300px' }">
+    <t-card :cover="cover" bordered :style="{ width: '300px' }">
       <template #footer>
           <div style="display: flex;"><p>{{ title }}</p>
               <t-icon name="refresh" v-if="state == 1" style="color: green; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>

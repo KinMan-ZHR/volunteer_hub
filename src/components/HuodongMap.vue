@@ -13,6 +13,7 @@ import MyTooltip from './MyTooltip.vue';
 import { createApp } from "vue";
 
 import $ from 'jquery';
+// eslint-disable-next-line no-unused-vars
 import {getMapListAPI} from "@/apis/mapsHandler";
 
 echarts.use([MapChart,ScatterChart ]);
@@ -24,30 +25,30 @@ export default{
             mapList:[
                 {
                     marker:[103.046,30.106],
-                    title:'看望乡村留守儿童',
+                    name:'看望乡村留守儿童',
                     location:'四川省雅安市蒙顶山',
-                    img:'https://tdesign.gtimg.com/site/source/card-demo.png',
+                    cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
                     description:'这是一段描述',
                     state:'1',
-                    link:'http://sc.chinavolunteer.mca.gov.cn/subsite/sichuan/projectInfo/b0f1f7d451474e07bc5ddb10070f1dc5/511323000000000000'
+                    address:'http://sc.chinavolunteer.mca.gov.cn/subsite/sichuan/projectInfo/b0f1f7d451474e07bc5ddb10070f1dc5/511323000000000000'
                 },
                 {
                     marker:[104.046,32.106],
-                    title:'乡村留守儿童',
+                    name:'乡村留守儿童',
                     location:'四川省雅安市',
-                    img:'https://tdesign.gtimg.com/site/source/card-demo.png',
+                    cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
                     description:'这是第二段描述',
                     state:'0',
-                    link:'http://sc.chinavolunteer.mca.gov.cn/subsite/sichuan/projectInfo/b0f1f7d451474e07bc5ddb10070f1dc5/511323000000000000'
+                    address:'http://sc.chinavolunteer.mca.gov.cn/subsite/sichuan/projectInfo/b0f1f7d451474e07bc5ddb10070f1dc5/511323000000000000'
                 },
                 {
                     marker:[104.046,33.106],
-                    title:'留守儿童',
+                    name:'留守儿童',
                     location:'四川省雅安市',
-                    img:'https://tdesign.gtimg.com/site/source/card-demo.png',
+                    cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
                     description:'这是第二段描述',
                     state:'2',
-                    link:'http://sc.chinavolunteer.mca.gov.cn/subsite/sichuan/projectInfo/b0f1f7d451474e07bc5ddb10070f1dc5/511323000000000000'
+                    address:'http://sc.chinavolunteer.mca.gov.cn/subsite/sichuan/projectInfo/b0f1f7d451474e07bc5ddb10070f1dc5/511323000000000000'
                 },
             ],
             legend:[
@@ -107,14 +108,14 @@ export default{
                         hideDelay: 200,
                         transitionDuration: 0.2,
                         formatter: function(params) {
-                            const title = params.data.name
-                            const img = params.data.img
+                            const name = params.data.name
+                            const cover = params.data.cover
                             const state = params.data.state
-                            const link = params.data.link
+                            const address = params.data.address
                             // 容器，之后会把组件渲染在容器中
                             const div = document.createElement('div')
                             // vue文件直接用不行，得创建app实例,同时提供组件的props
-                            const app = createApp(MyTooltip, {title, img, state, link})
+                            const app = createApp(MyTooltip, {name, cover, state, address})
                             // 将app实例挂载到dom上
                             app.mount(div)
                             // 将含有组件实例的dom返回给echats
@@ -198,16 +199,16 @@ export default{
                                 focus: 'series'
                             },
                             coordinateSystem: 'geo',
-                            data:_this.province_geo_data.map(function(item){
+                            data:_this.mapList.map(function(item){
                                 if(item.state == 1){
                                     return{
-                                        name:item.title,
+                                        name:item.name,
                                         value: item.marker,
-                                        img:item.img,
+                                        cover:item.cover,
                                         description:item.description,
                                         state:item.state,
                                         location:item.location,
-                                        link:item.link,
+                                        address:item.address,
                                         itemStyle:{ color: _this.legend[0].color}
                                     }
                                 }
@@ -226,16 +227,16 @@ export default{
                                 focus: 'series'
                             },
                             coordinateSystem: 'geo',
-                            data:_this.province_geo_data.map(function(item){
+                            data:_this.mapList.map(function(item){
                                 if(item.state == 0){
                                     return{
-                                        name:item.title,
+                                        name:item.name,
                                         value: item.marker,
-                                        img:item.img,
+                                        cover:item.cover,
                                         description:item.description,
                                         state:item.state,
                                         location:item.location,
-                                        link:item.link,
+                                        address:item.address,
                                         itemStyle:{ color: _this.legend[1].color}
                                     }
                                 }
@@ -254,16 +255,16 @@ export default{
                                 focus: 'series'
                             },
                             coordinateSystem: 'geo',
-                            data:_this.province_geo_data.map(function(item){
+                            data:_this.mapList.map(function(item){
                                 if(item.state == 2){
                                     return{
-                                        name:item.title,
+                                        name:item.name,
                                         value: item.marker,
-                                        img:item.img,
+                                        cover:item.cover,
                                         description:item.description,
                                         state:item.state,
                                         location:item.location,
-                                        link:item.link,
+                                        address:item.address,
                                         itemStyle:{ color: _this.legend[2].color}
                                     }
                                 }
