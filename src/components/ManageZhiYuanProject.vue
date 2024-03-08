@@ -197,7 +197,6 @@ export default {
                             options: [
                                 { label: '全部', value: 1 },
                                 { label: '社区服务', value: 2 },
-                                { label: '其他', value: 3 },
                                 { label: '扶贫减贫', value: 4 },
                                 { label: '支教助学', value: 5 },
                                 { label: '卫生健康', value: 6 },
@@ -218,6 +217,7 @@ export default {
                                 { label: '海外志愿服务', value: 21 },
                                 { label: '税收服务', value: 22 },
                                 { label: '疫情防控', value: 23 },
+                                { label: '其他', value: 3 }
                             ]
                         },
                         rules:[
@@ -368,6 +368,21 @@ export default {
                         showEditIcon: false,
                 },
             },
+            { colKey: 'project_ll', title: '经纬度', width: '280', ellipsis: true,
+                edit: {
+                        component: Input,
+                        props: {
+                            clearable: true,
+                            autofocus: true,
+                            autoWidth: true,
+                        },
+                        rules:[
+                            { max: 500, message: '字符数量不能超过 500', type: 'warning' },
+                            { required: true, message: '不能为空'},
+                        ],
+                        showEditIcon: false,
+                },
+            },
             {
                 colKey: 'operation',
                 title: '操作',
@@ -424,7 +439,8 @@ export default {
                 project_team_size:'1-100',
                 project_cover:'vsbsds',
                 project_description:'发你就哦啊为妇女',
-                project_address:'cscsvsgse'
+                project_address:'cscsvsgse',
+                project_ll:'hjhj'
             },
             {
                 id:'12',
@@ -440,7 +456,8 @@ export default {
                 project_team_size:'1-100',
                 project_cover:'vsbsds',
                 project_description:'发你就哦啊为妇女',
-                project_address:'cscsvsgse'
+                project_address:'cscsvsgse',
+                project_ll:'hjhj'
             },
             {
                 id:'6',
@@ -456,7 +473,8 @@ export default {
                 project_team_size:'1-100',
                 project_cover:'vsbsds',
                 project_description:'发你就哦啊为妇女',
-                project_address:'cscsvsgse'
+                project_address:'cscsvsgse',
+                project_ll:'hjhj'
             },
             {
                 id:'3',
@@ -472,7 +490,8 @@ export default {
                 project_team_size:'1-100',
                 project_cover:'vsbsds',
                 project_description:'发你就哦啊为妇女',
-                project_address:'cscsvsgse'
+                project_address:'cscsvsgse',
+                project_ll:'hjhj'
             },
             {
                 id:'4',
@@ -488,7 +507,8 @@ export default {
                 project_team_size:'1-100',
                 project_cover:'vsbsds',
                 project_description:'发你就哦啊为妇女',
-                project_address:'cscsvsgse'
+                project_address:'cscsvsgse',
+                project_ll:'hjhj'
             },
 
         ];
