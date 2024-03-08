@@ -13,7 +13,7 @@ import MyTooltip from './MyTooltip.vue';
 import { createApp } from "vue";
 
 import $ from 'jquery';
-import {getMapListAPI} from "@/apis/mapHandler";
+import {getMapListAPI} from "@/apis/mapsHandler";
 
 echarts.use([MapChart,ScatterChart ]);
 echarts.use([TitleComponent,LegendComponent,TooltipComponent ]);

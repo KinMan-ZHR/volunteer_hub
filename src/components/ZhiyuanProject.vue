@@ -442,7 +442,6 @@ export default{
 
             // 结束后处理数据
             this.initCurrentPage()
-            this.initProjectState()
             this.initProjectTagName()
             this.initProjectDateStr()
         },
