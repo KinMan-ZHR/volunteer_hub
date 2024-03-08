@@ -210,7 +210,7 @@ export default{
                 // ]
               await getAdPicListAPI(pageSize,current).then(res=>{
                 console.log(res);
-                this.current_page = res.data.coredata.adPicList
+                this.current_page = res.data.coredata.articleList
                 this.total = res.data.coredata.total
               })
 
