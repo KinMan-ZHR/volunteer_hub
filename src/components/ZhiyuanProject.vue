@@ -120,7 +120,7 @@
 <script>
 import ProjectDetail from './ProjectDetail.vue';
 import { ref } from 'vue';
-import {searchProjectAPI} from "@/apis/zhiyuanSIchuan";
+import {searchProjectAPI} from "@/apis/projectHandler";
 export default{
     name:'ZhiyuanProject',
     components:{

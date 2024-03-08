@@ -64,24 +64,25 @@ const onReset = () => {
   MessagePlugin.success('重置成功');
 };
 
-const onSubmit = async ({validateResult, firstError}) => {
-  if (validateResult === true) {
-    const {username, password} = formData;
-    //const result = await loginAPI({username,password});
-    const result = await loginAPI({username, password}).then(
-        (response) => {
-          if (response.data.code === 200) {
-            console.log('Login Success: ', response.data);
-            userStore.setUserInfo(response.data.coredata.user);
-          }
-        }
-    );
-  } else {
-    console.log('Validate Errors: ', firstError, validateResult);
-    await MessagePlugin.warning(firstError);
-  }
-  checkLoginState();
-};
+const onSubmit = async ({validateResult, firstError}) =>
+    {
+      if (validateResult === true) {
+        const {username, password} = formData;
+        await loginAPI({username, password}).then(
+            (response) => {
+              if (response.data.code === 200) {
+                console.log('Login Success: ', response.data);
+                userStore.setUserInfo(response.data.coredata.user);
+              }
+            }
+        );
+      } else {
+        console.log('Validate Errors: ', firstError, validateResult);
+        await MessagePlugin.warning(firstError);
+      }
+      checkLoginState();
+    }
+;
 const checkLoginState=()=>{
   if(userStore.loginStatus === false){
     return

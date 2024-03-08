@@ -13,6 +13,7 @@ import MyTooltip from './MyTooltip.vue';
 import { createApp } from "vue";
 
 import $ from 'jquery';
+import {getMapListAPI} from "@/apis/mapHandler";
 
 echarts.use([MapChart,ScatterChart ]);
 echarts.use([TitleComponent,LegendComponent,TooltipComponent ]);
@@ -20,7 +21,7 @@ echarts.use([TitleComponent,LegendComponent,TooltipComponent ]);
 export default{
     data(){
         return{
-            province_geo_data:[
+            mapList:[
                 {
                     marker:[103.046,30.106],
                     title:'看望乡村留守儿童',
@@ -58,8 +59,16 @@ export default{
 
         }
     },
-    mounted(){
-        this.createProvinceChart()
+
+    async mounted() {
+      await getMapListAPI().then(
+          (response) => {
+            if(response.data.code === 200)
+              this.mapList = response.data.coredata.mapList
+          }
+      )
+
+      this.createProvinceChart()
     },
     methods:{
         createProvinceChart(){
@@ -275,6 +284,7 @@ export default{
 
         }
     },
+
 }
 
 </script>
