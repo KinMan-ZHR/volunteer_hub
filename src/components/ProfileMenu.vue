@@ -11,8 +11,8 @@
               theme="custom"
               accept="image/*"
           >
-            <img :src="userinfo.avatar" style="object-fit: cover;border-radius: 999px;width: 96px;height: 96px;"  alt="头像"/>
-
+            <img v-if="userinfo.avatar" :src="userinfo.avatar" style="object-fit: cover;border-radius: 999px;width: 96px;height: 96px;"  alt="头像"/>
+            <div v-else style="border-radius: 999px;width: 96px;height: 96px;background-color: #ffe6ce;"  alt="头像"></div>
           </t-upload>
           <div class="edit-container">
             <t-icon name="camera" color="rgba(133, 142, 189, 1)"/>
