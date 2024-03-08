@@ -1,7 +1,16 @@
 <template>
     <div class="container" style="display: flex;justify-content: center;">
         <div>
-            <div style="line-height: 32px;margin-top: 24px;">管理头条</div>
+            <div style="display: flex;margin-top: 24px;">
+                <div style="line-height: 32px;">管理头条</div>
+                <div style="flex-grow: 1;"></div>
+                <div>
+                    <t-button theme="primary" @click="onClickCreateItem">
+                        <template #icon><t-icon name="add" /></template>
+                        新建
+                    </t-button>
+                </div>
+            </div>
             <div style="width: 1280px;margin-top: 12px;">
                 <t-table
                 ref="tableRef"
@@ -22,6 +31,16 @@
                 </t-table>
             </div>
         </div>
+        <t-dialog v-model:visible="add_visible" width="1080px">
+            <!-- 自定义header -->
+            <template #header>
+                <div style="display:flex">
+                    <span style="display:flex;align-items:center"><t-icon name="add"></t-icon></span>
+                    <span style="line-height:32px">新建头条新闻</span>
+                </div>
+            </template>
+            <NewToutiao />
+        </t-dialog>
     </div>
 </template>
 
@@ -30,8 +49,12 @@ import { MessagePlugin,Input, DatePicker } from 'tdesign-vue-next';
 // eslint-disable-next-line no-unused-vars
 import {ref, computed, reactive, onMounted} from 'vue';
 import { useUserManager } from '@/hooks/userManager';
+import NewToutiao from './NewToutiao.vue';
 export default {
     name: 'ManageWenMingToutiao',
+    components: {
+        NewToutiao,
+    },
     setup() {
         //前端视图层数据
         const editableRowKeys = ref([]);
@@ -41,6 +64,8 @@ export default {
         const pageSize = ref(5);
         const current = ref(1);
         const total = ref(0);
+
+        const add_visible= ref(false);
 
         //分页器
         const pagination = reactive({
@@ -145,7 +170,6 @@ export default {
 
                     //判断是否属于修改行，如果是则显示保存和取消按钮，否则显示编辑和删除按钮
                     const editable = editableRowKeys.value.includes(row.id);
-                    console.log('editable:',editable);
                     return (
                     <t-space class="table-operations">
                         {!editable && (
@@ -344,6 +368,10 @@ export default {
         //
         // })
 
+        const onClickCreateItem = () => {
+            add_visible.value=true;
+        };
+
         return {
             editableRowKeys,
             columns,
@@ -361,10 +389,12 @@ export default {
             onSave,
             onRowEdit,
             pagination,
+            add_visible,
             onRowValidate,
             onValidate,
             onConfirmDelete,
-            onChangePage
+            onChangePage,
+            onClickCreateItem
         };
     },
 }
