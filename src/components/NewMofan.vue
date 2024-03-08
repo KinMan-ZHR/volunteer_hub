@@ -48,6 +48,9 @@
 
 export default{
     name:'NewToutiao',
+    props:{
+      addMethod : Function,
+    },
     data(){
         return{
             formData:[{
@@ -66,8 +69,9 @@ export default{
     },
     methods:{
         submitData(){
-            // TODO: 上传formData到服务器
+            // 上传formData到服务器
             console.log('submit data:', this.formData);
+            this.addMethod(this.formData)
         },
 
         onValidate(result){
