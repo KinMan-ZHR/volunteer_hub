@@ -81,7 +81,7 @@ import {editAvatarAPI, editPasswordAPI} from "@/apis/usersHandler";
 // eslint-disable-next-line no-unused-vars
 import {reactive, ref} from "vue";
 import { computed, watch } from 'vue';
-
+//todo 没有头像时，显示默认头像
 const modifyPassword_visible = ref(false)
 const password_fromData = reactive({
   original_password:'',

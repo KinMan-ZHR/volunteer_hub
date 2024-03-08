@@ -1,8 +1,14 @@
 import request from "./httpRequest.js";
-export const getCloudVideoListAPI = () => {
+export const getCloudVideoListAPI = (pageSize,currPage) => {
     return request({
         url: "/cloudVideoList",
         method: "get",
+        params:{
+            type: 4,
+            pageSize,
+            currPage
+        }
+
     })
 };
 export const getVideoListAPI = (id) => {

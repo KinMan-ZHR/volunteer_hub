@@ -50,13 +50,14 @@
                 </div>
                 <div style="margin-left: 25px;margin-right: 15px;padding-bottom: 10px;">
                     <t-pagination
-                        :total="image_advertisement.length"
+                        v-model="current"
+                        v-model:pageSize="pageSize"
+                        :total="total"
                         showJumper
                         showFirstAndLastPageBtn
                         :showPageSize="false"
                         showPreviousAndNextBtn
                         totalContent
-                        pageSize="9"
                         @change="onChangeImagePagination"
                     />
                 </div>
@@ -98,6 +99,10 @@
 import { ref } from 'vue';
 import WenZhangVideo from './WenZhangVideo.vue';
 import WenZhang from './WenZhang.vue';
+//todo 将视频广告与图片广告合并简化代码，取消chunkArray函数,因为后端只返回相应的列表
+
+
+
 export default{
     name:'GongYiGuangGao',
     components:{
@@ -106,6 +111,9 @@ export default{
     },
     data(){
         return{
+          total: 100,
+          current: 1,
+          pageSize: 9,
             theme : ref('video'),
             video_advertisement_chunked:[],
             video_current_page:[],
