@@ -1,11 +1,11 @@
 <template>
     <div style="width: 100%; background-color: white; display: flex;justify-content: center;">
         <div style="width: 1280px;padding: 24px;">
-            <div style="width: 1080px;">
+            <div style="width: 100%;">
                 <p style="font-size: 20px;line-height: 32px;">数据管理</p>
                 <div style="width: 100%;height: 20px;"></div>
                 <DataCopy></DataCopy>
-                <div style="width: 100%;height: 20px;"></div>
+                <div style="width: 100%;"></div>
                 <DataUpdate></DataUpdate>
             </div>
         </div>
