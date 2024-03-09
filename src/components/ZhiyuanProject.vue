@@ -126,7 +126,7 @@
 <script>
 import ProjectDetail from './ProjectDetail.vue';
 import { ref } from 'vue';
-import {searchProjectAPI} from "@/apis/projectHandler";
+import {getProjectAPI, searchProjectAPI} from "@/apis/projectHandler";
 export default{
     name:'ZhiyuanProject',
     components:{
@@ -414,46 +414,51 @@ export default{
             }
         },
 
-        getProjectData(current,pagesize){
-            // TODO(交互)：根据current和pagesize从数据库中获取项目列表
-            console.log(current,pagesize);
-            this.project = [{
-                    name:'项目1',
-                    id:'P51190324030028878',
-                    location:'恩阳区关公镇神牛溪',
-                    pub_date:'2024-03-01',
-                    time_range:['2024-03-01','2024-03-03'],
-                    // 服务类别
-                    type:[1,3],
-                    // 项目状态，需要处理获取
-                    project_state:'1',
-                    state:'0',
-                    // 项目的服务对象
-                    target:[1,12,14,3],
-                    cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
-                    description:'组织志愿者通过走访慰问、生活帮扶、节日慰问等方式，为他们提供政策宣传、精神慰籍、陪伴照料、物质援助、信息咨询等服务，助力乡村振兴。',
-                    address:'https://tdesign.gtimg.com'
-                },
-                {
-                    name:'项目2',
-                    id:'P51190324030028878',
-                    location:'恩阳区关公镇神牛溪',
-                    pub_date:'2024-03-01',
-                    time_range:['2024-03-01','2024-03-13'],
-                    // 服务类别
-                    type:[1,3],
-                    // 项目状态，需要初始化处理获取
-                    project_state:'0',
-                    // 项目的服务对象
-                    target:[1,11,14,3],
-                    state:'1',
-                    cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
-                    description:'组织志愿者通过走访慰问、生活帮扶、节日慰问等方式，为他们提供政策宣传、精神慰籍、陪伴照料、物质援助、信息咨询等服务，助力乡村振兴。',
-                    address:'https://tdesign.gtimg.com'
-                },
-            ]
-            this.projectNum = 100
-
+        async getProjectData(current, pageSize) {
+          // TODO(交互)：根据current和pagesize从数据库中获取项目列表
+          console.log(current, pageSize);
+          // this.project = [{
+          //         name:'项目1',
+          //         id:'P51190324030028878',
+          //         location:'恩阳区关公镇神牛溪',
+          //         pub_date:'2024-03-01',
+          //         time_range:['2024-03-01','2024-03-03'],
+          //         // 服务类别
+          //         type:[1,3],
+          //         // 项目状态，需要处理获取
+          //         project_state:'1',
+          //         state:'0',
+          //         // 项目的服务对象
+          //         target:[1,12,14,3],
+          //         cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
+          //         description:'组织志愿者通过走访慰问、生活帮扶、节日慰问等方式，为他们提供政策宣传、精神慰籍、陪伴照料、物质援助、信息咨询等服务，助力乡村振兴。',
+          //         address:'https://tdesign.gtimg.com'
+          //     },
+          //     {
+          //         name:'项目2',
+          //         id:'P51190324030028878',
+          //         location:'恩阳区关公镇神牛溪',
+          //         pub_date:'2024-03-01',
+          //         time_range:['2024-03-01','2024-03-13'],
+          //         // 服务类别
+          //         type:[1,3],
+          //         // 项目状态，需要初始化处理获取
+          //         project_state:'0',
+          //         // 项目的服务对象
+          //         target:[1,11,14,3],
+          //         state:'1',
+          //         cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
+          //         description:'组织志愿者通过走访慰问、生活帮扶、节日慰问等方式，为他们提供政策宣传、精神慰籍、陪伴照料、物质援助、信息咨询等服务，助力乡村振兴。',
+          //         address:'https://tdesign.gtimg.com'
+          //     },
+          // ]
+          // this.projectNum = 100
+          await getProjectAPI(current, pageSize).then(res => {
+            if (res.data.code !== 200) {
+              this.project = res.data.coredata.projectList;
+              this.projectNum = res.data.coredata.total;
+            }
+          })
         },
     },
     mounted(){
