@@ -99,7 +99,7 @@
 import { ref } from 'vue';
 import WenZhangVideo from './WenZhangVideo.vue';
 import WenZhang from './WenZhang.vue';
-import {getCloudVideoListAPI} from "@/apis/videoHandler";
+import {getCharityVideoListAPI} from "@/apis/videoHandler";
 import {getAdPicListAPI} from "@/apis/adPicHandler";
 //已解决todo 将视频广告与图片广告合并简化代码，取消chunkArray函数,因为后端只返回相应的列表
 
@@ -184,7 +184,7 @@ export default{
                 //     },
                 //
                 // ]
-              await getCloudVideoListAPI(pageSize,current).then(res=>{
+              await getCharityVideoListAPI(pageSize,current).then(res=>{
                 console.log(res);
                 this.current_page = res.data.coredata.videoList
                 this.total = res.data.coredata.total

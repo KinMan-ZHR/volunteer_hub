@@ -92,13 +92,13 @@
                     <t-card v-for="(item,index) in project" :key="index" :cover="item.cover" bordered :style="{ width: '300px',cursor:'pointer' }" :hoverShadow="true" @click="onClickProject(index)">
                         <template #footer>
                             <div style="display: flex;"><p>{{ item.name }}</p>
-                                <t-icon name="refresh" v-if="item.project_state === '1'" style="color: green; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
+                                <t-icon name="refresh" v-if="item.project_state === '3'" style="color: green; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
                                 <t-icon name="pending" v-if="item.project_state === '2'" style="color: var(--td-brand-color-4); line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
-                                <t-icon name="assignment" v-if="item.project_state === '0'" style="color: red; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
+                                <t-icon name="assignment" v-if="item.project_state === '4'" style="color: red; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
                                 <div style="padding: 0px 4px ;">
-                                    <p class="note" v-if="item.project_state === '1'" style="color: green;">进行中</p>
+                                    <p class="note" v-if="item.project_state === '3'" style="color: green;">进行中</p>
                                     <p class="note" v-if="item.project_state === '2'" style="color: var(--td-brand-color-4);">待启动</p>
-                                    <p class="note" v-if="item.project_state === '0'" style="color: red;">已结项</p>
+                                    <p class="note" v-if="item.project_state === '4'" style="color: red;">已结项</p>
                                 </div>
                             </div>
                             <p class="note">{{ item.description }}</p>
@@ -107,11 +107,12 @@
                 </t-space>
                 <div style="padding:24px">
                     <t-pagination
-                    :total="projectNum"
+                    :total="total"
                     showPageNumber
                     :showPageSize="false"
                     showFirstAndLastPageBtn
-                    :pageSize="12"
+                    :pageSize="formData.pageSize"
+                    :current="formData.currPage"
                     @change="onChangePagination"/>
                 </div>
                 <div style="height:200px"></div>
@@ -191,9 +192,10 @@ export default{
                 { label: '已结项', value: 4},
             ],
             options_scale:[
-                { label: '公开招募', value: 1 },
-                { label: '指定支援队伍招募', value: 2 },
-                { label: '设定免审密码招募', value: 3}
+                { label: '全部', value: 1 },
+                { label: '公开招募', value: 2 },
+                { label: '指定支援队伍招募', value: 3 },
+                { label: '设定免审密码招募', value: 4}
             ],
             options_service:[
                 { label: '全部', value: 1 },
@@ -230,6 +232,8 @@ export default{
 
             // 搜索所用的data
             formData:{
+                currPage:1,
+                pageSize:12,
                 size : ref([1]),
                 target : ref([1]),
                 scale : ref([1]),
@@ -261,11 +265,7 @@ export default{
 
             project_show:[],
 
-            projectNum:2,
-
-            current:1,
-
-            pagesize:12,
+            total:2,
 
             visible:false,
 
@@ -286,11 +286,8 @@ export default{
         },
 
         // 分页变化时触发
-        onChangePagination(e){
-            let current = e.current
-            // let previous = e.previous
-            this.current = current
-            this.getProjectData(current,this.pagesize)
+        onChangePagination(){
+         this.onSearchProject()
         },
 
         // 点击查看详情时跳转到外部网站
@@ -343,14 +340,13 @@ export default{
            await searchProjectAPI(this.formData).then(res=>{
                 if(res.data.code===200){
                     this.project=res.data.coredata.projectList;
+                    this.total = res.data.coredata.total;
+                }
+                if(res.data.code===401) {
+                  this.project = res.data.coredata.projectList;
+                  this.total = res.data.coredata.total;
                 }
             })
-            // 这里获取搜索的数据
-            // ……
-            // this.project = ***
-
-            // 结束后处理数据
-            // this.initCurrentPage()
             this.initProjectTagName()
             this.initProjectDateStr()
         },
@@ -409,14 +405,14 @@ export default{
           await getProjectAPI(current, pageSize).then(res => {
             if (res.data.code === 200) {
               this.project = res.data.coredata.projectList;
-              this.projectNum = res.data.coredata.total;
+              this.total = res.data.coredata.total;
             }
           })
         },
     },
     mounted(){
         // this.initProjectState()
-        this.getProjectData(this.current,this.pagesize)
+        this.getProjectData(this.formData.currPage,this.formData.pageSize)
         this.initProjectTagName()
         this.initProjectDateStr()
         this.initProjectShow()
