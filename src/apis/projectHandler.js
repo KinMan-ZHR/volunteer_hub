@@ -6,3 +6,13 @@ export const searchProjectAPI = (data) => {
         data
     })
 };
+export const getProjectAPI = (currPage,pageSize) => {
+    return request({
+        url: "/projectList",
+        method: "get",
+        params: {
+            currPage,
+            pageSize
+        }
+    })
+};
