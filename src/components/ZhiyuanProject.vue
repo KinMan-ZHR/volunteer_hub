@@ -269,7 +269,7 @@ export default{
 
             visible:false,
 
-            dialog_show:true,
+            dialog_show:false,
         }
     },
     methods:{
