@@ -14,37 +14,37 @@
                 <t-space >
                     <label class="cate-title">
                         <p style="width: 72px;">项目区域</p></label>
-                    <t-check-tag-group style="line-height: 30px;" v-model="formData.checkTagValueRegion" :options="options_region" :unchecked-props="STYLE_UNCHECKED_PROPS" @change="onSearchProject"/>
+                    <t-check-tag-group style="line-height: 30px;" v-model="formData.region" :options="options_region" :unchecked-props="STYLE_UNCHECKED_PROPS" @change="onSearchProject"/>
                 </t-space>
 
                 <t-space >
                     <label class="cate-title">
                         <p style="width: 72px;">服务类别</p></label>
-                    <t-check-tag-group style="line-height: 30px;" v-model="formData.checkTagValueCate" :options="options_cate" :unchecked-props="STYLE_UNCHECKED_PROPS"  @change="onSearchProject"/>
+                    <t-check-tag-group style="line-height: 30px;" v-model="formData.type" :options="options_cate" :unchecked-props="STYLE_UNCHECKED_PROPS" @change="onSearchProject"/>
                 </t-space>
 
                 <t-space >
                     <label class="cate-title">
                         <p style="width: 72px;">项目状态</p></label>
-                    <t-check-tag-group style="line-height: 30px;" v-model="formData.checkTagValueState" :options="options_state" :unchecked-props="STYLE_UNCHECKED_PROPS" @change="onSearchProject"/>
+                    <t-check-tag-group style="line-height: 30px;" v-model="formData.state" :options="options_state" :unchecked-props="STYLE_UNCHECKED_PROPS" @change="onSearchProject"/>
                 </t-space>
 
                 <t-space >
                     <label class="cate-title">
                         <p style="width: 72px;">报名范围</p></label>
-                    <t-check-tag-group style="line-height: 30px;" v-model="formData.checkTagValueScale" :options="options_scale" :unchecked-props="STYLE_UNCHECKED_PROPS" @change="onSearchProject"/>
+                    <t-check-tag-group style="line-height: 30px;" v-model="formData.scale" :options="options_scale" :unchecked-props="STYLE_UNCHECKED_PROPS" @change="onSearchProject"/>
                 </t-space>
 
                 <t-space >
                     <label class="cate-title">
                         <p style="width: 72px;">服务对象</p></label>
-                    <t-check-tag-group style="line-height: 30px;" v-model="formData.checkTagValueService" :options="options_service" :unchecked-props="STYLE_UNCHECKED_PROPS" @change="onSearchProject"/>
+                    <t-check-tag-group style="line-height: 30px;" v-model="formData.target" :options="options_service" :unchecked-props="STYLE_UNCHECKED_PROPS" @change="onSearchProject"/>
                 </t-space>
 
                 <t-space >
                     <label class="cate-title">
                         <p style="width: 72px;">项目人数</p></label>
-                    <t-check-tag-group style="line-height: 30px;" v-model="formData.checkTagValuePeoplenum" :options="options_peoplenum" :unchecked-props="STYLE_UNCHECKED_PROPS" @change="onSearchProject"/>
+                    <t-check-tag-group style="line-height: 30px;" v-model="formData.size" :options="options_peoplenum" :unchecked-props="STYLE_UNCHECKED_PROPS" @change="onSearchProject"/>
                 </t-space>
 
             </t-space>
@@ -230,12 +230,12 @@ export default{
 
             // 搜索所用的data
             formData:{
-                checkTagValuePeoplenum : ref([1]),
-                checkTagValueService : ref([1]),
-                checkTagValueScale : ref([1]),
-                checkTagValueRegion : ref([1]),
-                checkTagValueCate : ref([1]),
-                checkTagValueState : ref([1]),
+                size : ref([1]),
+                target : ref([1]),
+                scale : ref([1]),
+                region : ref([1]),
+                type : ref([1]),
+                state : ref([1]),
                 time_range: ['',''],
                 id : '',
                 name: '',
@@ -271,6 +271,7 @@ export default{
 
             dialog_show:false,
         }
+
     },
     methods:{
         // 日期选择器变化时触发
@@ -284,15 +285,6 @@ export default{
             this.formData.time_range = ['','']
         },
 
-        // chunkArray(originalArray){
-        //     var chunkedArray = [];
-        //     for (let i = 0; i < originalArray.length; i += 12) {
-        //         const chunk = originalArray.slice(i, i + 12);
-        //         chunkedArray.push(chunk);
-        //     }
-        //     return chunkedArray
-        // },
-
         // 分页变化时触发
         onChangePagination(e){
             let current = e.current
@@ -301,55 +293,11 @@ export default{
             this.getProjectData(current,this.pagesize)
         },
 
-        // initCurrentPage(){
-        //     this.project_chunked = this.chunkArray(this.project)
-        //     this.current_page = this.project_chunked[0]
-        // },
-
         // 点击查看详情时跳转到外部网站
         onClickConfirm(){
             var address = this.project_show.address
             window.open(address)
         },
-
-        // // 处理project数据，根据今天的日期添加state
-        // initProjectState(){
-        //     // 要判断的特定日期
-        //     var specificDate = this.getToday();
-
-        //     for(var i = 0;i<this.project.length;i++){
-        //         // 给定的时间范围
-        //         var timeRange = this.project[i].time_range;
-
-        //         // 将时间范围和特定日期转换为 Date 对象
-        //         var rangeStart = new Date(timeRange[0]);
-        //         var rangeEnd = new Date(timeRange[1]);
-        //         var date = new Date(specificDate);
-
-        //         // 检查特定日期是否在时间范围内
-        //         var isWithinRange = date >= rangeStart && date <= rangeEnd;
-
-        //         // 检查特定日期是否在时间范围前面
-        //         var isBeforeRange = date < rangeStart;
-
-        //         // 检查特定日期是否在时间范围后面
-        //         var isAfterRange = date > rangeEnd;
-
-        //         // 根据检查结果输出相应的消息
-        //         if (isWithinRange) {
-        //             console.log('特定日期在时间范围内');
-        //             this.project[i].project_state = '1'
-        //         } else if (isBeforeRange) {
-        //             console.log('特定日期在时间范围前面');
-        //             this.project[i].project_state = '2'
-        //         } else if (isAfterRange) {
-        //             console.log('特定日期在时间范围后面');
-        //             this.project[i].project_state = '0'
-        //         }
-        //     }
-
-
-        // },
 
         // 处理project数据，根据tag的值对应tag的名称
         initProjectTagName(){
@@ -392,18 +340,7 @@ export default{
 
         // 点击搜索按钮时触发搜索项目+标签发生变化时触发搜索
         async onSearchProject(){
-            const formData = new FormData();
-            formData.append('region', this.formData.checkTagValueRegion);
-            formData.append('type', this.formData.checkTagValueCate);
-            formData.append('state', this.formData.checkTagValueState);
-            formData.append('scale', this.formData.checkTagValueScale);
-            formData.append('target', this.formData.checkTagValueService);
-            formData.append('size', this.formData.checkTagValuePeoplenum);
-            formData.append('time_range', this.formData.time_range);
-            formData.append('id', this.formData.id);
-            formData.append('name', this.formData.name);
-            console.log(formData);
-           await searchProjectAPI(formData).then(res=>{
+           await searchProjectAPI(this.formData).then(res=>{
                 if(res.data.code!==200){
                     this.project=res.data.coredata.projectList;
                 }
@@ -428,6 +365,7 @@ export default{
                 this.project[i].date_str = this.project[i].time_range[0] +' 至 '+this.project[i].time_range[1]
             }
         },
+
 
         async getProjectData(current, pageSize) {
           // TODO(交互)：根据current和pagesize从数据库中获取项目列表
