@@ -42,3 +42,18 @@ export const upLoadVideoAPI = (data) => {
         }
     });
 };
+
+export const searchVideoListAPI = (currPage,pageSize,keyword) => {
+    return request({
+        url: "/searchCloudVideoList",
+        method: "get",
+        params:{
+            keyword,
+            pageSize,
+            currPage
+        }
+    });
+
+};
+
+
