@@ -93,7 +93,7 @@ export default {
                 },
             },
 
-            { align: 'left', colKey: 'goodpeople_name', title: '道德好人姓名', width: '120',
+            { align: 'left', colKey: 'name', title: '道德好人姓名', width: '120',
                 edit: {
                     component: Input,
                     props: {
@@ -107,7 +107,7 @@ export default {
                 },
             },
 
-            { colKey: 'goodpeople_title', title: '文章标题', width: '170' ,ellipsis:true,
+            { colKey: 'title', title: '文章标题', width: '170' ,ellipsis:true,
                 edit: {
                         component: Input,
                         // props, 透传全部属性到 Input 组件
@@ -123,7 +123,7 @@ export default {
                         showEditIcon: false,
                     },
             },
-            { colKey: 'goodpeople_image', title: '图片', width: '170' ,ellipsis:true,
+            { colKey: 'image', title: '图片', width: '170' ,ellipsis:true,
                 edit: {
                         component: Input,
                         // props, 透传全部属性到 Input 组件
@@ -139,7 +139,7 @@ export default {
                         showEditIcon: false,
                     },
             },
-            { colKey: 'goodpeople_time', title: '发布时间' ,width:'220px',
+            { colKey: 'time', title: '发布时间' ,width:'220px',
                 edit: {
                     component: DatePicker,
                     // props, 透传全部属性到 DatePicker 组件
@@ -147,7 +147,7 @@ export default {
                     showEditIcon: false,
                 },
             },
-            { colKey: 'goodpeople_source', title: '文章来源', width: '180',
+            { colKey: 'source', title: '文章来源', width: '180',
                 edit: {
                     component: Input,
                     props: {
@@ -162,7 +162,7 @@ export default {
                     showEditIcon: false,
                 },
             },
-            { colKey: 'goodpeople_text', title: '文章内容', width: '280', ellipsis: true,
+            { colKey: 'text', title: '文章内容', width: '280', ellipsis: true,
                 edit: {
                         component: Input,
                         props: {
@@ -217,63 +217,63 @@ export default {
             },
         ]);
       //console.log('userList:',userList.value);
-        // TODO：伪造数据开始
+        // 已解决TODO：伪造数据开始
         userList.value=[
             {
                 id:'1',
-                goodpeople_name:'好人1',
-                goodpeople_title:'好人做了某件事情',
-                goodpeople_image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
-                goodpeople_time:'2022-01-01',
-                goodpeople_source:'新华网',
-                goodpeople_text:'这是一条新闻',
+                name:'好人1',
+                title:'好人做了某件事情',
+                image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
+                time:'2022-01-01',
+                source:'新华网',
+                text:'这是一条新闻',
             },
             {
                 id:'2',
-                goodpeople_name:'好人2',
-                goodpeople_title:'好人做了某件事情',
-                goodpeople_image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
-                goodpeople_time:'2022-01-01',
-                goodpeople_source:'新华网',
-                goodpeople_text:'这是一条新闻',
+                name:'好人2',
+                title:'好人做了某件事情',
+                image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
+                time:'2022-01-01',
+                source:'新华网',
+                text:'这是一条新闻',
             },
             {
                 id:'3',
-                goodpeople_name:'好人3',
-                goodpeople_title:'好人做了某件事情',
-                goodpeople_image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
-                goodpeople_time:'2022-01-01',
-                goodpeople_source:'新华网',
-                goodpeople_text:'这是一条新闻',
+                name:'好人3',
+                title:'好人做了某件事情',
+                image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
+                time:'2022-01-01',
+                source:'新华网',
+                text:'这是一条新闻',
             },
             {
                 id:'4',
-                goodpeople_name:'好人4',
-                goodpeople_title:'好人做了某件事情',
-                goodpeople_image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
-                goodpeople_time:'2022-01-01',
-                goodpeople_source:'新华网',
-                goodpeople_text:'这是一条新闻',
+                name:'好人4',
+                title:'好人做了某件事情',
+                image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
+                time:'2022-01-01',
+                source:'新华网',
+                text:'这是一条新闻',
             },
             {
                 id:'5',
-                goodpeople_name:'好人5',
-                goodpeople_title:'好人做了某件事情',
-                goodpeople_image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
-                goodpeople_time:'2022-01-01',
-                goodpeople_source:'新华网',
-                goodpeople_text:'这是一条新闻',
+                name:'好人5',
+                title:'好人做了某件事情',
+                image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
+                time:'2022-01-01',
+                source:'新华网',
+                text:'这是一条新闻',
             },
 
         ];
-        // TODO：伪造数据结束，请求相关开始
+        // 已解决TODO：伪造数据结束，请求相关开始
         const onConfirmDelete = async (row) =>{
             // const { id } = e.currentTarget.dataset;
             console.log("confirmdelete",row.id);
             // console.log('tableRef',tableRef.value);
             // 移除当前节点
             // tableRef.value.remove(row.id);
-            // TODO：根据indexToDelete获取用户id，根据用户id删除数据库的用户根据current和pageSize再次获取当前页面的数据,同时更新total的值（使用之前定义的userNum）
+            // 已解决TODO：根据indexToDelete获取用户id，根据用户id删除数据库的用户根据current和pageSize再次获取当前页面的数据,同时更新total的值（使用之前定义的userNum）
             // await delUser(row);
             // ISSUE：前端效果实现逻辑在下面，后续可能要删掉
             // 前端视图层删除元素，后端未必真删除
@@ -300,13 +300,13 @@ export default {
                 console.log(editableRowKeys.value);
             }
         };
-      // TODO：切换页面
+      // 已解决TODO：切换页面
       const onChangePage = (params) => {
           console.log('分页器',pagination);
         console.log('changePage',params);
         current.value = params.current;
         pageSize.value = params.pageSize
-        // TODO: 根据 current 和 pageSize 从数据库中切换页面数据...
+        // 已解决: 根据 current 和 pageSize 从数据库中切换页面数据...
         getUser();
       }
       const onSave = (e) => {
