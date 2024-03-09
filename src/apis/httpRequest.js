@@ -3,7 +3,7 @@ import { MessagePlugin } from 'tdesign-vue-next';
 import {useUserStore}  from '@/dataStore/userdata.js'
 import router from "@/router";
 const httpRequest = axios.create({
-    baseURL: 'http://192.168.58.108:8080',
+    baseURL: 'http://192.168.58.27:8080',
     timeout: 10000,
 })
 

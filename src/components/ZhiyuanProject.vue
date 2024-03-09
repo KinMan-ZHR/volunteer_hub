@@ -120,7 +120,8 @@
 <script>
 import ProjectDetail from './ProjectDetail.vue';
 import { ref } from 'vue';
-import {searchProjectAPI} from "@/apis/projectHandler";
+import {getProjectAPI, searchProjectAPI} from "@/apis/projectHandler";
+//todo,发送数据搜索部分的值为undefined
 export default{
     name:'ZhiyuanProject',
     components:{
@@ -421,6 +422,7 @@ export default{
         // 点击搜索按钮时触发搜索项目+标签发生变化时触发搜索
         async onSearchProject(){
             const formData = new FormData();
+            console.log("地区",this.formData.checkTagValueRegion.value);
             formData.append('region', this.formData.checkTagValueRegion.value);
             formData.append('type', this.formData.checkTagValueCate.value);
             formData.append('state', this.formData.checkTagValueState.value);
@@ -446,12 +448,16 @@ export default{
             this.initProjectDateStr()
         },
 
-        getProject(){
-            console.log(this.formData);
-
-            // 这里获取搜索的数据
-            // ……
-            // this.project = ***
+        async getProject() {
+          console.log(this.formData);
+          await getProjectAPI().then(res => {
+            if (res.data.code !== 200) {
+              this.project = res.data.coredata.projectList;
+            }
+          })
+          // 这里获取搜索的数据
+          // ……
+          // this.project = ***
 
         },
 

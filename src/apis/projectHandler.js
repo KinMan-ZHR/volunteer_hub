@@ -6,3 +6,9 @@ export const searchProjectAPI = (data) => {
         data
     })
 };
+export const getProjectAPI = () => {
+    return request({
+        url: "/projectList",
+        method: "get",
+    })
+};
