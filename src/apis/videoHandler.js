@@ -4,7 +4,19 @@ export const getCloudVideoListAPI = (pageSize,currPage) => {
         url: "/cloudVideoList",
         method: "get",
         params:{
-            type: 4,
+            type: [1,2,3,4],
+            pageSize,
+            currPage
+        }
+
+    })
+};
+export const getCharityVideoListAPI = (pageSize,currPage) => {
+    return request({
+        url: "/cloudVideoList",
+        method: "get",
+        params:{
+            type: [4],
             pageSize,
             currPage
         }
