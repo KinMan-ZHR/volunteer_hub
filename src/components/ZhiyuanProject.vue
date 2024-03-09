@@ -120,8 +120,7 @@
 <script>
 import ProjectDetail from './ProjectDetail.vue';
 import { ref } from 'vue';
-import {getProjectAPI, searchProjectAPI} from "@/apis/projectHandler";
-//todo,发送数据搜索部分的值为undefined
+import {searchProjectAPI} from "@/apis/projectHandler";
 export default{
     name:'ZhiyuanProject',
     components:{
@@ -398,37 +397,16 @@ export default{
             this.project_show = this.project[id]
             this.dialog_show = true
         },
-      // id:"",
-      // name:"项目1",
-      // location:"恩阳区关公镇神牛溪",
-      // pub_date:'2024-03-01',
-      // time_range:['2024-03-01','2024-03-03']
-      //
-      // //这里的【值】对应着前端的显示
-      //
-      // region:[1,3],
-      // type:[1,12],
-      // target:[1,12,14,3],
-      // //1 代表进行中；0代表已结项；2代表待开始
-      // state:'1'
-      // scope:[1,3],
-      // teamSize:[1,3],
-      //
-      // cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
-      // description:'组织志愿者通过走访慰问、生活帮扶、节日慰问等方式，为他们提供政策宣传、精神慰籍、陪伴照料、物质援助、信息咨询等服务，助力乡村振兴。',
-      // // 网站链接
-      // address:'https://tdesign.gtimg.com'
 
         // 点击搜索按钮时触发搜索项目+标签发生变化时触发搜索
         async onSearchProject(){
             const formData = new FormData();
-            console.log("地区",this.formData.checkTagValueRegion.value);
-            formData.append('region', this.formData.checkTagValueRegion.value);
-            formData.append('type', this.formData.checkTagValueCate.value);
-            formData.append('state', this.formData.checkTagValueState.value);
-            formData.append('scale', this.formData.checkTagValueScale.value);
-            formData.append('target', this.formData.checkTagValueService.value);
-            formData.append('size', this.formData.checkTagValuePeoplenum.value);
+            formData.append('region', this.formData.checkTagValueRegion);
+            formData.append('type', this.formData.checkTagValueCate);
+            formData.append('state', this.formData.checkTagValueState);
+            formData.append('scale', this.formData.checkTagValueScale);
+            formData.append('target', this.formData.checkTagValueService);
+            formData.append('size', this.formData.checkTagValuePeoplenum);
             formData.append('time_range', this.formData.time_range);
             formData.append('id', this.formData.id);
             formData.append('name', this.formData.name);
@@ -448,18 +426,6 @@ export default{
             this.initProjectDateStr()
         },
 
-        async getProject() {
-          console.log(this.formData);
-          await getProjectAPI().then(res => {
-            if (res.data.code !== 200) {
-              this.project = res.data.coredata.projectList;
-            }
-          })
-          // 这里获取搜索的数据
-          // ……
-          // this.project = ***
-
-        },
 
         initProjectShow(){
             this.project_show = this.project[0]
@@ -475,7 +441,6 @@ export default{
 
     },
     mounted(){
-        this.getProject()
         // this.initProjectState()
         this.initProjectTagName()
         this.initProjectDateStr()

@@ -137,6 +137,45 @@ export default {
       changeCollapsed,
       onClickToLogin,
     }
+  },
+
+  mounted(){
+    if (this.$route.path.includes('/wenming')) {
+      console.log('当前在wenming');
+      this.active_value = 'item1'
+    }
+    if (this.$route.path.includes('/zhiyuan')) {
+      console.log('当前在zhiyuan');
+      this.active_value = 'item2'
+    }
+    if (this.$route.path.includes('/activities')) {
+      // console.log('当前在activities');
+      this.active_value = 'item3'
+    }
+    if (this.$route.path.includes('/videoplay')) {
+      // console.log('当前在videoplay');
+      this.active_value = 'item4'
+    }
+    if (this.$route.path.includes('/informationpub')) {
+      // console.log('当前在informationpub');
+      this.active_value = 'item5'
+    }
+    if (this.$route.path.includes('/usermanage')) {
+      // console.log('当前在usermanage');
+      this.active_value = 'item8'
+    }
+    if (this.$route.path.includes('/datamanage')) {
+      // console.log('当前在datamanage');
+      this.active_value = 'item9'
+    }
+    if (this.$route.path.includes('/systeminfo')) {
+      // console.log('当前在systeminfo');
+      this.active_value = 'item10'
+    }
+    if (this.$route.path.includes('/myprofile')) {
+      // console.log('当前在myprofile');
+      this.active_value = 'item6'
+    }
   }
 }
 </script>
