@@ -95,7 +95,7 @@ export default {
                 },
             },
 
-            { align: 'left', colKey: 'goodpeople_name', title: '道德模范姓名', width: '120',
+            { align: 'left', colKey: 'name', title: '道德模范姓名', width: '120',
                 edit: {
                     component: Input,
                     props: {
@@ -109,7 +109,7 @@ export default {
                 },
             },
 
-            { colKey: 'goodpeople_title', title: '文章标题', width: '170' ,ellipsis:true,
+            { colKey: 'title', title: '文章标题', width: '170' ,ellipsis:true,
                 edit: {
                         component: Input,
                         // props, 透传全部属性到 Input 组件
@@ -125,7 +125,7 @@ export default {
                         showEditIcon: false,
                     },
             },
-            { colKey: 'goodpeople_image', title: '图片', width: '170' ,ellipsis:true,
+            { colKey: 'image', title: '图片', width: '170' ,ellipsis:true,
                 edit: {
                         component: Input,
                         // props, 透传全部属性到 Input 组件
@@ -141,7 +141,7 @@ export default {
                         showEditIcon: false,
                     },
             },
-            { colKey: 'goodpeople_time', title: '发布时间' ,width:'220px',
+            { colKey: 'time', title: '发布时间' ,width:'220px',
                 edit: {
                     component: DatePicker,
                     // props, 透传全部属性到 DatePicker 组件
@@ -149,7 +149,7 @@ export default {
                     showEditIcon: false,
                 },
             },
-            { colKey: 'goodpeople_source', title: '文章来源', width: '180',
+            { colKey: 'source', title: '文章来源', width: '180',
                 edit: {
                     component: Input,
                     props: {
@@ -164,7 +164,7 @@ export default {
                     showEditIcon: false,
                 },
             },
-            { colKey: 'goodpeople_text', title: '文章内容', width: '280', ellipsis: true,
+            { colKey: 'text', title: '文章内容', width: '280', ellipsis: true,
                 edit: {
                         component: Input,
                         props: {
@@ -223,48 +223,48 @@ export default {
         goodPeopleList.value=[
             {
                 id:'1',
-                goodpeople_name:'模范1',
-                goodpeople_title:'模范做了某件事情',
-                goodpeople_image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
-                goodpeople_time:'2022-01-01',
-                goodpeople_source:'新华网',
-                goodpeople_text:'这是一条新闻',
+                name:'模范1',
+                title:'模范做了某件事情',
+                image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
+                time:'2022-01-01',
+                source:'新华网',
+                text:'这是一条新闻',
             },
             {
                 id:'2',
-                goodpeople_name:'模范2',
-                goodpeople_title:'模范做了某件事情',
-                goodpeople_image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
-                goodpeople_time:'2022-01-01',
-                goodpeople_source:'新华网',
-                goodpeople_text:'这是一条新闻',
+                name:'模范2',
+                title:'模范做了某件事情',
+                image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
+                time:'2022-01-01',
+                source:'新华网',
+                text:'这是一条新闻',
             },
             {
                 id:'3',
-                goodpeople_name:'模范3',
-                goodpeople_title:'模范做了某件事情',
-                goodpeople_image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
-                goodpeople_time:'2022-01-01',
-                goodpeople_source:'新华网',
-                goodpeople_text:'这是一条新闻',
+                name:'模范3',
+                title:'模范做了某件事情',
+                image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
+                time:'2022-01-01',
+                source:'新华网',
+                text:'这是一条新闻',
             },
             {
                 id:'4',
-                goodpeople_name:'模范4',
-                goodpeople_title:'模范做了某件事情',
-                goodpeople_image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
-                goodpeople_time:'2022-01-01',
-                goodpeople_source:'新华网',
-                goodpeople_text:'这是一条新闻',
+                name:'模范4',
+                title:'模范做了某件事情',
+                image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
+                time:'2022-01-01',
+                source:'新华网',
+                text:'这是一条新闻',
             },
             {
                 id:'5',
-                goodpeople_name:'模范5',
-                goodpeople_title:'模范做了某件事情',
-                goodpeople_image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
-                goodpeople_time:'2022-01-01',
-                goodpeople_source:'新华网',
-                goodpeople_text:'这是一条新闻',
+                name:'模范5',
+                title:'模范做了某件事情',
+                image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
+                time:'2022-01-01',
+                source:'新华网',
+                text:'这是一条新闻',
             },
 
         ];

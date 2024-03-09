@@ -93,7 +93,7 @@ export default {
                 },
             },
 
-            { align: 'left', colKey: 'headline_title', title: '文章标题', width: '120',
+            { align: 'left', colKey: 'title', title: '文章标题', width: '120',
                 edit: {
                     component: Input,
                     props: {
@@ -107,7 +107,7 @@ export default {
                 },
             },
 
-            { colKey: 'headline_image', title: '图片URL', width: '170' ,ellipsis:true,
+            { colKey: 'image', title: '图片URL', width: '170' ,ellipsis:true,
                 edit: {
                         // 1. 支持任意组件。需保证组件包含 `value` 和 `onChange` 两个属性，且 onChange 的第一个参数值为 new value。
                         // 2. 如果希望支持校验，组件还需包含 `status` 和 `tips` 属性。具体 API 含义参考 Input 组件
@@ -125,7 +125,7 @@ export default {
                         showEditIcon: false,
                     },
             },
-            { colKey: 'headline_time', title: '发布时间' ,width:'220px',
+            { colKey: 'time', title: '发布时间' ,width:'220px',
                 edit: {
                     component: DatePicker,
                     // props, 透传全部属性到 DatePicker 组件
@@ -133,7 +133,7 @@ export default {
                     showEditIcon: false,
                 },
             },
-            { colKey: 'headline_source', title: '文章来源', width: '180',
+            { colKey: 'source', title: '文章来源', width: '180',
                 edit: {
                     component: Input,
                     props: {
@@ -148,7 +148,7 @@ export default {
                     showEditIcon: false,
                 },
             },
-            { colKey: 'headline_text', title: '文章内容', width: '280', ellipsis: true,
+            { colKey: 'text', title: '文章内容', width: '280', ellipsis: true,
                 edit: {
                         component: Input,
                         props: {
@@ -206,43 +206,43 @@ export default {
         userList.value=[
             {
                 id:'1',
-                headline_title:'新闻标题1',
-                headline_image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
-                headline_time:'2022-01-01',
-                headline_source:'新华网',
-                headline_text:'这是一条新闻',
+                title:'新闻标题1',
+                image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
+                time:'2022-01-01',
+                source:'新华网',
+                text:'这是一条新闻',
             },
             {
                 id:'12',
-                headline_title:'新闻标题1',
-                headline_image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
-                headline_time:'2022-01-01',
-                headline_source:'新华网',
-                headline_text:'这是一条新闻',
+                title:'新闻标题1',
+                image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
+                time:'2022-01-01',
+                source:'新华网',
+                text:'这是一条新闻',
             },
             {
                 id:'6',
-                headline_title:'新闻标题1',
-                headline_image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
-                headline_time:'2022-01-01',
-                headline_source:'新华网',
-                headline_text:'这是一条新闻',
+                title:'新闻标题1',
+                image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
+                time:'2022-01-01',
+                source:'新华网',
+                text:'这是一条新闻',
             },
             {
                 id:'3',
-                headline_title:'新闻标题1',
-                headline_image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
-                headline_time:'2022-01-01',
-                headline_source:'新华网',
-                headline_text:'这是一条新闻',
+                title:'新闻标题1',
+                image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
+                time:'2022-01-01',
+                source:'新华网',
+                text:'这是一条新闻',
             },
             {
                 id:'4',
-                headline_title:'新闻标题1',
-                headline_image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
-                headline_time:'2022-01-01',
-                headline_source:'新华网',
-                headline_text:'这是一条新闻',
+                title:'新闻标题1',
+                image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
+                time:'2022-01-01',
+                source:'新华网',
+                text:'这是一条新闻',
             },
 
         ];

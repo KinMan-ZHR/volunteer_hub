@@ -132,24 +132,6 @@ export default{
             cloud_video_list:[
             ],
 
-            // todo 此处待完成
-            // columns:[
-            //     {colKey:'drag',title: '排序',
-            //         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            //         cell: (h) => (
-            //         <span>
-            //             <MoveIcon />
-            //         </span>
-            //         ),
-            //         width: 46,
-            //     },
-            //     { colKey: 'name', title: '视频名称', ellipsis: true },
-            //     { colKey: 'fileSize', title: '文件大小',width: 100},
-            //     { colKey: 'uploadTime', title: '上传时间', ellipsis: true },
-            //     { colKey: 'operation', title: '操作', ellipsis: true },
-
-            // ]
-
             cloud_list_visible:false,
 
             play_visible:false,
