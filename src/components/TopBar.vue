@@ -3,11 +3,24 @@
         <!-- 搜索框区域 -->
         <div style="width:20%;padding: 20px;">
             <div >
-                <t-input placeholder="输入以搜索" clearable>
+                <!-- <t-input placeholder="输入以搜索" clearable>
                 <template #suffixIcon>
                     <search-icon :style="{ cursor: 'pointer' }" />
                 </template>
-                </t-input>
+                </t-input> -->
+
+                <t-auto-complete
+                    v-model="searchInput"
+                    :options="options"
+                    placeholder="请输入关键词搜索"
+                    highlight-keyword
+                    filterable
+                    @select="onClickSearch"
+                    >
+                    <template #suffixIcon>
+                        <search-icon/>
+                    </template>
+                </t-auto-complete>
             </div>
         </div>
         <!-- 中间的选项卡区域 -->
@@ -61,7 +74,50 @@ export default {
             [],
             []
           ],
-          top_bar_index:0
+          top_bar_index:0,
+          searchInput:'',
+          options:[
+            {
+                label:'文明四川',
+                value:'/wenming'
+            },
+            {
+                label:'志愿项目',
+                value:'/zhiyuan/zyprojectshall'
+            },
+            {
+                label:'信息动态',
+                value:'/zhiyuan/zyinformation'
+            },
+            {
+                label:'宣传视频',
+                value:'/zhiyuan/zyvideo'
+            },
+            {
+                label:'活动地图',
+                value:'/zhiyuan/zyactivitiesmap'
+            },
+            {
+                label:'公益活动',
+                value:'/activities/gyactivities'
+            },
+            {
+                label:'公益广告',
+                value:'/activities/gyadvertisement'
+            },
+            {
+                label:'视频播放',
+                value:'/videoplay'
+            },
+            {
+                label:'信息发布',
+                value:'/informationpub'
+            },
+            {
+                label:'个人页',
+                value:'/myprofile'
+            }
+        ]
         }
     },
     props:{
@@ -94,7 +150,19 @@ export default {
         onClickUser(){
             this.$emit('onClickUser')
             router.push('/myprofile')
-        }
+        },
+
+        onClickSearch(){
+            var link = this.findValueByLabel(this.searchInput)
+            if(link !== null){
+                router.push(link)
+            }
+        },
+
+        findValueByLabel(label){
+            var option = this.options.find((option) => option.label === label);
+            return option ? option.value : null;
+        },
     }
 
 }
