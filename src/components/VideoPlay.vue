@@ -119,23 +119,30 @@ export default{
       // ]
       await getVideoListAPI(useUserStore().userInfo.id).then(res=>{
         this.videoList=res.data.coredata.videoList;
+        this.processVideoListToFitTable()
       })
+    },
+
+    processVideoListToFitTable(){
+      // 处理videoList
+      for (let i = 0; i < this.videoList.length; i++) {
+          this.initialData.push({
+            index: i + 1,
+            video: i,
+          });
+        }
+      this.data = ref([...this.initialData]);
     }
+
   },
   mounted(){
+
 
   },
   created(){
     // 获取播放列表的数据
     this.getVideoList()
 
-    for (let i = 0; i < this.videoList.length; i++) {
-      this.initialData.push({
-        index: i + 1,
-        video: i,
-      });
-    }
-    this.data = ref([...this.initialData]);
   }
 }
 </script>
