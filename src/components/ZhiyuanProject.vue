@@ -298,8 +298,10 @@ export default{
         },
 
         // 分页变化时触发
-        onChangePagination(){
-         this.onSearchProject()
+        onChangePagination(e){
+            console.log(e.current);
+            this.formData.currPage = e.current
+            this.onSearchProject()
         },
 
         // 点击查看详情时跳转到外部网站
