@@ -5,7 +5,7 @@
             <div style="display: flex;">
                 <div style="width: 800px;">
                     <t-tabs theme="card" :default-value="1">
-                        <t-tab-panel :value="1" label="道德模范">
+                        <t-tab-panel :value="1" label="身边好人">
                         <!-- <p style="margin: 20px">选项卡1内容区</p> -->
                         <div style="padding: 24px 0;">
                             <t-swiper
@@ -15,7 +15,7 @@
                                 <t-swiper-item v-for="(item,index) in goodPeople" :key="index" >
                                     <div class="people-container">
                                         <t-space size="53.33px">
-                                            <div v-for="(people,index) in item" :key="index">
+                                            <div v-for="(people,index) in item" :key="index" style="cursor: pointer;" @click="onClickToGoodPeople()">
                                                 <img :src="people.image" alt="好人图片">
                                                 <div class="people-name-container">
                                                     <p>{{ people.name }}</p>
@@ -29,7 +29,7 @@
 
 
                         </t-tab-panel>
-                        <t-tab-panel :value="2" label="身边好人">
+                        <t-tab-panel :value="2" label="道德模范">
                         <div style="padding: 24px 0;">
                             <t-swiper
                             :duration="300"
@@ -38,7 +38,7 @@
                             <t-swiper-item v-for="(item,index) in model" :key="index" >
                                 <div class="people-container">
                                     <t-space size="53.33px">
-                                        <div v-for="(people,index) in item" :key="index">
+                                        <div v-for="(people,index) in item" :key="index" style="cursor: pointer;" @click="onClickToModel()">
                                             <img :src="people.image" alt="模范图片">
                                             <div class="people-name-container">
                                                 <p>{{ people.name }}</p>
@@ -70,7 +70,21 @@
             </div>
         </div>
 
-
+        <t-dialog
+            v-model:visible="news_visible"
+            header="文章详情"
+            body="对话框内容"
+            :cancel-btn="null"
+            width="90%"
+            top="50px"
+            :confirm-btn="null"
+        >
+        <template #header>
+            <t-icon name="component-space"></t-icon>
+            <p>文章详情</p>
+        </template>
+            <WenZhang :current_article="current_news"></WenZhang>
+        </t-dialog>
     </div>
 </template>
 
@@ -80,10 +94,25 @@
 import { ref, onMounted } from 'vue';
 import {getGoodPeopleListAPI} from "@/apis/goodPeoplesHandler";
 import {getModelListAPI} from "@/apis/modelsHandler";
+import WenZhang from './WenZhang.vue';
 
 export default {
   name: 'DaodeJianshe',
-
+  components:{
+    WenZhang
+  },
+  data(){
+    return{
+        news_visible:false,
+        current_news:{
+            title:'文章标题2',
+            time:'2024-03-01',
+            source:'新华社',
+            text:'必须把坚持高质量发展作为新时代的硬道理”——习近平总书记在去年中央经济工作会议上深刻总结新时代做好经济工作的“五个必须”规律性认识，其中这个“硬道理”居于首位。\n今年是新中国成立75周年，是实现“十四五”规划目标任务的关键一年。在这个重要年份召开的全国两会，如何聚焦高质量发展这个硬道理，进一步擘画出推进高质量发展的路线图、施工图，备受各方关注。',
+            image:'https://ts1.cn.mm.bing.net/th/id/R-C.171e8fe1aa1544a1868ab710eed82d82?rik=FLPxvVVL9C9bnQ&riu=http%3a%2f%2fwww.pp3.cn%2fuploads%2fallimg%2f200710%2f14-200G00Z321.jpg&ehk=Lb0IHCCZIdqYQOi28m%2borU8c1ARGbTEC%2f8WYzfwRuHo%3d&risl=&pid=ImgRaw&r=0'
+        }
+    }
+  },
   setup() {
     const goodPeople = ref([]);
     const model = ref([]);
@@ -142,6 +171,16 @@ export default {
       chunkArray,
       onClickOuterWebsite
     };
+  },
+  methods:{
+    onClickToGoodPeople(){
+    //   this.current_news = this.headline.list1[index];
+      this.news_visible = true;
+    },
+    onClickToModel(){
+    //   this.current_news = this.headline.list2[index];
+      this.news_visible = true;
+    }
   }
 };
 
