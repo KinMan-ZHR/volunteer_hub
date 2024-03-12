@@ -14,9 +14,10 @@
             <div style="margin-top: 20px;">
                 <!-- <p class="text">{{ text }}</p>
                 <p></p> -->
-                <div v-for="(paragraph, index) in current_article.text.split('\n')" :key="index" class="text">
+                {{ current_article.text }}
+                <!-- <div v-for="(paragraph, index) in current_article.text.split('\n')" :key="index" class="text">
                     {{ paragraph }}
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

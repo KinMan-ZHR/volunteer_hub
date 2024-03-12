@@ -81,7 +81,7 @@ export default {
      await getHeadlineListAPI().then((response) => {
        if (response.data.code === 200) {
          headline.list = response.data.coredata.headlineList;
-         console.log(response.data.coredata.headlineList);
+         console.log("headLine",response.data.coredata.headlineList);
        }
       });
 

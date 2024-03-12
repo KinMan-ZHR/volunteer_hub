@@ -12,10 +12,10 @@
                             :duration="300"
                             :interval="20000"
                             >
-                                <t-swiper-item v-for="(item,index) in goodPeople" :key="index" >
+                                <t-swiper-item v-for="(item,id) in daoDe.goodPeople" :key="id" >
                                     <div class="people-container">
                                         <t-space size="53.33px">
-                                            <div v-for="(people,index) in item" :key="index" style="cursor: pointer;" @click="onClickToGoodPeople()">
+                                            <div v-for="(people,index) in item" :key="index" style="cursor: pointer;" @click="onClickToGoodPeople(id,index)">
                                                 <img :src="people.image" alt="好人图片">
                                                 <div class="people-name-container">
                                                     <p>{{ people.name }}</p>
@@ -35,10 +35,10 @@
                             :duration="300"
                             :interval="3000"
                             >
-                            <t-swiper-item v-for="(item,index) in model" :key="index" >
+                            <t-swiper-item v-for="(item,id) in daoDe.model" :key="id" >
                                 <div class="people-container">
                                     <t-space size="53.33px">
-                                        <div v-for="(people,index) in item" :key="index" style="cursor: pointer;" @click="onClickToModel()">
+                                        <div v-for="(people,index) in item" :key="index" style="cursor: pointer;" @click="onClickToModel(id,index)">
                                             <img :src="people.image" alt="模范图片">
                                             <div class="people-name-container">
                                                 <p>{{ people.name }}</p>
@@ -91,7 +91,7 @@
 <script>
 
 // eslint-disable-next-line no-unused-vars
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, reactive } from 'vue';
 import {getGoodPeopleListAPI} from "@/apis/goodPeoplesHandler";
 import {getModelListAPI} from "@/apis/modelsHandler";
 import WenZhang from './WenZhang.vue';
@@ -114,14 +114,18 @@ export default {
     }
   },
   setup() {
-    const goodPeople = ref([]);
-    const model = ref([]);
+    const daoDe = reactive({
+        goodPeople: [],
+        model: []
+    });
+    // const goodPeople = ref([]);
+    // const model = ref([]);
 
     const getGoodPeople = async () => {
       // 使用你的API获取数据
      await getGoodPeopleListAPI().then((response) => {
        if (response.data.code===200)  {
-         goodPeople.value = response.data.coredata.goodPeopleList;
+         daoDe.goodPeople = response.data.coredata.goodPeopleList;
          console.log("goodPe",response.data.coredata.goodPeopleList);
        }
      });
@@ -130,8 +134,8 @@ export default {
     const getModel = async () => {
       // 使用你的API获取数据
        await getModelListAPI().then((response) => {
-         model.value = response.data.coredata.modelList;
-         console.log("modelList",response.data.coredata.modelList);
+         daoDe.model = response.data.coredata.modelList;
+         console.log("modelList",daoDe.model);
        });
 
     };
@@ -158,27 +162,28 @@ export default {
     onMounted(
         async () => {
       await getGoodPeople();
-      goodPeople.value = chunkArray(goodPeople.value);
+      daoDe.goodPeople = chunkArray(daoDe.goodPeople);
       await getModel();
-      model.value = chunkArray(model.value);
+      daoDe.model = chunkArray(daoDe.model);
     });
 
     return {
-      goodPeople,
-      model,
-      getGoodPeople,
-      getModel,
-      chunkArray,
-      onClickOuterWebsite
+        daoDe,
+        getGoodPeople,
+        getModel,
+        chunkArray,
+        onClickOuterWebsite
     };
   },
   methods:{
-    onClickToGoodPeople(){
-    //   this.current_news = this.headline.list1[index];
+    onClickToGoodPeople(id,index){
+      this.current_news = this.daoDe.goodPeople[id][index];
+      console.log('current',this.current_news)
       this.news_visible = true;
     },
-    onClickToModel(){
-    //   this.current_news = this.headline.list2[index];
+    onClickToModel(id,index){
+      this.current_news = this.daoDe.model[id][index];
+      console.log('current',this.daoDe)
       this.news_visible = true;
     }
   }
