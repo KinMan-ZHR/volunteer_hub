@@ -2,11 +2,6 @@
     <div style="display: flex;justify-content: center; width: 100%; background-color: #fff;">
 
         <div style="width: 1280px;">
-            <div>
-                <t-dialog v-model:visible="dialog_show" width="650px" header="项目详情" theme="info" confirmBtn="查看详情" @confirm="onClickConfirm">
-                    <ProjectDetail :project_show="project_show"></ProjectDetail>
-                </t-dialog>
-            </div>
             <!-- 上方的选择选项卡 -->
             <div style="padding: 24px;">
                 <div style="padding: 24px 0; font-weight: bold;">项目筛选</div>
@@ -88,33 +83,46 @@
             <!-- 底部的活动展示区 -->
 
             <div>
-                <t-space :breakLine="true" size="26.66px">
-                    <t-card v-for="(item,index) in project" :key="index" :cover="item.cover" bordered :style="{ width: '300px',cursor:'pointer' }" :hoverShadow="true" @click="onClickProject(index)">
-                        <template #footer>
-                            <div style="display: flex;"><p>{{ item.name }}</p>
-                                <t-icon name="refresh" v-if="item.project_state === '3'" style="color: green; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
-                                <t-icon name="pending" v-if="item.project_state === '2'" style="color: var(--td-brand-color-4); line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
-                                <t-icon name="assignment" v-if="item.project_state === '4'" style="color: red; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
-                                <div style="padding: 0px 4px ;">
-                                    <p class="note" v-if="item.project_state === '3'" style="color: green;">进行中</p>
-                                    <p class="note" v-if="item.project_state === '2'" style="color: var(--td-brand-color-4);">待启动</p>
-                                    <p class="note" v-if="item.project_state === '4'" style="color: red;">已结项</p>
+                <!-- 若列表中有东西，显示列表，否则显示为空 -->
+                <div v-if="project.length > 0">
+                    <div>
+                        <t-dialog v-model:visible="dialog_show" width="650px" header="项目详情" theme="info" confirmBtn="查看详情" @confirm="onClickConfirm">
+                            <ProjectDetail :project_show="project_show"></ProjectDetail>
+                        </t-dialog>
+                    </div>
+                    <t-space :breakLine="true" size="26.66px">
+                        <t-card v-for="(item,index) in project" :key="index" :cover="item.cover" bordered :style="{ width: '300px',cursor:'pointer' }" :hoverShadow="true" @click="onClickProject(index)">
+                            <template #footer>
+                                <div style="display: flex;"><p>{{ item.name }}</p>
+                                    <t-icon name="refresh" v-if="item.project_state === '3'" style="color: green; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
+                                    <t-icon name="pending" v-if="item.project_state === '2'" style="color: var(--td-brand-color-4); line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
+                                    <t-icon name="assignment" v-if="item.project_state === '4'" style="color: red; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
+                                    <div style="padding: 0px 4px ;">
+                                        <p class="note" v-if="item.project_state === '3'" style="color: green;">进行中</p>
+                                        <p class="note" v-if="item.project_state === '2'" style="color: var(--td-brand-color-4);">待启动</p>
+                                        <p class="note" v-if="item.project_state === '4'" style="color: red;">已结项</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <p class="note">{{ item.description }}</p>
-                        </template>
-                    </t-card>
-                </t-space>
-                <div style="padding:24px">
-                    <t-pagination
-                    :total="total"
-                    showPageNumber
-                    :showPageSize="false"
-                    showFirstAndLastPageBtn
-                    :pageSize="formData.pageSize"
-                    :current="formData.currPage"
-                    @change="onChangePagination"/>
+                                <p class="note">{{ item.description }}</p>
+                            </template>
+                        </t-card>
+                    </t-space>
+                    <div style="padding:24px">
+                        <t-pagination
+                        :total="total"
+                        showPageNumber
+                        :showPageSize="false"
+                        showFirstAndLastPageBtn
+                        :pageSize="formData.pageSize"
+                        :current="formData.currPage"
+                        @change="onChangePagination"/>
+                    </div>
                 </div>
+
+                <div v-else>
+                    <EmptyBox></EmptyBox>
+                </div>
+
                 <div style="height:200px"></div>
                 <!-- <ProjectDetail></ProjectDetail> -->
             </div>
@@ -128,16 +136,19 @@
 import ProjectDetail from './ProjectDetail.vue';
 import { ref } from 'vue';
 import {getProjectAPI, searchProjectAPI} from "@/apis/projectHandler";
+import EmptyBox from './EmptyBox.vue';
+
 export default{
     name:'ZhiyuanProject',
     components:{
-        ProjectDetail
+        ProjectDetail,
+        EmptyBox
     },
     data(){
         return{
             options_region : [
                 { label: '全部', value: 1 },
-                { label: '全国', value: 2 },
+                // { label: '全国', value: 2 },
                 { label: '成都市', value: 3 },
                 { label: '自贡市', value: 4 },
                 { label: '攀枝花市', value: 5 },
@@ -245,21 +256,22 @@ export default{
                 name: '',
             },
 
-            // Project必须有一个初始值
-            project:[{
-              name:'项目1',
-              id:'P51190324030028878',
-              location:'恩阳区关公镇神牛溪',
-              pub_date:'2024-03-01',
-              time_range:['2024-03-01','2024-03-03'],
-              type:[1,3],
-              project_state:'1',
-              state:'0',
-              target:[1,12,14,3],
-              cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
-              description:'组织志愿者通过走访慰问、生活帮扶、节日慰问等方式，为他们提供政策宣传、精神慰籍、陪伴照料、物质援助、信息咨询等服务，助力乡村振兴。',
-              address:'https://tdesign.gtimg.com',
-            }],
+            project:[
+                // {
+                // name:'项目1',
+                // id:'P51190324030028878',
+                // location:'恩阳区关公镇神牛溪',
+                // pub_date:'2024-03-01',
+                // time_range:['2024-03-01','2024-03-03'],
+                // type:[1,3],
+                // project_state:'1',
+                // state:'0',
+                // target:[1,12,14,3],
+                // cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
+                // description:'组织志愿者通过走访慰问、生活帮扶、节日慰问等方式，为他们提供政策宣传、精神慰籍、陪伴照料、物质援助、信息咨询等服务，助力乡村振兴。',
+                // address:'https://tdesign.gtimg.com',
+                // }
+            ],
 
             current_page:[],
 
