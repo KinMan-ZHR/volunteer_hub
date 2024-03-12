@@ -35,6 +35,7 @@
                         accept="video/*"
                         :request-method="requestMethod"
                         :before-upload="beforeUpload"
+                        @success="successUpload"
                     />
                     <div style="margin-top:12px">
                         <t-button variant="outline" theme="primary" @click="onClickToChoseCloudVideo">
@@ -188,16 +189,17 @@ export default{
     methods:{
         async requestMethod(file){
             console.log(file);
-        const formData = new FormData();
-        formData.append('file', file[0].raw);
-        formData.append('id', useUserStore().userInfo.id);
+
+            const formData = new FormData();
+            formData.append('file', file[0].raw);
+            formData.append('id', useUserStore().userInfo.id);
         try {
             const response = await upLoadVideoAPI(formData);
             if (response.data.code === 200) {
             return {
                 status: 'success',
                 response: {
-                url: response.data.coredata.url,
+                    url: response.data.coredata.url,
                 }
             };
             } else {
@@ -214,11 +216,11 @@ export default{
         },
 
         async getVideoList(){
-        await getVideoListAPI(useUserStore().userInfo.id).then(res=>{
-            if(res.data.code===200){
-            this.userVideoList=res.data.coredata.videoList;
-            }
-        })
+            await getVideoListAPI(useUserStore().userInfo.id).then(res=>{
+                if(res.data.code===200){
+                    this.userVideoList=res.data.coredata.videoList;
+                }
+            })
         },
 
         // 获取云端视频列表
@@ -311,6 +313,12 @@ export default{
                 var index_temp = this.chosed_id.indexOf(id)
                 this.chosed_id.splice(index_temp,1)
             }
+        },
+
+        // 上传视频成功
+        successUpload(){
+            console.log('上传成功');
+            this.getVideoList();
         }
 
     },
