@@ -103,7 +103,7 @@
                                         <p class="note" v-if="item.project_state === '4'" style="color: red;">已结项</p>
                                     </div>
                                 </div>
-                                <p class="note">{{ item.description }}</p>
+                                <t-breadcrumbItem :max-width="'242'"> {{ item.description }} </t-breadcrumbItem>
                             </template>
                         </t-card>
                     </t-space>
@@ -257,20 +257,20 @@ export default{
             },
 
             project:[
-                // {
-                // name:'项目1',
-                // id:'P51190324030028878',
-                // location:'恩阳区关公镇神牛溪',
-                // pub_date:'2024-03-01',
-                // time_range:['2024-03-01','2024-03-03'],
-                // type:[1,3],
-                // project_state:'1',
-                // state:'0',
-                // target:[1,12,14,3],
-                // cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
-                // description:'组织志愿者通过走访慰问、生活帮扶、节日慰问等方式，为他们提供政策宣传、精神慰籍、陪伴照料、物质援助、信息咨询等服务，助力乡村振兴。',
-                // address:'https://tdesign.gtimg.com',
-                // }
+                {
+                name:'项目1',
+                id:'P51190324030028878',
+                location:'恩阳区关公镇神牛溪',
+                pub_date:'2024-03-01',
+                time_range:['2024-03-01','2024-03-03'],
+                type:[1,3],
+                project_state:'1',
+                state:'0',
+                target:[1,12,14,3],
+                cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
+                description:'组织志愿者通过走访慰问、生活帮扶、节日慰问等方式，为他们提供政策宣传、精神慰籍、陪伴照料、物质援助、信息咨询等服务，助力乡村振兴。',
+                address:'https://tdesign.gtimg.com',
+                }
             ],
 
             current_page:[],

@@ -132,17 +132,36 @@ export default{
           });
         }
       this.data = ref([...this.initialData]);
-    }
+    },
+
+    beforeUnloadHandler() {
+      // 在用户关闭页面前执行的操作
+      // 可以在这里调用你的函数
+      var video_id = [];
+
+      for (let i = 0; i < this.data.length; i++) {
+        var video = this.data[i].video
+        video_id.push(this.videoList[video].id)
+      }
+      console.log('video_id', video_id);
+
+      // TODO（交互）：上传到数据库
+
+    },
 
   },
   mounted(){
-
+    window.addEventListener('beforeunload', this.beforeUnloadHandler);
 
   },
   created(){
     // 获取播放列表的数据
     this.getVideoList()
 
+  },
+
+  beforeUnmount() {
+    window.removeEventListener('beforeunload', this.beforeUnloadHandler);
   }
 }
 </script>
