@@ -10,11 +10,11 @@
                 :navigation="{ placement: 'outside' }"
 
                 >
-                    <t-swiper-item v-for="(item,index) in headline.list1" :key="index" >
+                    <t-swiper-item v-for="(item,index) in headline.list1" :key="index" @click="onClickToReadNewsLeft(index)">
                         <div>
-                            <img :src="item.image" alt="" height="500px" style="object-fit: cover;display: block;margin: 0 auto;">
+                            <img :src="item.image" alt="" height="500px" style="object-fit: cover;display: block;margin: 0 auto;cursor: pointer;">
                             <div class="headline-title">
-                                <p style="line-height: 24px;">{{ item.title }}</p>
+                                <p style="line-height: 24px;cursor: pointer;">{{ item.title }}</p>
                             </div>
                         </div>
                     </t-swiper-item>
@@ -121,6 +121,10 @@ export default {
     }
   },
   methods:{
+    onClickToReadNewsLeft(index){
+      this.current_news = this.headline.list1[index];
+      this.news_visible = true;
+    },
     onClickToReadNews(index){
       this.current_news = this.headline.list2[index];
       this.news_visible = true;
