@@ -271,6 +271,8 @@ export default{
             // 确认删除视频
             // console.log(index);
             this.userVideoList.splice(index,1)
+            // TODO:后端删除视频
+            console.log(this.userVideoList[index]);
         },
 
         onClickToPlayVideo(index){
