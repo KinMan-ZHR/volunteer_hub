@@ -13,7 +13,7 @@
       <div class="form-row-container">
         <div class="form-row-item">
           <p class="font-normal" style="margin-bottom: 5px;">名字</p>
-          <t-input v-model="formData.username" :error="errors.username"></t-input>
+          <t-input v-model="formData.username" :error="errors.username" disabled></t-input>
         </div>
         <div style="width: 24px; height: 15px;"></div>
         <div class="form-row-item">
