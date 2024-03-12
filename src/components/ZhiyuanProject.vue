@@ -93,14 +93,17 @@
                     <t-space :breakLine="true" size="26.66px">
                         <t-card v-for="(item,index) in project" :key="index" :cover="item.cover" bordered :style="{ width: '300px',cursor:'pointer' }" :hoverShadow="true" @click="onClickProject(index)">
                             <template #footer>
-                                <div style="display: flex;"><p>{{ item.name }}</p>
-                                    <t-icon name="refresh" v-if="item.project_state === '3'" style="color: green; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
-                                    <t-icon name="pending" v-if="item.project_state === '2'" style="color: var(--td-brand-color-4); line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
-                                    <t-icon name="assignment" v-if="item.project_state === '4'" style="color: red; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
+                                <div style="display: flex;">
+                                    <p style="width: 170px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">{{ item.name }}</p>
+                                    <div style="display: flex;justify-content: center;align-items: center;">
+                                        <t-icon name="refresh" v-if="item.state[0] === 3" style="color: green; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
+                                        <t-icon name="pending" v-if="item.state[0] === 2" style="color: var(--td-brand-color-4); line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
+                                        <t-icon name="assignment" v-if="item.state[0] === 4" style="color: red; line-height: 22px;margin-top: 4px; margin-left: 8px;" ></t-icon>
+                                    </div>
                                     <div style="padding: 0px 4px ;">
-                                        <p class="note" v-if="item.project_state === '3'" style="color: green;">进行中</p>
-                                        <p class="note" v-if="item.project_state === '2'" style="color: var(--td-brand-color-4);">待启动</p>
-                                        <p class="note" v-if="item.project_state === '4'" style="color: red;">已结项</p>
+                                        <p class="note" v-if="item.state[0] === 3" style="color: green;">进行中</p>
+                                        <p class="note" v-if="item.state[0] === 2" style="color: var(--td-brand-color-4);">待启动</p>
+                                        <p class="note" v-if="item.state[0] === 4" style="color: red;">已结项</p>
                                     </div>
                                 </div>
                                 <t-breadcrumbItem :max-width="'242'"> {{ item.description }} </t-breadcrumbItem>
@@ -257,20 +260,20 @@ export default{
             },
 
             project:[
-                {
-                name:'项目1',
-                id:'P51190324030028878',
-                location:'恩阳区关公镇神牛溪',
-                pub_date:'2024-03-01',
-                time_range:['2024-03-01','2024-03-03'],
-                type:[1,3],
-                project_state:'1',
-                state:'0',
-                target:[1,12,14,3],
-                cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
-                description:'组织志愿者通过走访慰问、生活帮扶、节日慰问等方式，为他们提供政策宣传、精神慰籍、陪伴照料、物质援助、信息咨询等服务，助力乡村振兴。',
-                address:'https://tdesign.gtimg.com',
-                }
+                // {
+                // name:'项目1',
+                // id:'P51190324030028878',
+                // location:'恩阳区关公镇神牛溪',
+                // pub_date:'2024-03-01',
+                // time_range:['2024-03-01','2024-03-03'],
+                // type:[1,3],
+                // project_state:'1',
+                // state:'0',
+                // target:[1,12,14,3],
+                // cover:'https://tdesign.gtimg.com/site/source/card-demo.png',
+                // description:'组织志愿者通过走访慰问、生活帮扶、节日慰问等方式，为他们提供政策宣传、精神慰籍、陪伴照料、物质援助、信息咨询等服务，助力乡村振兴。',
+                // address:'https://tdesign.gtimg.com',
+                // }
             ],
 
             current_page:[],
@@ -418,8 +421,12 @@ export default{
           // this.projectNum = 100
           await getProjectAPI(current, pageSize).then(res => {
             if (res.data.code === 200) {
-              this.project = res.data.coredata.projectList;
-              this.total = res.data.coredata.total;
+                console.log(res.data.coredata.projectList);
+                this.project = res.data.coredata.projectList;
+                this.total = res.data.coredata.total;
+                this.initProjectTagName()
+                this.initProjectDateStr()
+                this.initProjectShow()
             }
           })
         },
@@ -427,9 +434,7 @@ export default{
     mounted(){
         // this.initProjectState()
         this.getProjectData(this.formData.currPage,this.formData.pageSize)
-        this.initProjectTagName()
-        this.initProjectDateStr()
-        this.initProjectShow()
+
 
     },
 }

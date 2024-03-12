@@ -64,13 +64,17 @@ export default{
     async mounted() {
       await getMapListAPI().then(
           (response) => {
-            if(response.data.code === 200)
-              this.mapList = response.data.coredata.mapList
+            if(response.data.code === 200){
+                console.log(response.data.coredata.mapList);
+                this.mapList = response.data.coredata.mapList
+            }
+            this.createProvinceChart()
           }
       )
 
-      this.createProvinceChart()
+
     },
+
     methods:{
         createProvinceChart(){
             var chartDom = document.getElementById('province');
@@ -111,14 +115,14 @@ export default{
                             const name = params.data.name
                             const cover = params.data.cover
                             const state = params.data.state
-                            const address = params.data.address
+                            const link = params.data.address
                             // 容器，之后会把组件渲染在容器中
                             const div = document.createElement('div')
                             // vue文件直接用不行，得创建app实例,同时提供组件的props
-                            const app = createApp(MyTooltip, {name, cover, state, address})
+                            const app = createApp(MyTooltip, {name, cover, state, link})
                             // 将app实例挂载到dom上
                             app.mount(div)
-                            // 将含有组件实例的dom返回给echats
+                            // 将含有组件实例的dom返回给echarts
                             return div
 
                         },
@@ -200,18 +204,19 @@ export default{
                             },
                             coordinateSystem: 'geo',
                             data:_this.mapList.map(function(item){
-                                if(item.state == 1){
+                                if(item.state == 3){
                                     return{
                                         name:item.name,
                                         value: item.marker,
                                         cover:item.cover,
                                         description:item.description,
-                                        state:item.state,
+                                        state:item.state[0],
                                         location:item.location,
                                         address:item.address,
                                         itemStyle:{ color: _this.legend[0].color}
                                     }
                                 }
+
                             }),
                             itemStyle:{
                                 borderColor: '#ffffff', // 设置描边颜色
@@ -228,16 +233,16 @@ export default{
                             },
                             coordinateSystem: 'geo',
                             data:_this.mapList.map(function(item){
-                                if(item.state == 0){
+                                if(item.state == 2){
                                     return{
                                         name:item.name,
                                         value: item.marker,
                                         cover:item.cover,
                                         description:item.description,
-                                        state:item.state,
+                                        state:item.state[0],
                                         location:item.location,
                                         address:item.address,
-                                        itemStyle:{ color: _this.legend[1].color}
+                                        itemStyle:{ color: _this.legend[2].color}
                                     }
                                 }
                             }),
@@ -256,16 +261,16 @@ export default{
                             },
                             coordinateSystem: 'geo',
                             data:_this.mapList.map(function(item){
-                                if(item.state == 2){
+                                if(item.state == 4){
                                     return{
                                         name:item.name,
                                         value: item.marker,
                                         cover:item.cover,
                                         description:item.description,
-                                        state:item.state,
+                                        state:item.state[0],
                                         location:item.location,
                                         address:item.address,
-                                        itemStyle:{ color: _this.legend[2].color}
+                                        itemStyle:{ color: _this.legend[1].color}
                                     }
                                 }
                             }),
