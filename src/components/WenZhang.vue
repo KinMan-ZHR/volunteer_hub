@@ -9,7 +9,7 @@
 
             <!-- 图片 -->
             <div style="display: flex;justify-content: center;">
-                <img :src="current_article.image" style="width: 50%; margin-top: 20px;">
+                <img v-if="current_article.image" :src="current_article.image" style="width: 50%; margin-top: 20px;">
             </div>
             <div style="margin-top: 20px;">
                 <!-- <p class="text">{{ text }}</p>
