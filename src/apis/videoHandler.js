@@ -24,6 +24,18 @@ export const getCharityVideoListAPI = (pageSize,currPage) => {
     })
 };
 
+export const getXuanchuanVideoListAPI = (pageSize,currPage) => {
+    return request({
+        url: "/cloudVideoList",
+        method: "post",
+        data:{
+            type: [1,2,3],
+            pageSize,
+            currPage
+        }
+    })
+};
+
 export const getVideoListAPI = (id) => {
     return request({
         url: "/videoList",

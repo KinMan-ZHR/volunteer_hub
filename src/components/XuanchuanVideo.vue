@@ -1,13 +1,13 @@
 <template>
     <div :id="`${path}#container`" class="anchor-demo anchor-container-demo">
         <t-anchor :id="`${path}#default`" container="#anchor-container" @click="handleClick" size="small">
-            <t-anchor-item :href="`#${path}#content-1`" title="A分类" />
-            <t-anchor-item :href="`#${path}#content-2`" title="B分类" />
-            <t-anchor-item :href="`#${path}#content-3`" title="C分类" />
+            <t-anchor-item :href="`#${path}#content-1`" title="科教" />
+            <t-anchor-item :href="`#${path}#content-2`" title="记录" />
+            <t-anchor-item :href="`#${path}#content-3`" title="新闻" />
         </t-anchor>
         <t-space id="anchor-container" direction="vertical" :size="0">
             <div :id="`${path}#content-1`" class="anchor-content-1">
-                <div class="title">A分类</div>
+                <div class="title">科教</div>
                 <t-space :breakLine="true">
                     <div class="card" v-for="(item,index) in video_list1" :key="index">
                         <t-card :cover="item.cover" theme="poster2" :style="{ width: '250px', cursor: 'pointer' }" hoverShadow="true"  @click="onClickVideo(index,1)">
@@ -19,7 +19,7 @@
                 </t-space>
             </div>
             <div :id="`${path}#content-2`" class="anchor-content-2">
-                <div class="title">B分类</div>
+                <div class="title">记录</div>
                 <t-space :breakLine="true">
                     <div class="card" v-for="(item,index) in video_list2" :key="index">
                         <t-card :cover="item.cover" theme="poster2" :style="{ width: '250px', cursor: 'pointer' }" hoverShadow="true"  @click="onClickVideo(index,2)">
@@ -31,7 +31,7 @@
                 </t-space>
             </div>
             <div :id="`${path}#content-3`" class="anchor-content-3">
-                <div class="title">C分类</div>
+                <div class="title">新闻</div>
                 <t-space :breakLine="true">
                     <div class="card" v-for="(item,index) in video_list3" :key="index">
                         <t-card :cover="item.cover" theme="poster2" :style="{ width: '250px', cursor: 'pointer' }" hoverShadow="true" @click="onClickVideo(index,3)">
@@ -62,7 +62,7 @@
 import { computed, getCurrentInstance } from 'vue';
 import get from 'lodash/get';
 import WenZhangVideo from './WenZhangVideo.vue';
-import {getCloudVideoListAPI} from "@/apis/videoHandler";
+import {getXuanchuanVideoListAPI} from "@/apis/videoHandler";
 
 export default {
     name:'XuanChuanVideo',
@@ -148,15 +148,17 @@ export default {
         async getVideoList(){
             // 从数据库获取宣传视频
             // this.video_list=...
-          await getCloudVideoListAPI().then(res=>{
+          await getXuanchuanVideoListAPI(100,1).then(res=>{
             this.video_list=res.data.coredata.videoList;
+            this.initVideoCate()
+            this.initCurrentVideo()
           })
         },
         initVideoCate(){
             // 将视频列表按category分为三类
-            this.video_list1 = this.video_list.filter(item => item.category === '1');
-            this.video_list2 = this.video_list.filter(item => item.category === '2');
-            this.video_list3 = this.video_list.filter(item => item.category === '3');
+            this.video_list1 = this.video_list.filter(item => item.type == '1');
+            this.video_list2 = this.video_list.filter(item => item.type == '2');
+            this.video_list3 = this.video_list.filter(item => item.type == '3');
 
         },
 
@@ -169,8 +171,7 @@ export default {
     },
     mounted(){
         this.getVideoList()
-        this.initVideoCate()
-        this.initCurrentVideo()
+
     }
 };
 </script>
