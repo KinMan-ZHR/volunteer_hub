@@ -6,7 +6,7 @@
         </div>
         <div style="flex-grow: 1;background-color: var(--td-gray-color-1);">
           <TopBar :props_data="props_data" style="position: sticky;top: 0;z-index: 999;" @onClickUser="handleClickUser"></TopBar>
-          <router-view>
+          <router-view style="overflow: scroll;">
             <router-view></router-view>
           </router-view>
         </div>

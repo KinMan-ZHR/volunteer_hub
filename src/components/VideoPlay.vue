@@ -5,8 +5,8 @@
     </div>
     <div style="display: flex;">
       <div style="width: 100%; padding: 0 32px;">
-        <video width="100%" controls v-if="is_play">
-          <source src="https://vd3.bdstatic.com/mda-kehg1m5ybibn6e7a/hd/mda-kehg1m5ybibn6e7a.mp4" type="video/mp4">
+        <video width="100%" controls v-if="is_play" id="root" @ended="handleVideoEnded">
+          <source :src="chosedVideo" type="video/mp4">
         </video>
       </div>
       <div style="position: absolute;right: 0;bottom: 50%;">
@@ -33,8 +33,9 @@
           :loading="loading"
           drag-sort="row-handler"
           lazy-load
+          activeRowType="single"
           @drag-sort="onDragSort"
-
+          @active-change="onClickVideo"
         >
         </t-table>
       </div>
@@ -68,6 +69,7 @@ export default{
           type:Boolean,
           default:true
       },
+      chosedVideo:'',
       columns: [
         {
           colKey: 'drag',
@@ -103,6 +105,31 @@ export default{
       changeVideoListAPI(currentId,targetId);
     },
 
+    handleVideoEnded(){
+      // console.log('播放结束');
+      // 获取当前播放视频的index
+      let currentVideoIndex = this.videoList.findIndex(item => item.link === this.chosedVideo);
+      let length = this.videoList.length;
+      if(currentVideoIndex === length-1){
+        this.chosedVideo = this.videoList[0].link;
+      }else{
+        this.chosedVideo = this.videoList[currentVideoIndex+1].link;
+      }
+      let player = document.querySelector('#root')
+      player.src = this.chosedVideo
+      player.play()
+    },
+
+    onClickVideo(e){
+      if(e.length!=0){
+        var rowid = e[0]-1
+        this.chosedVideo = this.videoList[rowid].link;
+        let player = document.querySelector('#root')
+        player.src = this.chosedVideo
+        player.play()
+      }
+    },
+
     async getVideoList(){
       // 获取videoList
       // this.videoList=[
@@ -123,6 +150,7 @@ export default{
       // ]
       await getVideoListAPI(useUserStore().userInfo.id).then(res=>{
         this.videoList=res.data.coredata.videoList;
+        this.chosedVideo = this.videoList[0].link;
         this.processVideoListToFitTable()
       })
     },
