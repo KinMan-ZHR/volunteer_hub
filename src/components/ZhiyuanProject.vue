@@ -353,7 +353,12 @@ export default{
         },
 
         // 点击搜索按钮时触发搜索项目+标签发生变化时触发搜索
-        async onSearchProject(){
+        async onSearchProject(value,context){
+            console.log('search',value,context);
+            if(value.length == 0){
+                // 再次点击已选择的标签,防止报错
+                return;
+            }
            await searchProjectAPI(this.formData).then(res=>{
                 if(res.data.code===200){
                     this.project=res.data.coredata.projectList;

@@ -1,21 +1,21 @@
 import request from "./httpRequest.js";
+
 export const getCloudVideoListAPI = (pageSize,currPage) => {
     return request({
         url: "/cloudVideoList",
-        method: "get",
-        params:{
+        method: "post",
+        data:{
             type: [1,2,3,4],
             pageSize,
             currPage
         }
-
     })
 };
 export const getCharityVideoListAPI = (pageSize,currPage) => {
     return request({
         url: "/cloudVideoList",
-        method: "get",
-        params:{
+        method: "post",
+        data:{
             type: [4],
             pageSize,
             currPage
@@ -23,6 +23,7 @@ export const getCharityVideoListAPI = (pageSize,currPage) => {
 
     })
 };
+
 export const getVideoListAPI = (id) => {
     return request({
         url: "/videoList",
@@ -55,5 +56,28 @@ export const searchVideoListAPI = (currPage,pageSize,keyword) => {
     });
 
 };
+export const deleteVideoListAPI = (id) => {
+    return request({
+        url: "/videoList",
+        method: "delete",
+        params:{
+           id
+        }
+    });
+
+};
+export const changeVideoListAPI = (id1,id2) => {
+    return request({
+        url: "/changeVideoList",
+        method: "get",
+        params:{
+            id1,
+            id2
+         }
+
+    });
+
+};
+
 
 

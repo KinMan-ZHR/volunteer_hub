@@ -163,11 +163,8 @@ watch(password_fromData, () => {
 
 const onConfirmModify = async () =>{
   if(isFormValid.value){
-    const formData = new FormData();
-    formData.append('id', userinfo.id);
-    formData.append('originalPassword', password_fromData.original_password);
-    formData.append('newPassword', password_fromData.new_password);
-    await editPasswordAPI(formData).then((response) => {
+
+    await editPasswordAPI(userinfo.id,password_fromData.original_password,password_fromData.new_password).then((response) => {
       if (response.data.code === 200) {
         modifyPassword_visible.value = false
       }

@@ -61,10 +61,14 @@ export const editAvatarAPI = (data) => {
         }
     });
   };
-export const editPasswordAPI = (data) => {
+export const editPasswordAPI = (id,oldPassword,newPassword) => {
     return request({
       url: "/editPassword",
       method: "post",
-        data
+        data:{
+            id,
+            oldPassword,
+            newPassword
+        }
     });
   };

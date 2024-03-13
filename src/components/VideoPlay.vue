@@ -45,7 +45,7 @@
 <script lang="jsx">
 import { ref } from 'vue';
 import {  MoveIcon } from 'tdesign-icons-vue-next';
-import {getVideoListAPI} from "@/apis/videoHandler";
+import {changeVideoListAPI, getVideoListAPI} from "@/apis/videoHandler";
 import {useUserStore} from "@/dataStore/userdata";
 //todo 当没有视频列表时显示暂无视频源，而不是报错,加载时显示loading
 
@@ -97,6 +97,10 @@ export default{
     onDragSort(params) {
       console.log('交换行', params);
       this.data = params.newData;
+      let currentId = this.videoList[params.currentIndex].id
+      let targetId = this.videoList[params.targetIndex].id
+
+      changeVideoListAPI(currentId,targetId);
     },
 
     async getVideoList(){
@@ -134,24 +138,26 @@ export default{
       this.data = ref([...this.initialData]);
     },
 
-    beforeUnloadHandler() {
-      // 在用户关闭页面前执行的操作
-      // 可以在这里调用你的函数
-      var video_id = [];
+    // beforeUnloadHandler() {
+    //   // 在用户关闭页面前执行的操作
+    //   // 可以在这里调用你的函数
+    //   var video_id = [];
 
-      for (let i = 0; i < this.data.length; i++) {
-        var video = this.data[i].video
-        video_id.push(this.videoList[video].id)
-      }
-      console.log('video_id', video_id);
+    //   for (let i = 0; i < this.data.length; i++) {
+    //     var video = this.data[i].video
+    //     video_id.push(this.videoList[video].id)
+    //   }
+    //   console.log('video_id', video_id);
 
-      // TODO（交互）：上传到数据库
+    //   // TODO（交互）：上传到数据库
 
-    },
+
+
+    // },
 
   },
   mounted(){
-    window.addEventListener('beforeunload', this.beforeUnloadHandler);
+    // window.addEventListener('beforeunload', this.beforeUnloadHandler);
 
   },
   created(){
@@ -160,9 +166,9 @@ export default{
 
   },
 
-  beforeUnmount() {
-    window.removeEventListener('beforeunload', this.beforeUnloadHandler);
-  }
+  // beforeUnmount() {
+  //   window.removeEventListener('beforeunload', this.beforeUnloadHandler);
+  // }
 }
 </script>
 

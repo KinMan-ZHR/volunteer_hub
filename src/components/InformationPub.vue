@@ -69,9 +69,9 @@
                     <span style="line-height:32px">云端视频</span>
                     <div style="width:36px;"></div>
                     <span>
-                        <t-input placeholder="输入以搜索" clearable>
+                        <t-input placeholder="输入以搜索" v-model="searchKey">
                             <template #suffixIcon>
-                                <t-icon name="search" :style="{ cursor: 'pointer' }" size="16px"/>
+                                <t-icon name="search" :style="{ cursor: 'pointer' }" size="16px" @click="searchProject"/>
                             </template>
                         </t-input>
                     </span>
@@ -126,7 +126,7 @@
 // import DragVue from './DragVue.vue'
 // import { MoveIcon } from 'tdesign-icons-vue-next';
 import WenZhangVideo from './WenZhangVideo.vue'
-import {getCloudVideoListAPI, getVideoListAPI, upLoadVideoAPI} from "@/apis/videoHandler";
+import {deleteVideoListAPI, getCloudVideoListAPI, getVideoListAPI, searchVideoListAPI, upLoadVideoAPI} from "@/apis/videoHandler";
 // eslint-disable-next-line no-unused-vars
 import UploadTest from "@/test/UploadTest.vue";
 import {useUserStore} from "@/dataStore/userdata";
@@ -180,6 +180,8 @@ export default{
 
             chosed_id:[],
 
+            searchKey:'',
+
         }
     },
     components:{
@@ -188,7 +190,7 @@ export default{
     },
     methods:{
         async requestMethod(file){
-            console.log(file);
+            // console.log(file);
 
             const formData = new FormData();
             formData.append('file', file[0].raw);
@@ -225,10 +227,11 @@ export default{
 
         // 获取云端视频列表
         async getCloudVideoList(){
-          await getCloudVideoListAPI().then(res=>{
+          await getCloudVideoListAPI(this.pageSize,this.cloud_current).then(res=>{
             if(res.data.code===200){
               this.cloud_video_list=res.data.coredata.videoList;
-              console.log("你好",this.cloud_video_list);
+              this.totalNum = res.data.coredata.total
+            //   console.log("你好",this.cloud_video_list);
             }
           })
         },
@@ -254,7 +257,7 @@ export default{
 
         onClickToChoseCloudVideo(){
             // 点击选择云端视频
-            this.getCloudVideoList()
+            this.getCloudVideoList(this.cloud_current,this.pageSize)
             this.processCloudVideo()
             this.cloud_list_visible=true
         },
@@ -262,7 +265,7 @@ export default{
         onConfirmVideo(){
             var choosed_video_list = []
             choosed_video_list =  this.cloud_video_list.filter( item => item.is_choosed === true)
-            console.log(choosed_video_list);
+            // console.log(choosed_video_list);
             this.cloud_list_visible = false
             this.userVideoList = this.userVideoList.concat(choosed_video_list)
         },
@@ -270,9 +273,12 @@ export default{
         onConfirmDelete(index){
             // 确认删除视频
             // console.log(index);
+            var id = this.userVideoList[index].id
             this.userVideoList.splice(index,1)
+
             // TODO:后端删除视频
-            console.log(this.userVideoList[index]);
+            console.log(this.userVideoList[index].id);
+            deleteVideoListAPI(id);
         },
 
         onClickToPlayVideo(index){
@@ -291,7 +297,7 @@ export default{
         onChangeCloudListPage(e){
             this.cloud_current = e.current
             // 根据current和pageSize动态获取云端视频列表
-            this.getCloudVideoListByPage(this.current,this.pageSize)
+            this.getCloudVideoListByPage()
 
             // 获取列表后要根据用户已经选择的视频，对列表进行处理
             this.processCloudVideo()
@@ -299,8 +305,8 @@ export default{
 
 
         // TODO（交互）：根据current和pageSize动态获取云端视频列表
-        getCloudVideoListByPage(current,pageSize){
-            console.log(current,pageSize);
+        getCloudVideoListByPage(){
+            this.getCloudVideoList();
         },
 
 
@@ -321,6 +327,21 @@ export default{
         successUpload(){
             console.log('上传成功');
             this.getVideoList();
+        },
+
+        // 搜索视频
+        async searchProject(){
+            this.cloud_current = 1
+            await searchVideoListAPI(this.cloud_current,this.pageSize,this.searchKey).then((response) =>{
+                if(response.data.code === 200){
+                    this.cloud_video_list = response.data.coredata.videoList
+                    this.totalNum = response.data.coredata.total
+                }else{
+                    console.log('搜索失败');
+
+                }
+            })
+
         }
 
     },
