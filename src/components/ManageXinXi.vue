@@ -1,13 +1,17 @@
 <template>
     <div>
-        信息发布管理
+        <ManageYunVideo></ManageYunVideo>
     </div>
 </template>
 
 <script>
+import ManageYunVideo from './ManageYunVideo.vue'
 
 export default{
-    name:'ManageXinXi',
+    name:'ManageZhiYuan',
+    components:{
+        ManageYunVideo
+    }
 }
 
 </script>
