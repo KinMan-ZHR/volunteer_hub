@@ -36,7 +36,7 @@
             <template #header>
                 <div style="display:flex">
                     <span style="display:flex;align-items:center"><t-icon name="add"></t-icon></span>
-                    <span style="line-height:32px">新建头条新闻</span>
+                    <span style="line-height:32px">新建道德好人</span>
                 </div>
             </template>
             <NewHaoren />

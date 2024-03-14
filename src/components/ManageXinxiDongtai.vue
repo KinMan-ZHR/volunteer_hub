@@ -15,7 +15,7 @@
                 <t-table
                 ref="tableRef"
                 row-key="id"
-                :data="dongtaiList"
+                :data="userList"
                 :columns="columns"
                 :editable-row-keys="editableRowKeys"
                 :pagination="pagination"
@@ -31,7 +31,7 @@
                 </t-table>
             </div>
         </div>
-        <t-dialog v-model:visible="add_visible" width="1080px" :cancelBtn="null" :confirmBtn="false">
+        <t-dialog v-model:visible="add_visible" width="1080px" :cancelBtn="null" :confirmBtn="null">
             <!-- 自定义header -->
             <template #header>
                 <div style="display:flex">
@@ -39,7 +39,7 @@
                     <span style="line-height:32px">新建信息动态</span>
                 </div>
             </template>
-
+            <NewXinxiDongtai />
         </t-dialog>
     </div>
 </template>
@@ -49,10 +49,11 @@ import { MessagePlugin,Input, DatePicker } from 'tdesign-vue-next';
 // eslint-disable-next-line no-unused-vars
 import {ref, computed, reactive, onMounted} from 'vue';
 import { useUserManager } from '@/hooks/userManager';
+import NewXinxiDongtai from './NewXinxiDongtai.vue';
 export default {
-    name: 'ManageXinxiDongtai',
-    components: {
-
+    name: 'ManageWenMingToutiao',
+    components:{
+        NewXinxiDongtai
     },
     setup() {
         //前端视图层数据
@@ -74,11 +75,11 @@ export default {
         });
 
         //使用hook，此乃接口核心，返回的是一个对象，包含了增删改查的方法，可以直接把row传入
-        let { dongtaiList, addUser, delUser, editUser,getUser }=useUserManager(pageSize,current,total);
+        let { userList, addUser, delUser, editUser,getUser }=useUserManager(pageSize,current,total);
 
 
         const columns = computed(() =>[
-            { align: 'left', colKey: 'id', title: '头条ID', width: '120', fixed: 'left',
+            { align: 'left', colKey: 'id', title: '文章ID', width: '120', fixed: 'left',
                 // 编辑状态相关配置，全部集中在 edit
                 edit: {
                     // 1. 支持任意组件。需保证组件包含 `value` 和 `onChange` 两个属性，且 onChange 的第一个参数值为 new value。
@@ -105,26 +106,7 @@ export default {
                     showEditIcon: false,
                 },
             },
-
-            { colKey: 'image', title: '图片URL', width: '170' ,ellipsis:true,
-                edit: {
-                        // 1. 支持任意组件。需保证组件包含 `value` 和 `onChange` 两个属性，且 onChange 的第一个参数值为 new value。
-                        // 2. 如果希望支持校验，组件还需包含 `status` 和 `tips` 属性。具体 API 含义参考 Input 组件
-                        component: Input,
-                        // props, 透传全部属性到 Input 组件
-                        props: {
-                            clearable: true,
-                            autofocus: true,
-                            autoWidth: true,
-                        },
-                        // 校验规则，此处同 Form 表单
-                        rules: [
-                            { max: 500, message: '字符数量不能超过 500', type: 'warning' },
-                        ],
-                        showEditIcon: false,
-                    },
-            },
-            { colKey: 'time', title: '发布时间' ,width:'220px',
+            { colKey: 'time', title: '文章发布时间' ,width:'220px',
                 edit: {
                     component: DatePicker,
                     // props, 透传全部属性到 DatePicker 组件
@@ -132,22 +114,37 @@ export default {
                     showEditIcon: false,
                 },
             },
-            { colKey: 'source', title: '文章来源', width: '180',
+            { colKey: 'source', title: '文章来源', width: '120', ellipsis: true,
                 edit: {
-                    component: Input,
-                    props: {
-                        clearable: true,
-                        autofocus: true,
-                        autoWidth: true,
-                    },
-                    rules: [
-                        { max: 500, message: '字符数量不能超过 500', type: 'warning' },
-                        { required: true, message: '不能为空'},
-                    ],
-                    showEditIcon: false,
+                        component: Input,
+                        props: {
+                            clearable: true,
+                            autofocus: true,
+                            autoWidth: true,
+                        },
+                        rules:[
+                            { max: 500, message: '字符数量不能超过 500', type: 'warning' },
+                            { required: true, message: '不能为空'},
+                        ],
+                        showEditIcon: false,
                 },
             },
-            { colKey: 'text', title: '文章内容', width: '280', ellipsis: true,
+            { colKey: 'image', title: '图片链接', width: '280', ellipsis: true,
+                edit: {
+                        component: Input,
+                        props: {
+                            clearable: true,
+                            autofocus: true,
+                            autoWidth: true,
+                        },
+                        rules:[
+                            { max: 500, message: '字符数量不能超过 500', type: 'warning' },
+                            { required: true, message: '不能为空'},
+                        ],
+                        showEditIcon: false,
+                },
+            },
+            { colKey: 'text', title: '文章内容', width: '140', ellipsis: true,
                 edit: {
                         component: Input,
                         props: {
@@ -169,6 +166,7 @@ export default {
 
                     //判断是否属于修改行，如果是则显示保存和取消按钮，否则显示编辑和删除按钮
                     const editable = editableRowKeys.value.includes(row.id);
+                    console.log('editable:',editable);
                     return (
                     <t-space class="table-operations">
                         {!editable && (
@@ -200,48 +198,52 @@ export default {
                 fixed: 'right'
             },
         ]);
-      //console.log('dongtaiList:',dongtaiList.value);
+      //console.log('userList:',userList.value);
         // TODO：伪造数据开始
-        dongtaiList.value=[
+        userList.value=[
             {
                 id:'1',
-                title:'信息动态1',
-                image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
+                title:'新闻标题1',
                 time:'2022-01-01',
-                source:'新华网',
-                text:'这是一条动态',
+                source:'2天',
+                image:'成都市',
+                text:'发你就哦啊为妇女',
             },
             {
                 id:'12',
-                title:'信息动态1',
-                image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
+                title:'新闻标题1',
+                project_location:'哦哇饿u国会女啊我来干嘛',
                 time:'2022-01-01',
-                source:'新华网',
-                text:'这是一条动态',
+                source:'2天',
+                image:'德阳市',
+                text:'发你就哦啊为妇女',
             },
             {
                 id:'6',
-                title:'信息动态1',
-                image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
+                title:'新闻标题1',
+                project_location:'哦哇饿u国会女啊我来干嘛',
                 time:'2022-01-01',
-                source:'新华网',
-                text:'这是一条动态',
+                source:'2天',
+                image:'绵阳市',
+                text:'发你就哦啊为妇女',
             },
             {
                 id:'3',
-                title:'信息动态1',
-                image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
+                title:'新闻标题1',
+                project_location:'哦哇饿u国会女啊我来干嘛',
                 time:'2022-01-01',
-                source:'新华网',
-                text:'这是一条动态',
+                source:'2天',
+                image:'广元市',
+                text:'发你就哦啊为妇女',
             },
             {
                 id:'4',
-                title:'信息动态1',
-                image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
+                title:'新闻标题1',
+                project_location:'哦哇饿u国会女啊我来干嘛',
                 time:'2022-01-01',
-                source:'新华网',
-                text:'这是一条动态',
+                source:'2天',
+                image:'宜宾市',
+                text:'发你就哦啊为妇女',
             },
 
         ];
@@ -257,17 +259,17 @@ export default {
             // ISSUE：前端效果实现逻辑在下面，后续可能要删掉
             // 前端视图层删除元素，后端未必真删除
            // 找到要删除的元素索引
-            const indexToDelete = dongtaiList.value.findIndex((item) => item.id === row.id);
+            const indexToDelete = userList.value.findIndex((item) => item.id === row.id);
             console.log('要删除的索引是：',indexToDelete);
-            dongtaiList.value.splice(indexToDelete, 1);
-            console.log('删除后',dongtaiList);
+            userList.value.splice(indexToDelete, 1);
+            console.log('删除后',userList);
             MessagePlugin.success('删除成功');
         }
 
         const onEdit = (e) => {
             // Your onEdit logic...
             // console.log('onEdit:',e);
-          console.log('useList',dongtaiList.value);
+          console.log('useList',userList.value);
           console.log('editableRowKeys',editableRowKeys.value);
           //console.log('editable',editable);
 
@@ -304,13 +306,13 @@ export default {
           if (params.trigger === 'parent' && !params.result.length) {
             const current = editMap[currentSaveId.value];
             if (current) {
-            //   dongtaiList.value.splice(current.rowIndex, 1, current.editedRow);
-              dongtaiList.value[current.rowIndex]=current.editedRow
+            //   userList.value.splice(current.rowIndex, 1, current.editedRow);
+              userList.value[current.rowIndex]=current.editedRow
 
-              // TODO：将新数据dongtaiList.value根据pageSize和current传输到后端
+              // TODO：将新数据userList.value根据pageSize和current传输到后端
             //   await editUser(current.editedRow);
               // TODO（可选）：根据current和pageSize再次获取当前的页面数据
-              // dongtaiList.value,pageSize,current
+              // userList.value,pageSize,current
 
               //MessagePlugin.success('保存成功');
             }
@@ -354,6 +356,10 @@ export default {
             console.log('Event Table Row Validate:', params);
         };
 
+        const onClickCreateItem = () => {
+            add_visible.value=true;
+        };
+
         // 表格全量数据校验反馈事件，tableRef.value.validateTableData() 执行结束后触发
         function onValidate(params) {
             console.log('Event Table Data Validate:', params);
@@ -362,19 +368,15 @@ export default {
 
         // onMounted(()=>{
         //     getUser().then((res)=>{
-        //         console.log('dongtaiList:',res.value);
+        //         console.log('userList:',res.value);
         //     })
         //
         // })
 
-        const onClickCreateItem = () => {
-            add_visible.value=true;
-        };
-
         return {
             editableRowKeys,
             columns,
-            dongtaiList,
+            userList,
             editUser,
             delUser,
             addUser,
@@ -388,11 +390,11 @@ export default {
             onSave,
             onRowEdit,
             pagination,
-            add_visible,
             onRowValidate,
             onValidate,
             onConfirmDelete,
             onChangePage,
+            add_visible,
             onClickCreateItem
         };
     },
