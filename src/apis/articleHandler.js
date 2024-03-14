@@ -42,3 +42,39 @@ export const  clickToReadArticleAPI = (id) => {
         }
     })
 };
+
+
+export const getArticleListAPI = (pageSize,currPage) => {
+    return request({
+        url: "/articleList",
+        method: "get",
+        params:{
+            type: "all",
+            currPage: currPage,
+            pageSize: pageSize
+        }
+    })
+};
+
+export const addArticleAPI = (data) => {
+    return request({
+        url: "/articleList",
+        method: "post",
+        data
+    })
+};
+
+export const deleteArticleAPI = (data) => {
+    return request({
+        url: "/articleList?id="+data,
+        method: "delete",
+    })
+};
+
+export const editArticleAPI = (data) => {
+    return request({
+        url: "/articleList?id=",
+        method: "put",
+        data
+    })
+};

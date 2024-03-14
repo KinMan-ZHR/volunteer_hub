@@ -48,16 +48,19 @@
 
 export default{
     name:'NewToutiao',
+    props:{
+        addMethod:Function
+    },
     data(){
         return{
-            formData:[{
+            formData:{
                 id:'',
                 source:'',
                 title:'',
                 time:'',
                 text:'',
                 image:'',
-            }],
+            },
             FORM_RULES : { id: [{ required: true, message: '文章标题ID' }],
                             title: [{ required: true, message: '文章标题必填' }],
                             text: [{ required: true, message: '文章内容必填' }]}
@@ -67,6 +70,7 @@ export default{
         submitData(){
             // TODO: 上传formData到服务器
             console.log('submit data:', this.formData);
+            this.addMethod(this.formData)
         },
 
         onValidate(result){

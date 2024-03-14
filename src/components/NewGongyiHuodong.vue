@@ -5,25 +5,25 @@
             <t-input v-model="formData.id" placeholder="请输入内容" @enter="onEnter"></t-input>
             </t-form-item>
 
-            <t-form-item label="活动标题" name="activity_title">
-            <t-input v-model="formData.activity_title" placeholder="请输入内容" @enter="onEnter"></t-input>
+            <t-form-item label="活动标题" name="title">
+            <t-input v-model="formData.title" placeholder="请输入内容" @enter="onEnter"></t-input>
             </t-form-item>
 
-            <t-form-item label="活动时间" name="activity_time">
-            <t-date-picker v-model="formData.activity_time"/>
+            <t-form-item label="活动时间" name="time">
+            <t-date-picker v-model="formData.time"/>
             </t-form-item>
 
-            <t-form-item label="活动来源" name="activity_source">
-            <t-input v-model="formData.activity_source" placeholder="请输入内容" @enter="onEnter"></t-input>
+            <t-form-item label="活动来源" name="source">
+            <t-input v-model="formData.source" placeholder="请输入内容" @enter="onEnter"></t-input>
             </t-form-item>
 
-            <t-form-item label="活动图片" name="activity_image">
-                <t-input v-model="formData.activity_image" placeholder="请输入图片链接" @enter="onEnter"></t-input>
+            <t-form-item label="活动图片" name="image">
+                <t-input v-model="formData.image" placeholder="请输入图片链接" @enter="onEnter"></t-input>
             </t-form-item>
 
-            <t-form-item label="活动内容" name="activity_text">
+            <t-form-item label="活动内容" name="text">
                 <t-textarea
-                v-model="formData.activity_text"
+                v-model="formData.text"
                 placeholder="请输入文案，高度可自适应"
                 name="description"
                 :autosize="true"
@@ -47,26 +47,30 @@
 <script>
 
 export default{
-    name:'NewToutiao',
+    name:'NewGonyiHuodong',
+    props:{
+        addMethod:Function
+    },
     data(){
         return{
-            formData:[{
+            formData:{
                 id:'',
-                activity_source:'',
-                activity_title:'',
-                activity_time:'',
-                activity_text:'',
-                activity_image:'',
-            }],
+                source:'',
+                title:'',
+                time:'',
+                text:'',
+                image:'',
+            },
             FORM_RULES : { id: [{ required: true, message: '文章标题ID' }],
-                            activity_title: [{ required: true, message: '文章标题必填' }],
-                            activity_text: [{ required: true, message: '文章内容必填' }]}
+                            title: [{ required: true, message: '文章标题必填' }],
+                            text: [{ required: true, message: '文章内容必填' }]}
         }
     },
     methods:{
         submitData(){
             // TODO: 上传formData到服务器
             console.log('submit data:', this.formData);
+            this.addMethod(this.formData);
         },
 
         onValidate(result){

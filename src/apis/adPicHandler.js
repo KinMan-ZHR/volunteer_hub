@@ -27,8 +27,7 @@ export const addAdPicAPI = (data) => {
 };
 export const deleteAdPicAPI = (data) => {
     return request({
-        url: "/adPicList",
+        url: "/adPicList?id="+data,
         method: "delete",
-        data
     });
 };

@@ -15,7 +15,7 @@
                 <t-table
                 ref="tableRef"
                 row-key="id"
-                :data="userList"
+                :data="adPicList"
                 :columns="columns"
                 :editable-row-keys="editableRowKeys"
                 :pagination="pagination"
@@ -39,7 +39,7 @@
                     <span style="line-height:32px">新建公益广告</span>
                 </div>
             </template>
-            <NewGongyiGuanggao />
+            <NewGongyiGuanggao :add-method="addAdPic"/>
         </t-dialog>
     </div>
 </template>
@@ -48,10 +48,10 @@
 import { MessagePlugin,Input, DatePicker } from 'tdesign-vue-next';
 // eslint-disable-next-line no-unused-vars
 import {ref, computed, reactive, onMounted} from 'vue';
-import { useUserManager } from '@/hooks/userManager';
+import { useAdPicManager } from '@/hooks/adPicManager';
 import NewGongyiGuanggao from './NewGongyiGuanggao.vue';
 export default {
-    name: 'ManageWenMingToutiao',
+    name: 'ManageGongyiGuanggao',
     components:{
         NewGongyiGuanggao
     },
@@ -75,7 +75,7 @@ export default {
         });
 
         //使用hook，此乃接口核心，返回的是一个对象，包含了增删改查的方法，可以直接把row传入
-        let { userList, addUser, delUser, editUser,getUser }=useUserManager(pageSize,current,total);
+        let { adPicList, addAdPic, delAdPic, editAdPic,getAdPic }=useAdPicManager(pageSize,current,total);
 
 
         const columns = computed(() =>[
@@ -93,7 +93,7 @@ export default {
                 },
             },
 
-            { align: 'left', colKey: 'adpic_title', title: '广告标题', width: '120',
+            { align: 'left', colKey: 'title', title: '广告标题', width: '120',
                 edit: {
                     component: Input,
                     props: {
@@ -106,7 +106,7 @@ export default {
                     showEditIcon: false,
                 },
             },
-            { colKey: 'adpic_time', title: '广告时间' ,width:'220px',
+            { colKey: 'time', title: '广告时间' ,width:'220px',
                 edit: {
                     component: DatePicker,
                     // props, 透传全部属性到 DatePicker 组件
@@ -114,7 +114,7 @@ export default {
                     showEditIcon: false,
                 },
             },
-            { colKey: 'adpic_source', title: '广告来源', width: '120', ellipsis: true,
+            { colKey: 'source', title: '广告来源', width: '120', ellipsis: true,
                 edit: {
                         component: Input,
                         props: {
@@ -129,7 +129,7 @@ export default {
                         showEditIcon: false,
                 },
             },
-            { colKey: 'adpic_image', title: '广告图片', width: '280', ellipsis: true,
+            { colKey: 'image', title: '广告图片', width: '280', ellipsis: true,
                 edit: {
                         component: Input,
                         props: {
@@ -144,7 +144,7 @@ export default {
                         showEditIcon: false,
                 },
             },
-            { colKey: 'adpic_text', title: '广告内容', width: '220', ellipsis: true,
+            { colKey: 'text', title: '广告内容', width: '220', ellipsis: true,
                 edit: {
                         component: Input,
                         props: {
@@ -198,52 +198,52 @@ export default {
                 fixed: 'right'
             },
         ]);
-      //console.log('userList:',userList.value);
+      //console.log('adPicList:',adPicList.value);
         // TODO：伪造数据开始
-        userList.value=[
+        adPicList.value=[
             {
                 id:'1',
-                adpic_title:'新闻标题1',
-                adpic_time:'2022-01-01',
-                adpic_source:'2天',
-                adpic_image:'成都市',
-                adpic_text:'发你就哦啊为妇女',
+                title:'新闻标题1',
+                time:'2022-01-01',
+                source:'2天',
+                image:'成都市',
+                text:'发你就哦啊为妇女',
             },
             {
                 id:'12',
-                adpic_title:'新闻标题1',
+                title:'新闻标题1',
                 project_location:'哦哇饿u国会女啊我来干嘛',
-                adpic_time:'2022-01-01',
-                adpic_source:'2天',
-                adpic_image:'德阳市',
-                adpic_text:'发你就哦啊为妇女',
+                time:'2022-01-01',
+                source:'2天',
+                image:'德阳市',
+                text:'发你就哦啊为妇女',
             },
             {
                 id:'6',
-                adpic_title:'新闻标题1',
+                title:'新闻标题1',
                 project_location:'哦哇饿u国会女啊我来干嘛',
-                adpic_time:'2022-01-01',
-                adpic_source:'2天',
-                adpic_image:'绵阳市',
-                adpic_text:'发你就哦啊为妇女',
+                time:'2022-01-01',
+                source:'2天',
+                image:'绵阳市',
+                text:'发你就哦啊为妇女',
             },
             {
                 id:'3',
-                adpic_title:'新闻标题1',
+                title:'新闻标题1',
                 project_location:'哦哇饿u国会女啊我来干嘛',
-                adpic_time:'2022-01-01',
-                adpic_source:'2天',
-                adpic_image:'广元市',
-                adpic_text:'发你就哦啊为妇女',
+                time:'2022-01-01',
+                source:'2天',
+                image:'广元市',
+                text:'发你就哦啊为妇女',
             },
             {
                 id:'4',
-                adpic_title:'新闻标题1',
+                title:'新闻标题1',
                 project_location:'哦哇饿u国会女啊我来干嘛',
-                adpic_time:'2022-01-01',
-                adpic_source:'2天',
-                adpic_image:'宜宾市',
-                adpic_text:'发你就哦啊为妇女',
+                time:'2022-01-01',
+                source:'2天',
+                image:'宜宾市',
+                text:'发你就哦啊为妇女',
             },
 
         ];
@@ -254,22 +254,22 @@ export default {
             // console.log('tableRef',tableRef.value);
             // 移除当前节点
             // tableRef.value.remove(row.id);
-            // TODO：根据indexToDelete获取用户id，根据用户id删除数据库的用户根据current和pageSize再次获取当前页面的数据,同时更新total的值（使用之前定义的userNum）
-            // await delUser(row);
+            // TODO：根据indexToDelete获取用户id，根据用户id删除数据库的用户根据current和pageSize再次获取当前页面的数据,同时更新total的值（使用之前定义的adPicNum）
+            await delAdPic(row);
             // ISSUE：前端效果实现逻辑在下面，后续可能要删掉
             // 前端视图层删除元素，后端未必真删除
            // 找到要删除的元素索引
-            const indexToDelete = userList.value.findIndex((item) => item.id === row.id);
+            const indexToDelete = adPicList.value.findIndex((item) => item.id === row.id);
             console.log('要删除的索引是：',indexToDelete);
-            userList.value.splice(indexToDelete, 1);
-            console.log('删除后',userList);
+            adPicList.value.splice(indexToDelete, 1);
+            console.log('删除后',adPicList);
             MessagePlugin.success('删除成功');
         }
 
         const onEdit = (e) => {
             // Your onEdit logic...
             // console.log('onEdit:',e);
-          console.log('useList',userList.value);
+          console.log('useList',adPicList.value);
           console.log('editableRowKeys',editableRowKeys.value);
           //console.log('editable',editable);
 
@@ -288,37 +288,20 @@ export default {
         current.value = params.current;
         pageSize.value = params.pageSize
         // TODO: 根据 current 和 pageSize 从数据库中切换页面数据...
-        getUser();
+        getAdPic();
       }
-      const onSave = (e) => {
+      const onSave = async (e) => {
         // Your onSave logic...
         const { id } = e.currentTarget.dataset;
         currentSaveId.value = id;
-        // 触发内部校验，而后也可在 onRowValidate 中接收异步校验结果
-        tableRef.value.validateRowData(id).then(async (params) => {
-          console.log('Event Table Promise Validate:', params);
-          if (params.result.length) {
-            // const r = params.result[0];
-            MessagePlugin.error('error');
-            return;
-          }
-          // 如果是 table 的父组件主动触发校验
-          if (params.trigger === 'parent' && !params.result.length) {
-            const current = editMap[currentSaveId.value];
-            if (current) {
-            //   userList.value.splice(current.rowIndex, 1, current.editedRow);
-              userList.value[current.rowIndex]=current.editedRow
 
-              // TODO：将新数据userList.value根据pageSize和current传输到后端
-            //   await editUser(current.editedRow);
-              // TODO（可选）：根据current和pageSize再次获取当前的页面数据
-              // userList.value,pageSize,current
+        const current = editMap[currentSaveId.value];
+        console.log('current:',current.editedRow);
 
-              //MessagePlugin.success('保存成功');
-            }
-            updateEditState(currentSaveId.value);
-          }
-        });
+        // 保存当前编辑行数据
+        await editAdPic(current.editedRow);
+
+        updateEditState(currentSaveId.value);
       };
       //todo 请求相关结束
       //有点像组织修改额定数据存放到editMap中
@@ -367,8 +350,8 @@ export default {
 
 
         // onMounted(()=>{
-        //     getUser().then((res)=>{
-        //         console.log('userList:',res.value);
+        //     getAdPic().then((res)=>{
+        //         console.log('adPicList:',res.value);
         //     })
         //
         // })
@@ -376,10 +359,10 @@ export default {
         return {
             editableRowKeys,
             columns,
-            userList,
-            editUser,
-            delUser,
-            addUser,
+            adPicList,
+            editAdPic,
+            delAdPic,
+            addAdPic,
             total,
             tableRef,
             currentSaveId,

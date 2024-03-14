@@ -15,7 +15,7 @@
                 <t-table
                 ref="tableRef"
                 row-key="id"
-                :data="userList"
+                :data="articleList"
                 :columns="columns"
                 :editable-row-keys="editableRowKeys"
                 :pagination="pagination"
@@ -39,7 +39,7 @@
                     <span style="line-height:32px">新建信息动态</span>
                 </div>
             </template>
-            <NewXinxiDongtai />
+            <NewXinxiDongtai :add-method="addArticle"/>
         </t-dialog>
     </div>
 </template>
@@ -48,10 +48,10 @@
 import { MessagePlugin,Input, DatePicker } from 'tdesign-vue-next';
 // eslint-disable-next-line no-unused-vars
 import {ref, computed, reactive, onMounted} from 'vue';
-import { useUserManager } from '@/hooks/userManager';
+import { useArticleManager } from '@/hooks/articleManager';
 import NewXinxiDongtai from './NewXinxiDongtai.vue';
 export default {
-    name: 'ManageWenMingToutiao',
+    name: 'ManageXinxiDongtai',
     components:{
         NewXinxiDongtai
     },
@@ -75,7 +75,7 @@ export default {
         });
 
         //使用hook，此乃接口核心，返回的是一个对象，包含了增删改查的方法，可以直接把row传入
-        let { userList, addUser, delUser, editUser,getUser }=useUserManager(pageSize,current,total);
+        let { articleList, addArticle, delArticle, editArticle,getArticle } = useArticleManager(pageSize,current,total);
 
 
         const columns = computed(() =>[
@@ -198,55 +198,55 @@ export default {
                 fixed: 'right'
             },
         ]);
-      //console.log('userList:',userList.value);
+      //console.log('articleList:',articleList.value);
         // TODO：伪造数据开始
-        userList.value=[
-            {
-                id:'1',
-                title:'新闻标题1',
-                time:'2022-01-01',
-                source:'2天',
-                image:'成都市',
-                text:'发你就哦啊为妇女',
-            },
-            {
-                id:'12',
-                title:'新闻标题1',
-                project_location:'哦哇饿u国会女啊我来干嘛',
-                time:'2022-01-01',
-                source:'2天',
-                image:'德阳市',
-                text:'发你就哦啊为妇女',
-            },
-            {
-                id:'6',
-                title:'新闻标题1',
-                project_location:'哦哇饿u国会女啊我来干嘛',
-                time:'2022-01-01',
-                source:'2天',
-                image:'绵阳市',
-                text:'发你就哦啊为妇女',
-            },
-            {
-                id:'3',
-                title:'新闻标题1',
-                project_location:'哦哇饿u国会女啊我来干嘛',
-                time:'2022-01-01',
-                source:'2天',
-                image:'广元市',
-                text:'发你就哦啊为妇女',
-            },
-            {
-                id:'4',
-                title:'新闻标题1',
-                project_location:'哦哇饿u国会女啊我来干嘛',
-                time:'2022-01-01',
-                source:'2天',
-                image:'宜宾市',
-                text:'发你就哦啊为妇女',
-            },
+        // articleList.value=[
+        //     {
+        //         id:'1',
+        //         title:'新闻标题1',
+        //         time:'2022-01-01',
+        //         source:'2天',
+        //         image:'成都市',
+        //         text:'发你就哦啊为妇女',
+        //     },
+        //     {
+        //         id:'12',
+        //         title:'新闻标题1',
+        //         project_location:'哦哇饿u国会女啊我来干嘛',
+        //         time:'2022-01-01',
+        //         source:'2天',
+        //         image:'德阳市',
+        //         text:'发你就哦啊为妇女',
+        //     },
+        //     {
+        //         id:'6',
+        //         title:'新闻标题1',
+        //         project_location:'哦哇饿u国会女啊我来干嘛',
+        //         time:'2022-01-01',
+        //         source:'2天',
+        //         image:'绵阳市',
+        //         text:'发你就哦啊为妇女',
+        //     },
+        //     {
+        //         id:'3',
+        //         title:'新闻标题1',
+        //         project_location:'哦哇饿u国会女啊我来干嘛',
+        //         time:'2022-01-01',
+        //         source:'2天',
+        //         image:'广元市',
+        //         text:'发你就哦啊为妇女',
+        //     },
+        //     {
+        //         id:'4',
+        //         title:'新闻标题1',
+        //         project_location:'哦哇饿u国会女啊我来干嘛',
+        //         time:'2022-01-01',
+        //         source:'2天',
+        //         image:'宜宾市',
+        //         text:'发你就哦啊为妇女',
+        //     },
 
-        ];
+        // ];
         // TODO：伪造数据结束，请求相关开始
         const onConfirmDelete = async (row) =>{
             // const { id } = e.currentTarget.dataset;
@@ -254,22 +254,22 @@ export default {
             // console.log('tableRef',tableRef.value);
             // 移除当前节点
             // tableRef.value.remove(row.id);
-            // TODO：根据indexToDelete获取用户id，根据用户id删除数据库的用户根据current和pageSize再次获取当前页面的数据,同时更新total的值（使用之前定义的userNum）
-            // await delUser(row);
+            // TODO：根据indexToDelete获取用户id，根据用户id删除数据库的用户根据current和pageSize再次获取当前页面的数据,同时更新total的值（使用之前定义的articleNum）
+            await delArticle(row);
             // ISSUE：前端效果实现逻辑在下面，后续可能要删掉
             // 前端视图层删除元素，后端未必真删除
            // 找到要删除的元素索引
-            const indexToDelete = userList.value.findIndex((item) => item.id === row.id);
+            const indexToDelete = articleList.value.findIndex((item) => item.id === row.id);
             console.log('要删除的索引是：',indexToDelete);
-            userList.value.splice(indexToDelete, 1);
-            console.log('删除后',userList);
+            articleList.value.splice(indexToDelete, 1);
+            console.log('删除后',articleList);
             MessagePlugin.success('删除成功');
         }
 
         const onEdit = (e) => {
             // Your onEdit logic...
             // console.log('onEdit:',e);
-          console.log('useList',userList.value);
+          console.log('useList',articleList.value);
           console.log('editableRowKeys',editableRowKeys.value);
           //console.log('editable',editable);
 
@@ -288,37 +288,20 @@ export default {
         current.value = params.current;
         pageSize.value = params.pageSize
         // TODO: 根据 current 和 pageSize 从数据库中切换页面数据...
-        getUser();
+        getArticle();
       }
-      const onSave = (e) => {
+      const onSave = async (e) => {
         // Your onSave logic...
         const { id } = e.currentTarget.dataset;
         currentSaveId.value = id;
-        // 触发内部校验，而后也可在 onRowValidate 中接收异步校验结果
-        tableRef.value.validateRowData(id).then(async (params) => {
-          console.log('Event Table Promise Validate:', params);
-          if (params.result.length) {
-            // const r = params.result[0];
-            MessagePlugin.error('error');
-            return;
-          }
-          // 如果是 table 的父组件主动触发校验
-          if (params.trigger === 'parent' && !params.result.length) {
-            const current = editMap[currentSaveId.value];
-            if (current) {
-            //   userList.value.splice(current.rowIndex, 1, current.editedRow);
-              userList.value[current.rowIndex]=current.editedRow
 
-              // TODO：将新数据userList.value根据pageSize和current传输到后端
-            //   await editUser(current.editedRow);
-              // TODO（可选）：根据current和pageSize再次获取当前的页面数据
-              // userList.value,pageSize,current
+        const current = editMap[currentSaveId.value];
+        console.log('current:',current.editedRow);
 
-              //MessagePlugin.success('保存成功');
-            }
-            updateEditState(currentSaveId.value);
-          }
-        });
+        // 保存当前编辑行数据
+        await editArticle(current.editedRow);
+        updateEditState(currentSaveId.value);
+
       };
       //todo 请求相关结束
       //有点像组织修改额定数据存放到editMap中
@@ -367,8 +350,8 @@ export default {
 
 
         // onMounted(()=>{
-        //     getUser().then((res)=>{
-        //         console.log('userList:',res.value);
+        //     getArticle().then((res)=>{
+        //         console.log('articleList:',res.value);
         //     })
         //
         // })
@@ -376,10 +359,10 @@ export default {
         return {
             editableRowKeys,
             columns,
-            userList,
-            editUser,
-            delUser,
-            addUser,
+            articleList,
+            editArticle,
+            delArticle,
+            addArticle,
             total,
             tableRef,
             currentSaveId,

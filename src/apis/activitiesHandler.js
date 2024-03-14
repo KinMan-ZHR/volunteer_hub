@@ -1,7 +1,7 @@
 // 活动的增删改查
 import request from "@/apis/httpRequest";
 
-export const getActivityListAPI= (currPage,pageSize) => {
+export const getActivityListAPI= (pageSize,currPage) => {
     return request({
         url: "/activityList",
         method: "get",
@@ -27,7 +27,7 @@ export const addActivityAPI = (data) => {
 };
 export const deleteActivityAPI = (data) => {
     return request({
-        url: "/activityList",
+        url: "/activityList?id="+data,
         method: "delete",
         data
     });

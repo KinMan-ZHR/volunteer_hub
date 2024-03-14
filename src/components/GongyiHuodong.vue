@@ -84,7 +84,7 @@ export default{
         async onChangePagination(e){
             this.current = e.current
 
-            await getActivityListAPI(this.current,this.pageSize).then((response) => {
+            await getActivityListAPI(this.pageSize,this.current).then((response) => {
             if (response.data.code === 200) {
               this.gongyi_activities = response.data.coredata.activityList;
               this.total = response.data.coredata.total;
@@ -97,7 +97,7 @@ export default{
 
         async getGongyiActivities(){
             // 从服务器获取
-          await getActivityListAPI(this.current,this.pageSize).then((response) => {
+          await getActivityListAPI(this.pageSize,this.current).then((response) => {
             if (response.data.code === 200) {
               this.gongyi_activities = response.data.coredata.activityList;
               this.total = response.data.coredata.total;

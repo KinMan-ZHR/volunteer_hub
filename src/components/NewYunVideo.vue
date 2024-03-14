@@ -1,10 +1,6 @@
 <template>
     <div>
         <t-form ref="form" :rules="FORM_RULES" :data="formData" :colon="true" @reset="onReset" @validate="onValidate">
-            <t-form-item label="视频ID" name="id">
-            <t-input v-model="formData.id" placeholder="请输入内容" @enter="onEnter"></t-input>
-            </t-form-item>
-
             <t-form-item label="视频标题" name="title">
             <t-input v-model="formData.title" placeholder="请输入内容" @enter="onEnter"></t-input>
             </t-form-item>
@@ -14,7 +10,7 @@
             </t-form-item>
 
             <t-form-item label="视频类型" name="type">
-                <t-select v-model="formData.project_region" placeholder="请选择" @enter="onEnter" clearable autoWidth showArrow>
+                <t-select v-model="formData.type" placeholder="请选择" @enter="onEnter" clearable autoWidth showArrow>
                     <t-option label="科教" value="1" />
                     <t-option label="记录" value="2" />
                     <t-option label="新闻" value="3" />
@@ -57,18 +53,20 @@
 
 export default{
     name:'NewToutiao',
+    props:{
+        addMethod: Function
+    },
     data(){
         return{
-            formData:[{
-                id:'',
+            formData:{
                 type:'',
                 link:'',
                 title:'',
                 date:'',
                 description:'',
                 cover:'',
-            }],
-            FORM_RULES : { id: [{ required: true, message: '文章标题ID' }],
+            },
+            FORM_RULES : {
                             title: [{ required: true, message: '文章标题必填' }],
                             description: [{ required: true, message: '文章内容必填' }]}
         }
@@ -77,6 +75,7 @@ export default{
         submitData(){
             // TODO: 上传formData到服务器
             console.log('submit data:', this.formData);
+            this.addMethod(this.formData);
         },
 
         onValidate(result){
