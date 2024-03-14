@@ -18,7 +18,7 @@
             </t-form-item>
 
             <t-form-item label="地区" name="project_region">
-                <t-select v-model="formData.project_region" placeholder="请输入内容" @enter="onEnter" clearable autoWidth showArrow>
+                <t-select v-model="formData.project_region" placeholder="请选择" @enter="onEnter" clearable autoWidth showArrow>
                     <t-option label="成都市" value="1" />
                     <t-option label="自贡市" value="2" />
                     <t-option label="攀枝花市" value="3" />
@@ -44,7 +44,7 @@
             </t-form-item>
 
             <t-form-item label="类型" name="project_type">
-                <t-select v-model="formData.project_type" placeholder="请输入内容" @enter="onEnter" clearable autoWidth showArrow>
+                <t-select v-model="formData.project_type" placeholder="请选择" @enter="onEnter" clearable autoWidth showArrow>
                     <t-option label="社区服务" value="1" />
                     <t-option label="扶贫减贫" value="3" />
                     <t-option label="支教助学" value="4" />
@@ -71,7 +71,7 @@
             </t-form-item>
 
             <t-form-item label="靶向" name="project_target">
-                <t-select v-model="formData.project_type" placeholder="请输入内容" @enter="onEnter" clearable autoWidth showArrow>
+                <t-select v-model="formData.project_type" placeholder="请选择" @enter="onEnter" clearable autoWidth showArrow>
                     <t-option label="儿童" value="1" />
                     <t-option label="妇女" value="2" />
                     <t-option label="老年人" value="3" />
@@ -89,7 +89,7 @@
             </t-form-item>
 
             <t-form-item label="状态" name="project_state">
-                <t-select v-model="formData.project_type" placeholder="请输入内容" @enter="onEnter" clearable autoWidth showArrow>
+                <t-select v-model="formData.project_type" placeholder="请选择" @enter="onEnter" clearable autoWidth showArrow>
                     <t-option label="待启动" value="1" />
                     <t-option label="运行中" value="2" />
                     <t-option label="已结项" value="3" />
@@ -97,7 +97,7 @@
             </t-form-item>
 
             <t-form-item label="范围" name="project_scope">
-                <t-select v-model="formData.project_type" placeholder="请输入内容" @enter="onEnter" clearable autoWidth showArrow>
+                <t-select v-model="formData.project_type" placeholder="请选择" @enter="onEnter" clearable autoWidth showArrow>
                     <t-option label="公开招募" value="1" />
                     <t-option label="指定支援队伍招募" value="2" />
                     <t-option label="设定免审密码招募" value="3" />
@@ -105,7 +105,7 @@
             </t-form-item>
 
             <t-form-item label="团队大小" name="project_team_size">
-                <t-select v-model="formData.project_type" placeholder="请输入内容" @enter="onEnter" clearable autoWidth showArrow>
+                <t-select v-model="formData.project_type" placeholder="请选择" @enter="onEnter" clearable autoWidth showArrow>
                     <t-option label="0" value="1" />
                     <t-option label="1-100" value="2" />
                     <t-option label="101-200" value="3" />

@@ -36,7 +36,7 @@
             <template #header>
                 <div style="display:flex">
                     <span style="display:flex;align-items:center"><t-icon name="add"></t-icon></span>
-                    <span style="line-height:32px">新建头条新闻</span>
+                    <span style="line-height:32px">新建志愿活动</span>
                 </div>
             </template>
             <NewZhiyuanProject />
@@ -51,7 +51,7 @@ import {ref, computed, reactive, onMounted} from 'vue';
 import { useUserManager } from '@/hooks/userManager';
 import NewZhiyuanProject from './NewZhiyuanProject.vue';
 export default {
-    name: 'ManageWenMingToutiao',
+    name: 'ManageZhiYuanProject',
     components:{
         NewZhiyuanProject
     },
