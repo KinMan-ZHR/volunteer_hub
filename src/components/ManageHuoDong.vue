@@ -1,13 +1,20 @@
 <template>
     <div>
-        活动广告管理
+        <ManageGongyiHuodong></ManageGongyiHuodong>
+        <ManageGongyiGuanggao></ManageGongyiGuanggao>
     </div>
 </template>
 
 <script>
+import ManageGongyiHuodong from './ManageGongyiHuodong.vue'
+import ManageGongyiGuanggao from './ManageGongyiGuanggao.vue'
 
 export default{
-    name:'ManageHuoDong',
+    name:'ManageZhiYuan',
+    components:{
+        ManageGongyiHuodong,
+        ManageGongyiGuanggao
+    }
 }
 
 </script>
