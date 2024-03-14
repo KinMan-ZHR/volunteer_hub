@@ -15,7 +15,7 @@
                 <t-table
                 ref="tableRef"
                 row-key="id"
-                :data="goodPeopleList"
+                :data="modelList"
                 :columns="columns"
                 :editable-row-keys="editableRowKeys"
                 :pagination="pagination"
@@ -39,7 +39,7 @@
                     <span style="line-height:32px">新建头条新闻</span>
                 </div>
             </template>
-            <NewMofan :add-method="addGoodPeople"/>
+            <NewMofan :add-method="addModel"/>
         </t-dialog>
     </div>
 </template>
@@ -50,7 +50,7 @@
 import { MessagePlugin,Input, DatePicker } from 'tdesign-vue-next';
 // eslint-disable-next-line no-unused-vars
 import {ref, computed, reactive, onMounted} from 'vue';
-import { useGoodPeopleManager } from '@/hooks/goodPeopleManager';
+import { useModelManager } from '@/hooks/modelManager';
 import NewMofan from './NewMofan.vue'
 export default {
     name: 'ManageWenMingMofan',
@@ -77,7 +77,7 @@ export default {
         });
 
         //使用hook，此乃接口核心，返回的是一个对象和增删改查的方法，可以直接把row传入
-        let { goodPeopleList, addGoodPeople, delGoodPeople, editGoodPeople,getGoodPeople }=useGoodPeopleManager(pageSize,current,total);
+        let { modelList, addModel, delModel, editModel,getModel }=useModelManager(pageSize,current,total);
 
 
         const columns = computed(() =>[
@@ -218,9 +218,9 @@ export default {
                 fixed: 'right'
             },
         ]);
-      //console.log('goodPeopleList:',goodPeopleList.value);
+      //console.log('modelList:',modelList.value);
         // TODO：伪造数据开始
-        goodPeopleList.value=[
+        modelList.value=[
             {
                 id:'1',
                 name:'模范1',
@@ -275,22 +275,22 @@ export default {
             // console.log('tableRef',tableRef.value);
             // 移除当前节点
             // tableRef.value.remove(row.id);
-            // TODO：根据indexToDelete获取用户id，根据用户id删除数据库的用户根据current和pageSize再次获取当前页面的数据,同时更新total的值（使用之前定义的goodPeopleNum）
-            // await delGoodPeople(row);
+            // TODO：根据indexToDelete获取用户id，根据用户id删除数据库的用户根据current和pageSize再次获取当前页面的数据,同时更新total的值（使用之前定义的modelNum）
+            // await delModel(row);
             // ISSUE：前端效果实现逻辑在下面，后续可能要删掉
             // 前端视图层删除元素，后端未必真删除
            // 找到要删除的元素索引
-            const indexToDelete = goodPeopleList.value.findIndex((item) => item.id === row.id);
+            const indexToDelete = modelList.value.findIndex((item) => item.id === row.id);
             console.log('要删除的索引是：',indexToDelete);
-            goodPeopleList.value.splice(indexToDelete, 1);
-            console.log('删除后',goodPeopleList);
+            modelList.value.splice(indexToDelete, 1);
+            console.log('删除后',modelList);
             MessagePlugin.success('删除成功');
         }
 
         const onEdit = (e) => {
             // Your onEdit logic...
             // console.log('onEdit:',e);
-          console.log('useList',goodPeopleList.value);
+          console.log('useList',modelList.value);
           console.log('editableRowKeys',editableRowKeys.value);
           //console.log('editable',editable);
 
@@ -309,7 +309,7 @@ export default {
         current.value = params.current;
         pageSize.value = params.pageSize
         // TODO: 根据 current 和 pageSize 从数据库中切换页面数据...
-        getGoodPeople();
+        getModel();
       }
       const onSave = (e) => {
         // Your onSave logic...
@@ -327,13 +327,13 @@ export default {
           if (params.trigger === 'parent' && !params.result.length) {
             const current = editMap[currentSaveId.value];
             if (current) {
-            //   goodPeopleList.value.splice(current.rowIndex, 1, current.editedRow);
-              goodPeopleList.value[current.rowIndex]=current.editedRow
+            //   modelList.value.splice(current.rowIndex, 1, current.editedRow);
+              modelList.value[current.rowIndex]=current.editedRow
 
-              // TODO：将新数据goodPeopleList.value根据pageSize和current传输到后端
-            //   await editGoodPeople(current.editedRow);
+              // TODO：将新数据modelList.value根据pageSize和current传输到后端
+            //   await editModel(current.editedRow);
               // TODO（可选）：根据current和pageSize再次获取当前的页面数据
-              // goodPeopleList.value,pageSize,current
+              // modelList.value,pageSize,current
 
               //MessagePlugin.success('保存成功');
             }
@@ -388,8 +388,8 @@ export default {
 
 
         // onMounted(()=>{
-        //     getGoodPeople().then((res)=>{
-        //         console.log('goodPeopleList:',res.value);
+        //     getModel().then((res)=>{
+        //         console.log('modelList:',res.value);
         //     })
         //
         // })
@@ -397,10 +397,10 @@ export default {
         return {
             editableRowKeys,
             columns,
-            goodPeopleList,
-            editGoodPeople,
-            delGoodPeople,
-            addGoodPeople,
+            modelList,
+            editModel,
+            delModel,
+            addModel,
             total,
             tableRef,
             currentSaveId,

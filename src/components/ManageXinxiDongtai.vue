@@ -2,7 +2,7 @@
     <div class="container" style="display: flex;justify-content: center;">
         <div>
             <div style="display: flex;margin-top: 24px;">
-                <div style="line-height: 32px;">管理道德好人</div>
+                <div style="line-height: 32px;">管理信息动态</div>
                 <div style="flex-grow: 1;"></div>
                 <div>
                     <t-button theme="primary" @click="onClickCreateItem">
@@ -15,7 +15,7 @@
                 <t-table
                 ref="tableRef"
                 row-key="id"
-                :data="goodPeopleList"
+                :data="dongtaiList"
                 :columns="columns"
                 :editable-row-keys="editableRowKeys"
                 :pagination="pagination"
@@ -31,15 +31,15 @@
                 </t-table>
             </div>
         </div>
-        <t-dialog v-model:visible="add_visible" width="1080px" :cancelBtn="null" :confirmBtn="null">
+        <t-dialog v-model:visible="add_visible" width="1080px" :cancelBtn="null" :confirmBtn="false">
             <!-- 自定义header -->
             <template #header>
                 <div style="display:flex">
                     <span style="display:flex;align-items:center"><t-icon name="add"></t-icon></span>
-                    <span style="line-height:32px">新建头条新闻</span>
+                    <span style="line-height:32px">新建信息动态</span>
                 </div>
             </template>
-            <NewHaoren />
+
         </t-dialog>
     </div>
 </template>
@@ -48,12 +48,11 @@
 import { MessagePlugin,Input, DatePicker } from 'tdesign-vue-next';
 // eslint-disable-next-line no-unused-vars
 import {ref, computed, reactive, onMounted} from 'vue';
-import { useGoodPeopleManager } from '@/hooks/goodPeopleManager';
-import NewHaoren from './NewHaoren.vue'
+import { useUserManager } from '@/hooks/userManager';
 export default {
-    name: 'ManageWenMingHaoren',
-    components:{
-        NewHaoren
+    name: 'ManageXinxiDongtai',
+    components: {
+
     },
     setup() {
         //前端视图层数据
@@ -75,11 +74,11 @@ export default {
         });
 
         //使用hook，此乃接口核心，返回的是一个对象，包含了增删改查的方法，可以直接把row传入
-        let { goodPeopleList, addGoodPeople, delGoodPeople, editGoodPeople,getGoodPeople }=useGoodPeopleManager(pageSize,current,total);
+        let { dongtaiList, addUser, delUser, editUser,getUser }=useUserManager(pageSize,current,total);
 
 
         const columns = computed(() =>[
-            { align: 'left', colKey: 'id', title: '道德好人ID', width: '120', fixed: 'left',
+            { align: 'left', colKey: 'id', title: '头条ID', width: '120', fixed: 'left',
                 // 编辑状态相关配置，全部集中在 edit
                 edit: {
                     // 1. 支持任意组件。需保证组件包含 `value` 和 `onChange` 两个属性，且 onChange 的第一个参数值为 new value。
@@ -93,38 +92,24 @@ export default {
                 },
             },
 
-            { align: 'left', colKey: 'name', title: '道德好人姓名', width: '120',
+            { align: 'left', colKey: 'title', title: '文章标题', width: '120',
                 edit: {
                     component: Input,
                     props: {
 
                     },
                     rules: [
-                        { max: 500, message: '字符数量不能超过 500', type: 'warning' },
+                        { max: 10, message: '字符数量不能超过 10', type: 'warning' },
                         { required: true, message: '不能为空'},
                     ],
                     showEditIcon: false,
                 },
             },
 
-            { colKey: 'title', title: '文章标题', width: '170' ,ellipsis:true,
+            { colKey: 'image', title: '图片URL', width: '170' ,ellipsis:true,
                 edit: {
-                        component: Input,
-                        // props, 透传全部属性到 Input 组件
-                        props: {
-                            clearable: true,
-                            autofocus: true,
-                            autoWidth: true,
-                        },
-                        // 校验规则，此处同 Form 表单
-                        rules: [
-                            { max: 500, message: '字符数量不能超过 500', type: 'warning' },
-                        ],
-                        showEditIcon: false,
-                    },
-            },
-            { colKey: 'image', title: '图片', width: '170' ,ellipsis:true,
-                edit: {
+                        // 1. 支持任意组件。需保证组件包含 `value` 和 `onChange` 两个属性，且 onChange 的第一个参数值为 new value。
+                        // 2. 如果希望支持校验，组件还需包含 `status` 和 `tips` 属性。具体 API 含义参考 Input 组件
                         component: Input,
                         // props, 透传全部属性到 Input 组件
                         props: {
@@ -184,7 +169,6 @@ export default {
 
                     //判断是否属于修改行，如果是则显示保存和取消按钮，否则显示编辑和删除按钮
                     const editable = editableRowKeys.value.includes(row.id);
-
                     return (
                     <t-space class="table-operations">
                         {!editable && (
@@ -216,79 +200,74 @@ export default {
                 fixed: 'right'
             },
         ]);
-      //console.log('goodPeopleList:',goodPeopleList.value);
-        // 已解决TODO：伪造数据开始
-        goodPeopleList.value=[
+      //console.log('dongtaiList:',dongtaiList.value);
+        // TODO：伪造数据开始
+        dongtaiList.value=[
             {
                 id:'1',
-                name:'好人1',
-                title:'好人做了某件事情',
+                title:'信息动态1',
                 image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
                 time:'2022-01-01',
                 source:'新华网',
-                text:'这是一条新闻',
+                text:'这是一条动态',
             },
             {
-                id:'2',
-                name:'好人2',
-                title:'好人做了某件事情',
+                id:'12',
+                title:'信息动态1',
                 image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
                 time:'2022-01-01',
                 source:'新华网',
-                text:'这是一条新闻',
+                text:'这是一条动态',
+            },
+            {
+                id:'6',
+                title:'信息动态1',
+                image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
+                time:'2022-01-01',
+                source:'新华网',
+                text:'这是一条动态',
             },
             {
                 id:'3',
-                name:'好人3',
-                title:'好人做了某件事情',
+                title:'信息动态1',
                 image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
                 time:'2022-01-01',
                 source:'新华网',
-                text:'这是一条新闻',
+                text:'这是一条动态',
             },
             {
                 id:'4',
-                name:'好人4',
-                title:'好人做了某件事情',
+                title:'信息动态1',
                 image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
                 time:'2022-01-01',
                 source:'新华网',
-                text:'这是一条新闻',
-            },
-            {
-                id:'5',
-                name:'好人5',
-                title:'好人做了某件事情',
-                image:'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/0D/ChMkJ1eV_EiIckZnAAxoKo4d-a0AAT0gwJxjq4ADGhC893.jpg',
-                time:'2022-01-01',
-                source:'新华网',
-                text:'这是一条新闻',
+                text:'这是一条动态',
             },
 
         ];
-        // 已解决TODO：伪造数据结束，请求相关开始
+        // TODO：伪造数据结束，请求相关开始
         const onConfirmDelete = async (row) =>{
             // const { id } = e.currentTarget.dataset;
             console.log("confirmdelete",row.id);
             // console.log('tableRef',tableRef.value);
             // 移除当前节点
             // tableRef.value.remove(row.id);
-            // 已解决TODO：根据indexToDelete获取用户id，根据用户id删除数据库的用户根据current和pageSize再次获取当前页面的数据,同时更新total的值（使用之前定义的goodPeopleNum）
-            // await delGoodPeople(row);
+            // TODO：根据indexToDelete获取用户id，根据用户id删除数据库的用户根据current和pageSize再次获取当前页面的数据,同时更新total的值（使用之前定义的userNum）
+            // await delUser(row);
             // ISSUE：前端效果实现逻辑在下面，后续可能要删掉
             // 前端视图层删除元素，后端未必真删除
            // 找到要删除的元素索引
-            const indexToDelete = goodPeopleList.value.findIndex((item) => item.id === row.id);
+            const indexToDelete = dongtaiList.value.findIndex((item) => item.id === row.id);
             console.log('要删除的索引是：',indexToDelete);
-            goodPeopleList.value.splice(indexToDelete, 1);
-            console.log('删除后',goodPeopleList);
+            dongtaiList.value.splice(indexToDelete, 1);
+            console.log('删除后',dongtaiList);
             MessagePlugin.success('删除成功');
         }
 
         const onEdit = (e) => {
             // Your onEdit logic...
             // console.log('onEdit:',e);
-          console.log('useList',goodPeopleList.value);
+          console.log('useList',dongtaiList.value);
           console.log('editableRowKeys',editableRowKeys.value);
           //console.log('editable',editable);
 
@@ -300,14 +279,14 @@ export default {
                 console.log(editableRowKeys.value);
             }
         };
-      // 已解决TODO：切换页面
+      // TODO：切换页面
       const onChangePage = (params) => {
           console.log('分页器',pagination);
         console.log('changePage',params);
         current.value = params.current;
         pageSize.value = params.pageSize
-        // 已解决: 根据 current 和 pageSize 从数据库中切换页面数据...
-        getGoodPeople();
+        // TODO: 根据 current 和 pageSize 从数据库中切换页面数据...
+        getUser();
       }
       const onSave = (e) => {
         // Your onSave logic...
@@ -325,13 +304,13 @@ export default {
           if (params.trigger === 'parent' && !params.result.length) {
             const current = editMap[currentSaveId.value];
             if (current) {
-            //   goodPeopleList.value.splice(current.rowIndex, 1, current.editedRow);
-              goodPeopleList.value[current.rowIndex]=current.editedRow
+            //   dongtaiList.value.splice(current.rowIndex, 1, current.editedRow);
+              dongtaiList.value[current.rowIndex]=current.editedRow
 
-              // TODO：将新数据goodPeopleList.value根据pageSize和current传输到后端
-            //   await editGoodPeople(current.editedRow);
+              // TODO：将新数据dongtaiList.value根据pageSize和current传输到后端
+            //   await editUser(current.editedRow);
               // TODO（可选）：根据current和pageSize再次获取当前的页面数据
-              // goodPeopleList.value,pageSize,current
+              // dongtaiList.value,pageSize,current
 
               //MessagePlugin.success('保存成功');
             }
@@ -375,10 +354,6 @@ export default {
             console.log('Event Table Row Validate:', params);
         };
 
-        const onClickCreateItem = () => {
-            add_visible.value=true;
-        };
-
         // 表格全量数据校验反馈事件，tableRef.value.validateTableData() 执行结束后触发
         function onValidate(params) {
             console.log('Event Table Data Validate:', params);
@@ -386,19 +361,23 @@ export default {
 
 
         // onMounted(()=>{
-        //     getGoodPeople().then((res)=>{
-        //         console.log('goodPeopleList:',res.value);
+        //     getUser().then((res)=>{
+        //         console.log('dongtaiList:',res.value);
         //     })
         //
         // })
 
+        const onClickCreateItem = () => {
+            add_visible.value=true;
+        };
+
         return {
             editableRowKeys,
             columns,
-            goodPeopleList,
-            editGoodPeople,
-            delGoodPeople,
-            addGoodPeople,
+            dongtaiList,
+            editUser,
+            delUser,
+            addUser,
             total,
             tableRef,
             currentSaveId,
@@ -409,11 +388,11 @@ export default {
             onSave,
             onRowEdit,
             pagination,
+            add_visible,
             onRowValidate,
             onValidate,
             onConfirmDelete,
             onChangePage,
-            add_visible,
             onClickCreateItem
         };
     },

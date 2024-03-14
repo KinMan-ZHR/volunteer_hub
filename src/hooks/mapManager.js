@@ -10,11 +10,11 @@ export const useMapManager = (pageSize, currPage,total) => {
         await getMapListAPI(pageSize.value, currPage.value).then(res => {
             if (res.data.code === 200)
                 mapList.value = res.data.coredata.mapList;
-            total.value=res.data.coredata.total;
-            // Convert map IDs to strings
-            mapList.value.forEach(map => {
-                map.id = map.id.toString();
-            });
+                total.value=res.data.coredata.total;
+                // Convert map IDs to strings
+                mapList.value.forEach(map => {
+                    map.id = map.id.toString();
+                });
         });
         return mapList;
     };
