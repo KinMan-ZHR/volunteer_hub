@@ -8,22 +8,21 @@ export const getMapListAPI = () => {
 };
 export const addMapAPI = (data) => {
     return request({
-        url: "/addMap",
+        url: "/mapList",
         method: "post",
         data
     })
 };
 export const deleteMapAPI = (data) => {
     return request({
-        url: "/deleteMap",
-        method: "post",
-        data
+        url: "/mapList?id="+data,
+        method: "delete",
     })
 };
 export const editMapAPI = (data) => {
     return request({
-        url: "/updateMap",
-        method: "post",
+        url: "/mapList",
+        method: "put",
         data
     })
 };

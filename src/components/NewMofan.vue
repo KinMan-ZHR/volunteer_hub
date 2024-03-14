@@ -1,29 +1,29 @@
 <template>
     <div>
         <t-form ref="form" :rules="FORM_RULES" :data="formData" :colon="true" @reset="onReset" @validate="onValidate">
-            <t-form-item label="道德模范姓名" name="model_name">
-                <t-input v-model="formData.model_name" placeholder="请输入内容" @enter="onEnter"></t-input>
-            </t-form-item>
-            
-            <t-form-item label="文章标题" name="model_title">
-                <t-input v-model="formData.model_title" placeholder="请输入内容" @enter="onEnter"></t-input>
+            <t-form-item label="道德模范姓名" name="name">
+                <t-input v-model="formData.name" placeholder="请输入内容" @enter="onEnter"></t-input>
             </t-form-item>
 
-            <t-form-item label="图片URL" name="model_image">
-                <t-input v-model="formData.model_image" placeholder="请输入图片链接" @enter="onEnter"></t-input>
+            <t-form-item label="文章标题" name="title">
+                <t-input v-model="formData.title" placeholder="请输入内容" @enter="onEnter"></t-input>
             </t-form-item>
 
-            <t-form-item label="发布时间" name="model_time">
-                <t-date-picker v-model="formData.model_time"/>
+            <t-form-item label="图片URL" name="image">
+                <t-input v-model="formData.image" placeholder="请输入图片链接" @enter="onEnter"></t-input>
             </t-form-item>
 
-            <t-form-item label="文章来源" name="model_source">
-                <t-input v-model="formData.model_source" placeholder="请输入内容" @enter="onEnter"></t-input>
+            <t-form-item label="发布时间" name="time">
+                <t-date-picker v-model="formData.time"/>
             </t-form-item>
 
-            <t-form-item label="文章内容" name="model_text">
+            <t-form-item label="文章来源" name="source">
+                <t-input v-model="formData.source" placeholder="请输入内容" @enter="onEnter"></t-input>
+            </t-form-item>
+
+            <t-form-item label="文章内容" name="text">
                 <t-textarea
-                v-model="formData.model_text"
+                v-model="formData.text"
                 placeholder="请输入文案，高度可自适应"
                 name="description"
                 :autosize="true"
@@ -53,18 +53,18 @@ export default{
     },
     data(){
         return{
-            formData:[{
-                model_name:'',
-                model_title:'',
-                model_image:'',
-                model_time:'',
-                model_source:'',
-                model_text:''
-            }],
-            FORM_RULES : { model_name: [{ required: true, message: '道德好人姓名必填' }],
-                            model_title: [{ required: true, message: '文章标题必填' }],
-                            model_time: [{ required: true, message: '发布时间必填' }],
-                            model_text: [{ required: true, message: '文章内容必填' }]}
+            formData:{
+                name:'',
+                title:'',
+                image:'',
+                time:'',
+                source:'',
+                text:''
+            },
+            FORM_RULES : { name: [{ required: true, message: '道德好人姓名必填' }],
+                            title: [{ required: true, message: '文章标题必填' }],
+                            time: [{ required: true, message: '发布时间必填' }],
+                            text: [{ required: true, message: '文章内容必填' }]}
         }
     },
     methods:{

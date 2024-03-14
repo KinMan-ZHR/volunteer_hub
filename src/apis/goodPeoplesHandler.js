@@ -23,7 +23,7 @@ export const addGoodPeopleAPI = (data) => {
 };
 export const deleteGoodPeopleAPI = (data) => {
     return request({
-        url: "/goodPeopleList",
+        url: "/goodPeopleList?id="+data,
         method: "delete",
         data
     });

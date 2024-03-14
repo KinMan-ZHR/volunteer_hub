@@ -22,6 +22,7 @@ export const useGoodPeopleManager = (pageSize, currPage,total) => {
     const addGoodPeople = async (goodPeople) => {
         // 发送添加用户的请求
         // 示例：await addGoodPeopleToBackend();
+        console.log('添加好人',goodPeople);
         await addGoodPeopleAPI(goodPeople).then(res => {
             // 添加成功后，刷新用户列表
             if (res.data.code === 200)

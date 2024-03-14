@@ -39,7 +39,7 @@
                     <span style="line-height:32px">新建志愿活动</span>
                 </div>
             </template>
-            <NewZhiyuanProject />
+            <NewZhiyuanProject :add-method="addMap"/>
         </t-dialog>
     </div>
 </template>
@@ -166,7 +166,7 @@ export default {
         });
 
         //使用hook，此乃接口核心，返回的是一个对象，包含了增删改查的方法，可以直接把row传入
-        let { mapList, addMap, delMap, editMap,getMap }=useMapManager(pageSize,current,total);
+        let { mapList, addMap, delMap, editMap, getMap }=useMapManager(pageSize,current,total);
 
 
         const columns = computed(() =>[
@@ -493,13 +493,10 @@ export default {
         ]);
 
         const onConfirmDelete = async (row) =>{
-            // const { id } = e.currentTarget.dataset;
-            console.log("confirmdelete",row.id);
-            // console.log('tableRef',tableRef.value);
             // 移除当前节点
             // tableRef.value.remove(row.id);
             // TODO：根据indexToDelete获取用户id，根据用户id删除数据库的用户根据current和pageSize再次获取当前页面的数据,同时更新total的值（使用之前定义的mapNum）
-            // await delMap(row);
+            await delMap(row);
             // ISSUE：前端效果实现逻辑在下面，后续可能要删掉
             // 前端视图层删除元素，后端未必真删除
            // 找到要删除的元素索引

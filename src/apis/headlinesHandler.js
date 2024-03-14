@@ -23,7 +23,7 @@ export const addHeadlineAPI = (data) => {
 };
 export const deleteHeadlineAPI = (data) => {
     return request({
-        url: "/headlineList",
+        url: "/headlineList?id="+data,
         method: "delete",
         data
     });

@@ -1,25 +1,25 @@
 <template>
     <div>
         <t-form ref="form" :rules="FORM_RULES" :data="formData" :colon="true" @reset="onReset" @validate="onValidate">
-            <t-form-item label="文章标题" name="headline_title">
-            <t-input v-model="formData.headline_title" placeholder="请输入内容" @enter="onEnter"></t-input>
+            <t-form-item label="文章标题" name="title">
+            <t-input v-model="formData.title" placeholder="请输入内容" @enter="onEnter"></t-input>
             </t-form-item>
 
-            <t-form-item label="图片URL" name="headline_image">
-            <t-input v-model="formData.headline_image" placeholder="请输入图片链接" @enter="onEnter"></t-input>
+            <t-form-item label="图片URL" name="image">
+            <t-input v-model="formData.image" placeholder="请输入图片链接" @enter="onEnter"></t-input>
             </t-form-item>
 
-            <t-form-item label="发布时间" name="headline_time">
-            <t-date-picker v-model="formData.headline_time"/>
+            <t-form-item label="发布时间" name="time">
+            <t-date-picker v-model="formData.time"/>
             </t-form-item>
 
-            <t-form-item label="文章来源" name="headline_source">
-                <t-input v-model="formData.headline_source" placeholder="请输入内容" @enter="onEnter"></t-input>
+            <t-form-item label="文章来源" name="source">
+                <t-input v-model="formData.source" placeholder="请输入内容" @enter="onEnter"></t-input>
             </t-form-item>
 
-            <t-form-item label="文章内容" name="headline_text">
+            <t-form-item label="文章内容" name="text">
                 <t-textarea
-                v-model="formData.headline_text"
+                v-model="formData.text"
                 placeholder="请输入文案，高度可自适应"
                 name="description"
                 :autosize="true"
@@ -44,24 +44,28 @@
 
 export default{
     name:'NewToutiao',
+    props:{
+        addMethod : Function,
+    },
     data(){
         return{
-            formData:[{
-                headline_title:'',
-                headline_image:'',
-                headline_time:'',
-                headline_source:'',
-                headline_text:''
-            }],
-            FORM_RULES : { headline_title: [{ required: true, message: '文章标题必填' }],
-                            headline_time: [{ required: true, message: '发布时间必填' }],
-                            headline_text: [{ required: true, message: '文章内容必填' }]}
+            formData:{
+                title:'',
+                image:'',
+                time:'',
+                source:'',
+                text:''
+            },
+            FORM_RULES : { title: [{ required: true, message: '文章标题必填' }],
+                            time: [{ required: true, message: '发布时间必填' }],
+                            text: [{ required: true, message: '文章内容必填' }]}
         }
     },
     methods:{
         submitData(){
             // TODO: 上传formData到服务器
             console.log('submit data:', this.formData);
+            this.addMethod(this.formData);
         },
 
         onValidate(result){

@@ -39,7 +39,7 @@
                     <span style="line-height:32px">新建头条新闻</span>
                 </div>
             </template>
-            <NewToutiao />
+            <NewToutiao :add-method="addHeadline"/>
         </t-dialog>
     </div>
 </template>
@@ -249,6 +249,7 @@ export default {
         // TODO：伪造数据结束，请求相关开始
         const onConfirmDelete = async (row) =>{
             console.log("confirmdelete",row.id);
+            await delHeadline(row)
             const indexToDelete = headlineList.value.findIndex((item) => item.id === row.id);
             console.log('要删除的索引是：',indexToDelete);
             headlineList.value.splice(indexToDelete, 1);
@@ -280,35 +281,17 @@ export default {
         // TODO: 根据 current 和 pageSize 从数据库中切换页面数据...
         getHeadline();
       }
-      const onSave = (e) => {
+      const onSave = async (e) => {
         // Your onSave logic...
         const { id } = e.currentTarget.dataset;
         currentSaveId.value = id;
-        // 触发内部校验，而后也可在 onRowValidate 中接收异步校验结果
-        tableRef.value.validateRowData(id).then(async (params) => {
-          console.log('Event Table Promise Validate:', params);
-          if (params.result.length) {
-            // const r = params.result[0];
-            MessagePlugin.error('error');
-            return;
-          }
-          // 如果是 table 的父组件主动触发校验
-          if (params.trigger === 'parent' && !params.result.length) {
-            const current = editMap[currentSaveId.value];
-            if (current) {
-            //   headlineList.value.splice(current.rowIndex, 1, current.editedRow);
-              headlineList.value[current.rowIndex]=current.editedRow
+        const current = editMap[currentSaveId.value];
+        console.log('current:',current.editedRow);
 
-              // TODO：将新数据headlineList.value根据pageSize和current传输到后端
-            //   await editHeadline(current.editedRow);
-              // TODO（可选）：根据current和pageSize再次获取当前的页面数据
-              // headlineList.value,pageSize,current
+        // 保存当前编辑行数据
+        await editHeadline(current.editedRow);
 
-              //MessagePlugin.success('保存成功');
-            }
-            updateEditState(currentSaveId.value);
-          }
-        });
+        updateEditState(currentSaveId.value);
       };
       //todo 请求相关结束
       //有点像组织修改额定数据存放到editMap中

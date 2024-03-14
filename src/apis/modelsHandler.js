@@ -23,7 +23,7 @@ export const addModelAPI = (data) => {
 };
 export const deleteModelAPI = (data) => {
     return request({
-        url: "/modelList",
+        url: "/modelList?id="+data,
         method: "delete",
         data
     });

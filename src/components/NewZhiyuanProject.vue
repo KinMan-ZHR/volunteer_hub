@@ -152,7 +152,10 @@
 <script>
 
 export default{
-    name:'NewToutiao',
+    name:'NewZhiyuanProject',
+    props:{
+        addMethod : Function,
+    },
     data(){
         return{
             formData:{
@@ -193,6 +196,7 @@ export default{
         submitData(){
             // TODO: 上传formData到服务器
             console.log('submit data:', this.formData);
+            this.addMethod(this.formData);
 
         },
 

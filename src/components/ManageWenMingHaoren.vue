@@ -39,7 +39,7 @@
                     <span style="line-height:32px">新建道德好人</span>
                 </div>
             </template>
-            <NewHaoren />
+            <NewHaoren :add-method="addGoodPeople" />
         </t-dialog>
     </div>
 </template>
@@ -274,7 +274,7 @@ export default {
             // 移除当前节点
             // tableRef.value.remove(row.id);
             // 已解决TODO：根据indexToDelete获取用户id，根据用户id删除数据库的用户根据current和pageSize再次获取当前页面的数据,同时更新total的值（使用之前定义的goodPeopleNum）
-            // await delGoodPeople(row);
+            await delGoodPeople(row);
             // ISSUE：前端效果实现逻辑在下面，后续可能要删掉
             // 前端视图层删除元素，后端未必真删除
            // 找到要删除的元素索引
@@ -309,35 +309,42 @@ export default {
         // 已解决: 根据 current 和 pageSize 从数据库中切换页面数据...
         getGoodPeople();
       }
-      const onSave = (e) => {
+      const onSave = async (e) => {
         // Your onSave logic...
         const { id } = e.currentTarget.dataset;
         currentSaveId.value = id;
+        const current = editMap[currentSaveId.value];
+        console.log('current:',current.editedRow);
+
+        // 保存当前编辑行数据
+        await editGoodPeople(current.editedRow);
+
+        updateEditState(currentSaveId.value);
         // 触发内部校验，而后也可在 onRowValidate 中接收异步校验结果
-        tableRef.value.validateRowData(id).then(async (params) => {
-          console.log('Event Table Promise Validate:', params);
-          if (params.result.length) {
-            // const r = params.result[0];
-            MessagePlugin.error('error');
-            return;
-          }
-          // 如果是 table 的父组件主动触发校验
-          if (params.trigger === 'parent' && !params.result.length) {
-            const current = editMap[currentSaveId.value];
-            if (current) {
-            //   goodPeopleList.value.splice(current.rowIndex, 1, current.editedRow);
-              goodPeopleList.value[current.rowIndex]=current.editedRow
+        // tableRef.value.validateRowData(id).then(async (params) => {
+        //   console.log('Event Table Promise Validate:', params);
+        //   if (params.result.length) {
+        //     // const r = params.result[0];
+        //     MessagePlugin.error('error');
+        //     return;
+        //   }
+        //   // 如果是 table 的父组件主动触发校验
+        //   if (params.trigger === 'parent' && !params.result.length) {
+        //     const current = editMap[currentSaveId.value];
+        //     if (current) {
+        //     //   goodPeopleList.value.splice(current.rowIndex, 1, current.editedRow);
+        //       goodPeopleList.value[current.rowIndex]=current.editedRow
 
-              // TODO：将新数据goodPeopleList.value根据pageSize和current传输到后端
-            //   await editGoodPeople(current.editedRow);
-              // TODO（可选）：根据current和pageSize再次获取当前的页面数据
-              // goodPeopleList.value,pageSize,current
+        //       // TODO：将新数据goodPeopleList.value根据pageSize和current传输到后端
+        //     //   await editGoodPeople(current.editedRow);
+        //       // TODO（可选）：根据current和pageSize再次获取当前的页面数据
+        //       // goodPeopleList.value,pageSize,current
 
-              //MessagePlugin.success('保存成功');
-            }
-            updateEditState(currentSaveId.value);
-          }
-        });
+        //       //MessagePlugin.success('保存成功');
+        //     }
+        //     updateEditState(currentSaveId.value);
+        //   }
+        // });
       };
       //todo 请求相关结束
       //有点像组织修改额定数据存放到editMap中
