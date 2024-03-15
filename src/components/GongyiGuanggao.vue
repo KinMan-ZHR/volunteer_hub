@@ -19,7 +19,12 @@
                     <t-space :breakLine="true" size="26.66px">
                         <t-card v-for="(item,index) in current_page" :key="index" :cover="item.cover" bordered :style="{ width: '400px', cursor: 'pointer' }" hoverShadow="true" @click="onClickVideo(index)">
                             <template #footer>
-                                <p class="biaoti">{{ item.title }}</p>
+                                <div style="display: flex;"><p>{{ item.title }}</p></div>
+                                <div style="display: flex;justify-content: center;">
+                                    <div style="position: absolute; top: calc(50% - 47px);">
+                                        <t-icon name="play-circle" color="#ffffff" size="48px"></t-icon>
+                                    </div>
+                                </div>
                             </template>
                         </t-card>
                     </t-space>

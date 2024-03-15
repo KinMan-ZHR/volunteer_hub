@@ -1,13 +1,13 @@
 <template>
-    <div id="app">
-      <div style="display: flex; ">
-        <div style="border-right: 2px solid rgba(0,0,0,0.05); height: 100vh;position: sticky;top: 0; ">
+    <div id="app" style="height: 100vh;overflow: hidden;">
+      <div style="display: flex;height: 100vh;overflow: hidden; ">
+        <div style="border-right: 2px solid rgba(0,0,0,0.05);position: sticky;top: 0; ">
           <NavigationRegion ref="child_navigation" :handle-update-index="handleUpdateIndex" ></NavigationRegion>
         </div>
-        <div style="flex-grow: 1;background-color: var(--td-gray-color-1);">
+        <div style="flex-grow: 1;background-color: var(--td-gray-color-1);height: 100vh;overflow-y: scroll;overflow-x: hidden;">
           <TopBar :props_data="props_data" style="position: sticky;top: 0;z-index: 999;" @onClickUser="handleClickUser"></TopBar>
-          <router-view style="overflow: scroll;">
-            <router-view></router-view>
+          <router-view style="">
+            <router-view style=""></router-view>
           </router-view>
         </div>
       </div>

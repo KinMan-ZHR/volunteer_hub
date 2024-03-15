@@ -150,8 +150,10 @@ export default{
       // ]
       await getVideoListAPI(useUserStore().userInfo.id).then(res=>{
         this.videoList=res.data.coredata.videoList;
-        this.chosedVideo = this.videoList[0].link;
-        this.processVideoListToFitTable()
+        if(this.chosedVideo.length!=0){
+          this.chosedVideo = this.videoList[0].link;
+          this.processVideoListToFitTable()
+        }
       })
     },
 

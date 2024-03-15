@@ -21,6 +21,7 @@ export default{
                 // console.log(e);
                 if(e.data.code == 200){
                     var fileURL = e.data.coredata.fileURL
+                    console.log(fileURL);
                     window.open(fileURL)
                 }
             })

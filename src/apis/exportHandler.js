@@ -15,3 +15,10 @@ export const getLogFileAPI = () => {
         method: "get",
     });
 };
+// 日志文件
+export const getLogTextAPI = (url) => {
+    return request({
+        url,
+        method: "get",
+    });
+};

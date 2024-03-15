@@ -12,7 +12,12 @@
                     <div class="card" v-for="(item,index) in video_list1" :key="index">
                         <t-card :cover="item.cover" theme="poster2" :style="{ width: '250px', cursor: 'pointer' }" hoverShadow="true"  @click="onClickVideo(index,1)">
                             <template #footer>
-                                <div>{{ item.title }}</div>
+                                <div style="display: flex;"><p>{{ item.title }}</p></div>
+                                <div style="display: flex;justify-content: center;">
+                                    <div style="position: absolute; top: calc(50% - 47px);">
+                                        <t-icon name="play-circle" color="#ffffff" size="48px"></t-icon>
+                                    </div>
+                                </div>
                             </template>
                         </t-card>
                     </div>
@@ -24,7 +29,12 @@
                     <div class="card" v-for="(item,index) in video_list2" :key="index">
                         <t-card :cover="item.cover" theme="poster2" :style="{ width: '250px', cursor: 'pointer' }" hoverShadow="true"  @click="onClickVideo(index,2)">
                             <template #footer>
-                                <div>{{ item.title }}</div>
+                                <div style="display: flex;"><p>{{ item.title }}</p></div>
+                                <div style="display: flex;justify-content: center;">
+                                    <div style="position: absolute; top: calc(50% - 47px);">
+                                        <t-icon name="play-circle" color="#ffffff" size="48px"></t-icon>
+                                    </div>
+                                </div>
                             </template>
                         </t-card>
                     </div>
@@ -36,7 +46,12 @@
                     <div class="card" v-for="(item,index) in video_list3" :key="index">
                         <t-card :cover="item.cover" theme="poster2" :style="{ width: '250px', cursor: 'pointer' }" hoverShadow="true" @click="onClickVideo(index,3)">
                             <template #footer>
-                                <div>{{ item.title }}</div>
+                                <div style="display: flex;"><p>{{ item.title }}</p></div>
+                                <div style="display: flex;justify-content: center;">
+                                    <div style="position: absolute; top: calc(50% - 47px);">
+                                        <t-icon name="play-circle" color="#ffffff" size="48px"></t-icon>
+                                    </div>
+                                </div>
                             </template>
                         </t-card>
                     </div>

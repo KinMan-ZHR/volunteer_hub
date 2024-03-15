@@ -1,7 +1,7 @@
 <template>
     <div class="video_container">
         <div class="container">
-            <video width="780px" controls v-if="is_play">
+            <video width="780px" controls v-if="is_play" id="video_play">
                 <source :src="current_video.link" type="video/mp4">
             </video>
         </div>
@@ -14,6 +14,7 @@
 </template>
 
 <script>
+
 export default{
     name:'WenZhangVideo',
     props:{
@@ -33,6 +34,13 @@ export default{
     },
     methods:{
 
+    },
+    mounted(){
+        if(this.is_play){
+            let player = document.querySelector('#video_play')
+            player.src = this.current_video.link
+            player.play()
+        }
     }
 }
 </script>

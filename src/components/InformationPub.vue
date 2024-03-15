@@ -26,6 +26,10 @@
                                 </template>
                             </t-card>
                         </t-space>
+
+                        <div v-if="userVideoList.length == 0">
+                            <EmptyBox></EmptyBox>
+                        </div>
                     </div>
                 </div>
                 <div style="flex-grow: 1;"></div>
@@ -130,6 +134,7 @@ import {deleteVideoListAPI, getCloudVideoListAPI, getVideoListAPI, searchVideoLi
 // eslint-disable-next-line no-unused-vars
 import UploadTest from "@/test/UploadTest.vue";
 import {useUserStore} from "@/dataStore/userdata";
+import EmptyBox from './EmptyBox.vue';
 
 
 
@@ -187,6 +192,7 @@ export default{
     components:{
         // DragVue
         WenZhangVideo,
+        EmptyBox
     },
     methods:{
         async requestMethod(file){
@@ -272,12 +278,10 @@ export default{
 
         onConfirmDelete(index){
             // 确认删除视频
-            // console.log(index);
+            console.log(index);
             var id = this.userVideoList[index].id
             this.userVideoList.splice(index,1)
 
-            // TODO:后端删除视频
-            console.log(this.userVideoList[index].id);
             deleteVideoListAPI(id);
         },
 

@@ -304,7 +304,7 @@ export default{
         onChangePagination(e){
             console.log(e.current);
             this.formData.currPage = e.current
-            this.onSearchProject()
+            this.onSearchProject1()
         },
 
         // 点击查看详情时跳转到外部网站
@@ -352,13 +352,29 @@ export default{
             this.dialog_show = true
         },
 
+        async onSearchProject1(){
+            await searchProjectAPI(this.formData).then(res=>{
+                if(res.data.code===200){
+                    this.project=res.data.coredata.projectList;
+                    this.total = res.data.coredata.total;
+                }
+                if(res.data.code===401) {
+                  this.project = res.data.coredata.projectList;
+                  this.total = res.data.coredata.total;
+                }
+            })
+            this.initProjectTagName()
+            this.initProjectDateStr()
+        },
+
         // 点击搜索按钮时触发搜索项目+标签发生变化时触发搜索
         async onSearchProject(value,context){
             console.log('search',value,context);
-            if(value.length == 0){
-                // 再次点击已选择的标签,防止报错
-                return;
+            if(value.length === 0){
+                return
             }
+
+
            await searchProjectAPI(this.formData).then(res=>{
                 if(res.data.code===200){
                     this.project=res.data.coredata.projectList;

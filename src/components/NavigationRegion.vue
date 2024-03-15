@@ -7,19 +7,18 @@
           <template #icon>
             <icon name="city-15" />
           </template>
-          <router-link to="/wenming">文明四川</router-link>
+          文明四川
         </t-menu-item>
         <t-menu-item value="item2" href="/#/zhiyuan" >
           <template #icon>
             <icon name="heart" />
-          </template>
-          <router-link to="/zhiyuan">志愿四川</router-link>
+          </template>志愿四川
         </t-menu-item>
         <t-menu-item value="item3" href="/#/activities" >
           <template #icon>
             <icon name="sticky-note" />
           </template>
-          <router-link to="/activities">活动广告</router-link>
+          活动广告
         </t-menu-item>
       </t-menu-group>
       <t-menu-group title="视频展示区">
