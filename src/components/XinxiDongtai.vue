@@ -139,7 +139,7 @@ export default{
       async getHotNews() {
         await getHotNewsAPI(this.current, this.pageSize).then((response) => {
           if (response.data.code === 200) {
-            this.hot_news = response.data.coredata.articleList;
+            this.hot_news = response.data.coredata.articleList.slice(0, 4);
           }
         });
       },
@@ -249,14 +249,14 @@ export default{
     background-color: white;
     border-radius: 8px;
     width: 100%;
-    height: 45%;
+    height: 46%;
 
 }
 .right-down{
     background-color: white;
     border-radius: 8px;
     width: 100%;
-    height: 50%;
+    height: 49%;
     margin-top: 5%;
 }
 </style>
