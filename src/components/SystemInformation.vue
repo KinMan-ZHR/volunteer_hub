@@ -4,12 +4,13 @@
             <div class="left">
                 <div style="display: flex;justify-content: center;">
                     <p class="title">操作日志</p>
-                    <div style="margin-left: 77%;">
-                        <t-button shape="round" theme="primary" variant="outline">导出</t-button>
+                    <div style="flex-grow: 1;"></div>
+                    <div>
+                        <t-button shape="round" theme="primary" variant="outline" @click="exportLog">导出</t-button>
                     </div>
                 </div>
                 <div style="width: 100%;height: 90%;margin-top: 20px; border-radius: 10px;">
-                    <t-textarea placeholder="请输入内容" readonly :autosize="{ minRows: 30}" disabled v-model:value="operation_log"/>
+                    <t-textarea placeholder="请输入内容" readonly :autosize="{ minRows: 30, maxRows: 30}" disabled v-model:value="operation_log"/>
                 </div>
             </div>
             <div class="right">
@@ -35,6 +36,10 @@
 </template>
 
 <script>
+// import $ from 'jquery';
+import axios from 'axios'
+import {getLogFileAPI} from '@/apis/exportHandler.js'
+
 export default{
     name:'SystemInformation',
     data(){
@@ -53,8 +58,34 @@ export default{
         }
     },
     methods:{
-
-    }
+        async exportLog(){
+            await getLogFileAPI().then(async (e)=>{
+                if(e.data.code == 200){
+                    var fileURL = e.data.coredata.logURL
+                    window.open(fileURL)
+                }
+            })
+        }
+    },
+    async mounted(){
+        var _this = this
+        await getLogFileAPI().then(async (e)=>{
+            if(e.data.code == 200){
+                var fileURL = e.data.coredata.logURL
+                console.log(fileURL);
+                // $.get(fileURL,function(e){
+                //     console.log(e);
+                // })
+                try {
+                    const response = await axios.get(fileURL);
+                    var log_string = response.data;
+                    _this.operation_log = log_string
+                } catch (error) {
+                    console.error('Error fetching log file:', error);
+                }
+            }
+        })
+    },
 }
 </script>
 
