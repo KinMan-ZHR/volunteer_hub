@@ -36,7 +36,7 @@
           信息发布
         </t-menu-item>
       </t-menu-group>
-      <t-menu-group title="系统管理区">
+      <t-menu-group title="系统管理区" v-if="isAdmin === 1">
         <t-menu-item value="item8"  href="/#/usermanage">
           <template #icon>
             <icon name="user-list" />
@@ -123,6 +123,7 @@ export default {
       collapsed.value = !collapsed.value
     }
     const userStore = useUserStore();
+    const isAdmin = userStore.userInfo.admin;
     const onClickToLogin=()=>{
       // console.log('login');
       userStore.clearUserInfo()
@@ -131,6 +132,7 @@ export default {
 
     return {
       collapsed,
+      isAdmin,
       iconUrl,
       active_value,
       changeHandler,

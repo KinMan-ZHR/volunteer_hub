@@ -87,7 +87,9 @@ const checkLoginState=()=>{
   if(userStore.loginStatus === false){
     return
   }
-  router.replace('/home')
+    router.replace('/home')
+
+
 }
 onMounted(()=>{
   checkLoginState()
