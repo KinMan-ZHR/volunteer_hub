@@ -149,10 +149,13 @@ export default{
       //   },
       // ]
       await getVideoListAPI(useUserStore().userInfo.id).then(res=>{
-        this.videoList=res.data.coredata.videoList;
-        if(this.chosedVideo.length!=0){
-          this.chosedVideo = this.videoList[0].link;
-          this.processVideoListToFitTable()
+        // console.log('res', res);
+        if(res.data.code === 200){
+          this.videoList=res.data.coredata.videoList;
+          if(this.videoList.length!=0){
+            this.chosedVideo = this.videoList[0].link;
+            this.processVideoListToFitTable()
+          }
         }
       })
     },
@@ -166,6 +169,7 @@ export default{
           });
         }
       this.data = ref([...this.initialData]);
+      console.log('this.data', this.data);
     },
 
     // beforeUnloadHandler() {

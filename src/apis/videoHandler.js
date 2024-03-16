@@ -56,6 +56,17 @@ export const upLoadVideoAPI = (data) => {
     });
 };
 
+export const bindVideoListAPI = (dataList,id) => {
+    return request({
+        url: "/bindVideoList",
+        method: "post",
+        data:{
+            dataList:dataList,
+            id:id
+        }
+    });
+};
+
 export const searchVideoListAPI = (currPage,pageSize,keyword) => {
     return request({
         url: "/searchCloudVideoList",

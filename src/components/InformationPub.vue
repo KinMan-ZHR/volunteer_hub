@@ -274,6 +274,10 @@ export default{
             // console.log(choosed_video_list);
             this.cloud_list_visible = false
             this.userVideoList = this.userVideoList.concat(choosed_video_list)
+            // TODO（交互）：将choosed_video_list上传到服务器
+            // console.log('上传的用户id',useUserStore().userInfo.id);
+            // console.log('上传的视频列表',choosed_video_list);
+            // bindVideoListAPI(choosed_video_list,useUserStore().userInfo.id)
         },
 
         onConfirmDelete(index){
